@@ -6,22 +6,21 @@
 
 #include "utf8_types.hpp"
 
-class utf_string
+class utf8_string
 {
     std::vector<byte_t> utf8_data;
-    utf8_len_t utf8_length;
+    utf8_len_t utf8_str_length;
 
 public:
 
     utf8_string();
-    utf8_string(const char *str);
-    utf8_string(const string &str);
+    utf8_string(const std::string &str);
 
     utf8_len_t utf8_size();
     utf8_len_t utf8_length();
     const char * utf8_str();
 
-    ~utf_string() = default;
+    ~utf8_string() = default;
 };
 
 #endif // UTF_STRING_HPP_INCLUDED
