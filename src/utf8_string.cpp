@@ -79,4 +79,14 @@ utf8_len_t UTF8string::utf8_length()
     return utf8length;
 }
 
+const char * UTF8string::utf8_str()
+{
+    std::string str;
 
+    for(auto c : utf8data)
+    {
+        str += c;
+    }
+
+    return str.c_str();
+}
