@@ -25,3 +25,11 @@ utf8_string::utf8_string(const std::string &str)
     }
 }
 
+
+utf8_len_t utf8_string::utf8_size()
+{
+    return utf8_data.size();
+}
+
+
+
