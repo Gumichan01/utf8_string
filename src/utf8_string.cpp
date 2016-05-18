@@ -50,6 +50,26 @@ UTF8string& UTF8string::operator =(const UTF8string u8str)
 }
 
 
+UTF8string& UTF8string::operator +=(const std::string str)
+{
+    *this += UTF8string(str);
+    return *this;
+}
+
+
+UTF8string& UTF8string::operator +=(const UTF8string u8str)
+{
+    for(auto c : u8str.utf8data)
+    {
+        utf8data.push_back(c);
+    }
+
+    utf8length = utf8_length_();
+    return *this;
+}
+
+
+
 utf8_len_t UTF8string::utf8_size()
 {
     return utf8data.size();
