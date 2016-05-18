@@ -20,8 +20,8 @@ public:
     UTF8string(const std::string &str);
     UTF8string(const UTF8string &u8str);
 
-    const UTF8string& operator =(std::string str);
-    UTF8string& operator =(UTF8string u8str);
+    const UTF8string& operator =(const std::string str);
+    UTF8string& operator =(const UTF8string u8str);
 
     utf8_len_t utf8_size();
     utf8_len_t utf8_length();
