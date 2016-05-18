@@ -28,10 +28,25 @@ UTF8string::UTF8string(const std::string &str)
     utf8length = utf8_length_();
 }
 
+
 UTF8string::UTF8string(const UTF8string &u8str)
 {
     utf8data = u8str.utf8data;
     utf8length = u8str.utf8length;
+}
+
+
+const UTF8string& UTF8string::operator =(std::string str)
+{
+    return UTF8string(str);
+}
+
+
+UTF8string& UTF8string::operator =(UTF8string u8str)
+{
+    utf8data = u8str.utf8data;
+    utf8length = u8str.utf8length;
+    return *this;
 }
 
 
