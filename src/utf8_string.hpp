@@ -22,9 +22,11 @@ public:
 
     const UTF8string& operator =(const std::string str);
     UTF8string& operator =(const UTF8string u8str);
-
     UTF8string& operator +=(const std::string str);
     UTF8string& operator +=(const UTF8string u8str);
+
+    void clear();
+    bool empty();
 
     utf8_len_t utf8_size();
     utf8_len_t utf8_length();

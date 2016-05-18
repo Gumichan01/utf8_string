@@ -69,6 +69,17 @@ UTF8string& UTF8string::operator +=(const UTF8string u8str)
 }
 
 
+void UTF8string::clear()
+{
+    utf8data.clear();
+    utf8length = 0;
+}
+
+bool UTF8string::empty()
+{
+    return utf8length == 0;
+}
+
 
 utf8_len_t UTF8string::utf8_size()
 {
