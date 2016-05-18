@@ -28,10 +28,32 @@ UTF8string::UTF8string(const std::string &str)
     utf8length = utf8_length_();
 }
 
+UTF8string::UTF8string(const UTF8string &u8str)
+{
+    utf8data = u8str.utf8data;
+    utf8length = u8str.utf8length;
+}
+
 
 utf8_len_t UTF8string::utf8_size()
 {
     return utf8data.size();
+}
+
+
+bool UTF8string::utf8_is_valid_()
+{
+    auto end_data = utf8data.end();
+    auto it = utf8data.begin();
+    utf8_len_t cursor = 0;
+
+    while(it != end_data)
+    {
+        /// @todo check the validity
+        it++;
+    }
+
+    return true;
 }
 
 
