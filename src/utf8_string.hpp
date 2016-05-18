@@ -13,6 +13,7 @@ class UTF8string
 
     bool utf8_is_valid_();
     utf8_len_t utf8_length_();
+    utf8_len_t utf8_codepoint_len(size_t j);
 
 public:
 
@@ -28,6 +29,7 @@ public:
     void clear();
     bool empty();
 
+    UTF8string substr(size_t pos = 0,size_t len = -1);
     utf8_len_t utf8_size();
     utf8_len_t utf8_length();
     const char * utf8_str();

@@ -81,6 +81,50 @@ bool UTF8string::empty()
 }
 
 
+UTF8string UTF8string::substr(size_t pos,size_t len)
+{
+    if(pos > utf8length)
+        return std::string();
+
+    const size_t n = (len == -1 || len > utf8length) ? (utf8length - pos) :
+                                                        (len - pos);
+    const auto itend = utf8data.end();
+    std::string s;
+
+    for(auto j = pos; j < n; j++)
+    {
+        const utf8_len_t cplen = utf8_codepoint_len(j);
+        auto i = j;
+
+        while(i < (j+cplen))
+        {
+            s.push_back(utf8data[i++]);
+        }
+    }
+
+    return s;
+}
+
+
+utf8_len_t UTF8string::utf8_codepoint_len(size_t j)
+{
+    if (0xf0 == (0xf8 & utf8data[j]))
+    {
+        return 4;
+    }
+    else if (0xe0 == (0xf0 & utf8data[j]))
+    {
+        return 3;
+    }
+    else if (0xc0 == (0xe0 & utf8data[j]))
+    {
+        return 2;
+    }
+    else
+        return 1;
+}
+
+
 utf8_len_t UTF8string::utf8_size()
 {
     return utf8data.size();
