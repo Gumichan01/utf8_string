@@ -52,7 +52,12 @@ UTF8string& UTF8string::operator =(const UTF8string u8str)
 
 UTF8string& UTF8string::operator +=(const std::string str)
 {
-    *this += UTF8string(str);
+    for(auto c : str)
+    {
+        utf8data.push_back(c);
+    }
+
+    utf8length = utf8_length_();
     return *this;
 }
 
@@ -80,7 +85,7 @@ bool UTF8string::empty()
     return utf8length == 0;
 }
 
-
+/// @bug The substring is not correct
 UTF8string UTF8string::substr(size_t pos,size_t len)
 {
     if(pos > utf8length)
@@ -203,7 +208,7 @@ const char * UTF8string::utf8_str() const
     return str.c_str();
 }
 
-
+/// @bug Th function fails when the length of the string is greater then than 19
 bool operator ==(const UTF8string &str1, const UTF8string &str2)
 {
     const std::string s1 = str1.utf8_str();
@@ -212,6 +217,10 @@ bool operator ==(const UTF8string &str1, const UTF8string &str2)
     return s1 == s2;
 }
 
+bool operator !=(const UTF8string &str1, const UTF8string &str2)
+{
+    return !(str1 == str2);
+}
 
 
 
