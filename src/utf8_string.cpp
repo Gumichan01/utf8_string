@@ -36,13 +36,28 @@ UTF8string::UTF8string(const UTF8string &u8str)
 }
 
 
-const UTF8string& UTF8string::operator =(const std::string str)
+const UTF8string& UTF8string::operator =(const char * str)
 {
-    return UTF8string(str);
+    utf8data = str;
+    utf8length = utf8_length_();
+    return *this;
 }
 
 
-UTF8string& UTF8string::operator =(const UTF8string u8str)
+const UTF8string& UTF8string::operator =(const std::string str)
+{
+    for(auto c : str)
+    {
+        utf8data.push_back(c);
+    }
+
+    /// @todo Check if the utf-8 string is valid
+    utf8length = utf8_length_();
+    return *this;
+}
+
+
+const UTF8string& UTF8string::operator =(const UTF8string u8str)
 {
     utf8data = u8str.utf8data;
     utf8length = u8str.utf8length;
@@ -50,19 +65,15 @@ UTF8string& UTF8string::operator =(const UTF8string u8str)
 }
 
 
-UTF8string& UTF8string::operator +=(const std::string str)
+const UTF8string& UTF8string::operator +=(const std::string str)
 {
-    for(auto c : str)
-    {
-        utf8data.push_back(c);
-    }
-
+    utf8data += str;
     utf8length = utf8_length_();
     return *this;
 }
 
 
-UTF8string& UTF8string::operator +=(const UTF8string u8str)
+const UTF8string& UTF8string::operator +=(const UTF8string u8str)
 {
     for(auto c : u8str.utf8data)
     {
@@ -91,9 +102,8 @@ UTF8string UTF8string::substr(size_t pos,size_t len)
     if(pos > utf8length)
         return std::string();
 
-    const size_t n = (len == -1 || len > utf8length) ? (utf8length - pos) :
-                                                        (len - pos);
-    const auto itend = utf8data.end();
+    const size_t n = (len == static_cast<size_t>(-1)
+                      || len > utf8length) ? (utf8length - pos) : (len - pos);
     std::string s;
 
     for(auto j = pos; j < n; j++)
@@ -140,7 +150,6 @@ bool UTF8string::utf8_is_valid_()
 {
     auto end_data = utf8data.end();
     auto it = utf8data.begin();
-    utf8_len_t cursor = 0;
 
     while(it != end_data)
     {
@@ -162,18 +171,18 @@ utf8_len_t UTF8string::utf8_length_()
     {
         byte_t byte = *it;
 
-        if (0xf0 == (0xf8 & *it))
+        if (0xf0 == (0xf8 & byte))
         {
             // 4-byte utf8 character
             // (0b11110xxx 0bxxxxxxxx 0bxxxxxxxx 0bxxxxxxxx)
             it += 4;
         }
-        else if (0xe0 == (0xf0 & *it))
+        else if (0xe0 == (0xf0 & byte))
         {
             // 3-byte utf8 code point (0b110xxxxx 0bxxxxxxxx 0bxxxxxxxx)
             it += 3;
         }
-        else if (0xc0 == (0xe0 & *it))
+        else if (0xc0 == (0xe0 & byte))
         {
             // 2-byte utf8 code point (0b110xxxxx 0bxxxxxxxx)
             it += 2;

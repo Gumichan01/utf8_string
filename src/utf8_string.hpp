@@ -8,7 +8,7 @@
 
 class UTF8string
 {
-    std::vector<byte_t> utf8data;
+    std::string utf8data;
     utf8_len_t utf8length;
 
     bool utf8_is_valid_();
@@ -21,10 +21,11 @@ public:
     UTF8string(const std::string &str);
     UTF8string(const UTF8string &u8str);
 
+    const UTF8string& operator =(const char * str);
     const UTF8string& operator =(const std::string str);
-    UTF8string& operator =(const UTF8string u8str);
-    UTF8string& operator +=(const std::string str);
-    UTF8string& operator +=(const UTF8string u8str);
+    const UTF8string& operator =(const UTF8string u8str);
+    const UTF8string& operator +=(const std::string str);
+    const UTF8string& operator +=(const UTF8string u8str);
 
     void clear();
     bool empty();
