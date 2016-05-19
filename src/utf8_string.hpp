@@ -32,9 +32,11 @@ public:
     UTF8string substr(size_t pos = 0,size_t len = -1);
     utf8_len_t utf8_size();
     utf8_len_t utf8_length();
-    const char * utf8_str();
+    const char * utf8_str() const;
 
     ~UTF8string() = default;
 };
+
+bool operator ==(const UTF8string &str1, const UTF8string &str2);
 
 #endif // UTF_STRING_HPP_INCLUDED
