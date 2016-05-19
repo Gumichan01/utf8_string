@@ -17,12 +17,8 @@
 UTF8string::UTF8string() : utf8length(0){}
 
 UTF8string::UTF8string(const std::string &str)
- : UTF8string()
+ : utf8data(str)
 {
-    for(auto c : str)
-    {
-        utf8data.push_back(c);
-    }
 
     /// @todo Check if the utf-8 string is valid
     utf8length = utf8_length_();
@@ -46,10 +42,7 @@ const UTF8string& UTF8string::operator =(const char * str)
 
 const UTF8string& UTF8string::operator =(const std::string str)
 {
-    for(auto c : str)
-    {
-        utf8data.push_back(c);
-    }
+    utf8data = str;
 
     /// @todo Check if the utf-8 string is valid
     utf8length = utf8_length_();
@@ -75,11 +68,7 @@ const UTF8string& UTF8string::operator +=(const std::string str)
 
 const UTF8string& UTF8string::operator +=(const UTF8string u8str)
 {
-    for(auto c : u8str.utf8data)
-    {
-        utf8data.push_back(c);
-    }
-
+    utf8data += u8str.utf8data;
     utf8length = utf8_length_();
     return *this;
 }
@@ -106,10 +95,10 @@ UTF8string UTF8string::substr(size_t pos,size_t len)
                       || len > utf8length) ? (utf8length - pos) : (len - pos);
     std::string s;
 
-    for(auto j = pos; j < n; j++)
+    for(size_t j = pos; j < n; j++)
     {
         const utf8_len_t cplen = utf8_codepoint_len(j);
-        auto i = j;
+        size_t i = j;
 
         while(i < (j+cplen))
         {
@@ -207,14 +196,7 @@ utf8_len_t UTF8string::utf8_length()
 
 const char * UTF8string::utf8_str() const
 {
-    std::string str;
-
-    for(auto c : utf8data)
-    {
-        str += c;
-    }
-
-    return str.c_str();
+    return utf8data.c_str();
 }
 
 /// @bug Th function fails when the length of the string is greater then than 19
