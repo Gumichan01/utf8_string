@@ -91,8 +91,8 @@ UTF8string UTF8string::utf8_substr(size_t pos,size_t len)
     if(pos > utf8length)
         return std::string();
 
-    const size_t n = (len == static_cast<size_t>(-1)
-                      || len > utf8length) ? (utf8length - pos) : (len - pos);
+    const size_t n = (len == std::string::npos || len > utf8length) ?
+                        (utf8length - pos) : (len - pos);
     std::string s;
 
     for(size_t j = pos; j < n; j++)
