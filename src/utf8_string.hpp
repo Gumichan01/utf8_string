@@ -40,5 +40,9 @@ public:
 
 bool operator ==(const UTF8string &str1, const UTF8string &str2);
 bool operator !=(const UTF8string &str1, const UTF8string &str2);
+bool operator <=(const UTF8string &str1, const UTF8string &str2);
+bool operator >=(const UTF8string &str1, const UTF8string &str2);
+bool operator <(const UTF8string &str1, const UTF8string &str2);
+bool operator >(const UTF8string &str1, const UTF8string &str2);
 
 #endif // UTF_STRING_HPP_INCLUDED

@@ -85,7 +85,7 @@ bool UTF8string::empty()
     return utf8length == 0;
 }
 
-/// @bug The substring is not correct
+
 UTF8string UTF8string::substr(size_t pos,size_t len)
 {
     if(pos > utf8length)
@@ -199,7 +199,7 @@ const char * UTF8string::utf8_str() const
     return utf8data.c_str();
 }
 
-/// @bug Th function fails when the length of the string is greater then than 19
+
 bool operator ==(const UTF8string &str1, const UTF8string &str2)
 {
     const std::string s1 = str1.utf8_str();
@@ -214,4 +214,37 @@ bool operator !=(const UTF8string &str1, const UTF8string &str2)
 }
 
 
+bool operator <=(const UTF8string &str1, const UTF8string &str2)
+{
+    const std::string s1 = str1.utf8_str();
+    const std::string s2 = str2.utf8_str();
 
+    return s1 <= s2;
+}
+
+
+bool operator >=(const UTF8string &str1, const UTF8string &str2)
+{
+    const std::string s1 = str1.utf8_str();
+    const std::string s2 = str2.utf8_str();
+
+    return s1 >= s2;
+}
+
+
+bool operator <(const UTF8string &str1, const UTF8string &str2)
+{
+    const std::string s1 = str1.utf8_str();
+    const std::string s2 = str2.utf8_str();
+
+    return s1 < s2;
+}
+
+
+bool operator >(const UTF8string &str1, const UTF8string &str2)
+{
+    const std::string s1 = str1.utf8_str();
+    const std::string s2 = str2.utf8_str();
+
+    return s1 > s2;
+}
