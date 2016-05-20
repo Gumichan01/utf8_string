@@ -80,7 +80,7 @@ void UTF8string::utf8_clear()
     utf8length = 0;
 }
 
-bool UTF8string::utf8_empty()
+bool UTF8string::utf8_empty() const
 {
     return utf8length == 0;
 }
@@ -110,7 +110,7 @@ UTF8string UTF8string::utf8_substr(size_t pos,size_t len)
 }
 
 
-utf8_len_t UTF8string::utf8_codepoint_len(size_t j)
+utf8_len_t UTF8string::utf8_codepoint_len(size_t j) const
 {
     if (0xf0 == (0xf8 & utf8data[j]))
     {
@@ -129,7 +129,7 @@ utf8_len_t UTF8string::utf8_codepoint_len(size_t j)
 }
 
 
-utf8_len_t UTF8string::utf8_size()
+utf8_len_t UTF8string::utf8_size() const
 {
     return utf8data.size();
 }
@@ -150,7 +150,7 @@ bool UTF8string::utf8_is_valid_()
 }
 
 
-utf8_len_t UTF8string::utf8_length_()
+utf8_len_t UTF8string::utf8_length_() const
 {
     auto end_data = utf8data.end();
     auto it = utf8data.begin();
@@ -189,7 +189,7 @@ utf8_len_t UTF8string::utf8_length_()
     return len;
 }
 
-utf8_len_t UTF8string::utf8_length()
+utf8_len_t UTF8string::utf8_length() const
 {
     return utf8length;
 }
