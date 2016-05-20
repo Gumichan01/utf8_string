@@ -13,6 +13,7 @@
 
 #include "utf8_string.hpp"
 
+#include <cstring>
 
 UTF8string::UTF8string() : utf8length(0){}
 
@@ -86,16 +87,17 @@ bool UTF8string::utf8_empty() const
 }
 
 
-UTF8string UTF8string::utf8_substr(size_t pos,size_t len)
+UTF8string UTF8string::utf8_substr(size_t pos,size_t len) const
 {
     if(pos > utf8length)
         return std::string();
 
-    const size_t n = (len == std::string::npos || len > utf8length) ?
+    const size_t n = (len == std::string::npos || (pos + len) > utf8length) ?
                         (utf8length - pos) : (len - pos);
     std::string s;
+    size_t u8count = 0;
 
-    for(size_t j = pos; j < n; j++)
+    for(size_t j = pos; j < utf8length && u8count < n; j++)
     {
         const utf8_len_t cplen = utf8_codepoint_len(j);
         size_t i = j;
@@ -104,6 +106,9 @@ UTF8string UTF8string::utf8_substr(size_t pos,size_t len)
         {
             s.push_back(utf8data[i++]);
         }
+
+        j += cplen -1;
+        u8count++;
     }
 
     return s;

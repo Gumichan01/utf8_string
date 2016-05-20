@@ -30,7 +30,8 @@ public:
     void utf8_clear();
     bool utf8_empty() const;
 
-    UTF8string utf8_substr(size_t pos = 0,size_t len = std::string::npos);
+    UTF8string utf8_substr(size_t pos = 0,size_t len = std::string::npos) const;
+
     utf8_len_t utf8_size() const;
     utf8_len_t utf8_length() const;
     const char * utf8_str() const;
