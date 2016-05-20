@@ -2,7 +2,7 @@
 #define UTF8_STRING_HPP_INCLUDED
 
 #include <string>
-#include <vector>
+#include <exception>
 
 #include "utf8_types.hpp"
 
@@ -27,13 +27,16 @@ public:
     const UTF8string& operator +=(const std::string str);
     const UTF8string& operator +=(const UTF8string u8str);
 
-    void clear();
-    bool empty();
+    void utf8_clear();
+    bool utf8_empty();
 
-    UTF8string substr(size_t pos = 0,size_t len = -1);
+    UTF8string utf8_substr(size_t pos = 0,size_t len = -1);
     utf8_len_t utf8_size();
     utf8_len_t utf8_length();
     const char * utf8_str() const;
+
+    std::string::iterator utf8_begin() noexcept;
+    std::string::iterator utf8_end() noexcept;
 
     ~UTF8string() = default;
 };
@@ -44,5 +47,6 @@ bool operator <=(const UTF8string &str1, const UTF8string &str2);
 bool operator >=(const UTF8string &str1, const UTF8string &str2);
 bool operator <(const UTF8string &str1, const UTF8string &str2);
 bool operator >(const UTF8string &str1, const UTF8string &str2);
+
 
 #endif // UTF_STRING_HPP_INCLUDED

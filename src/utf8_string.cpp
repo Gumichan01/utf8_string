@@ -74,19 +74,19 @@ const UTF8string& UTF8string::operator +=(const UTF8string u8str)
 }
 
 
-void UTF8string::clear()
+void UTF8string::utf8_clear()
 {
     utf8data.clear();
     utf8length = 0;
 }
 
-bool UTF8string::empty()
+bool UTF8string::utf8_empty()
 {
     return utf8length == 0;
 }
 
 
-UTF8string UTF8string::substr(size_t pos,size_t len)
+UTF8string UTF8string::utf8_substr(size_t pos,size_t len)
 {
     if(pos > utf8length)
         return std::string();
@@ -197,6 +197,18 @@ utf8_len_t UTF8string::utf8_length()
 const char * UTF8string::utf8_str() const
 {
     return utf8data.c_str();
+}
+
+
+std::string::iterator UTF8string::utf8_begin() noexcept
+{
+    return utf8data.begin();
+}
+
+
+std::string::iterator UTF8string::utf8_end() noexcept
+{
+    return utf8data.end();
 }
 
 
