@@ -2,7 +2,8 @@
 #define UTF8_STRING_HPP_INCLUDED
 
 #include <string>
-#include <exception>
+//#include <exception>
+#include <iostream>
 
 #include "utf8_types.hpp"
 
@@ -48,5 +49,7 @@ bool operator >=(const UTF8string &str1, const UTF8string &str2);
 bool operator <(const UTF8string &str1, const UTF8string &str2);
 bool operator >(const UTF8string &str1, const UTF8string &str2);
 
+std::ostream & operator <<(std::ostream &os, const UTF8string &str);
+std::istream & operator >>(std::istream &is, UTF8string &str);
 
 #endif // UTF_STRING_HPP_INCLUDED

@@ -260,3 +260,19 @@ bool operator >(const UTF8string &str1, const UTF8string &str2)
 
     return s1 > s2;
 }
+
+
+std::ostream & operator <<(std::ostream &os, const UTF8string &str)
+{
+    os << str.utf8_str();
+    return os;
+}
+
+
+std::istream & operator >>(std::istream &is, UTF8string &str)
+{
+    std::string tmp;
+    is >> tmp;
+    str = tmp;
+    return is;
+}
