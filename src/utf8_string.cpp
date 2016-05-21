@@ -92,14 +92,24 @@ UTF8string UTF8string::utf8_substr(size_t pos,size_t len) const
     if(pos > utf8length)
         return std::string();
 
+    // Length of the substring (number of code points)
     const size_t n = (len == std::string::npos || (pos + len) > utf8length) ?
-                        (utf8length - pos) : (len - pos);
+                        (utf8length - pos) : (pos + len - pos);
+    // First position in bytes
+    size_t beginsz = 0;
+    const size_t u8size = utf8_size();
+
+    for(size_t i = 0; beginsz < u8size && i < pos; i++)
+    {
+        beginsz += utf8_codepoint_len_(beginsz);
+    }
+
     std::string s;
     size_t u8count = 0;
 
-    for(size_t j = pos; j < utf8length && u8count < n; j++)
+    for(size_t j = beginsz; j < u8size && u8count < n; j++)
     {
-        const utf8_len_t cplen = utf8_codepoint_len(j);
+        const utf8_len_t cplen = utf8_codepoint_len_(j);
         size_t i = j;
 
         while(i < (j+cplen))
@@ -115,7 +125,36 @@ UTF8string UTF8string::utf8_substr(size_t pos,size_t len) const
 }
 
 
-utf8_len_t UTF8string::utf8_codepoint_len(size_t j) const
+size_t UTF8string::utf8_find(const UTF8string& str, size_t pos) const
+{
+    // Go to the position
+    size_t beginsz = 0;
+    const size_t u8size = utf8_size();
+
+    for(size_t i = 0; beginsz < u8size && i < pos; i++)
+    {
+        beginsz += utf8_codepoint_len_(beginsz);
+    }
+
+    // Look for the string
+    while(beginsz < u8size)
+    {
+        UTF8string tmp = utf8_substr(pos,str.utf8_length());
+
+        if(tmp == str)
+            return pos;
+        else
+        {
+            beginsz += utf8_codepoint_len_(pos);
+            pos++;
+        }
+    }
+
+    return std::string::npos;
+}
+
+
+utf8_len_t UTF8string::utf8_codepoint_len_(size_t j) const
 {
     if (0xf0 == (0xf8 & utf8data[j]))
     {

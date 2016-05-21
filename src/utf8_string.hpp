@@ -13,7 +13,7 @@ class UTF8string
 
     bool utf8_is_valid_();
     utf8_len_t utf8_length_() const;
-    utf8_len_t utf8_codepoint_len(size_t j) const;
+    utf8_len_t utf8_codepoint_len_(size_t j) const;
 
 public:
 
@@ -31,6 +31,7 @@ public:
     bool utf8_empty() const;
 
     UTF8string utf8_substr(size_t pos = 0,size_t len = std::string::npos) const;
+    size_t utf8_find(const UTF8string& str, size_t pos = 0) const;
 
     utf8_len_t utf8_size() const;
     utf8_len_t utf8_length() const;
