@@ -30,3 +30,4 @@
 # Codeblocks config files
 *.layout
 *.cbp
+*.depend
