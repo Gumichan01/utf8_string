@@ -107,7 +107,7 @@ UTF8string UTF8string::utf8_substr(size_t pos,size_t len) const
     std::string s;
     size_t u8count = 0;
 
-    for(size_t j = beginsz; j < u8size && u8count < n; j++)
+    for(size_t j = beginsz; j < u8size && u8count < n;)
     {
         const utf8_len_t cplen = utf8_codepoint_len_(j);
         size_t i = j;
@@ -117,7 +117,7 @@ UTF8string UTF8string::utf8_substr(size_t pos,size_t len) const
             s.push_back(utf8data[i++]);
         }
 
-        j += cplen -1;
+        j += cplen;
         u8count++;
     }
 
