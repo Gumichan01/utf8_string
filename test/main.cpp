@@ -1,5 +1,7 @@
+
 #include <iostream>
 #include <string>
+#include <stdexcept>
 
 #include "../src/utf8_string.hpp"
 
@@ -144,5 +146,268 @@ int main()
             return 18;
         }
     }
+
+    // Invalid UTF-8 string test
+    {
+        /// 1-byte codepoint
+        try
+        {
+            // An invalid codepoint
+            char inv1[] = {'\x80'};
+            string chstr = inv1;
+            UTF8string u8 = chstr;
+
+            return 19;
+        }
+        catch(const std::invalid_argument & ie) {}
+
+        /// 2-byte codepoint
+        // 0xC2 is not followed by a continuation byte
+        try
+        {
+            char inv1[] = {'\xFF', '\x00'};
+            string chstr = inv1;
+            UTF8string u8 = chstr;
+
+            return 20;
+        }
+        catch(const std::invalid_argument & ie) {}
+
+        try
+        {
+            // 0xC2 is followed by a continuation byte > BF
+            char inv2[] = {'\xC2', '\xFE', '\x00'};
+            string chstr = inv2;
+            UTF8string u8 = chstr;
+
+            return 21;
+        }
+        catch(const std::invalid_argument & ie) {}
+
+
+        try
+        {
+            // 0xC2 is followed by a continuation byte < 0x80
+            char inv2[] = {'\xC2', '\x7F', '\x00'};
+            string chstr = inv2;
+            UTF8string u8 = chstr;
+
+            return 22;
+        }
+        catch(const std::invalid_argument & ie) {}
+
+
+        /// 3-byte codepoint
+        try
+        {
+            // 0xE0 has no continuation byte
+            char inv2[] = {'\xE0'};
+            string chstr = inv2;
+            UTF8string u8 = chstr;
+
+            return 23;
+        }
+        catch(const std::invalid_argument & ie) {}
+
+        try
+        {
+            // Invalid continuation byte (0xC0) after 0xE0
+            char inv2[] = {'\xE0','\xA7','\xC0','\x00'};
+            string chstr = inv2;
+            UTF8string u8 = chstr;
+
+            return 24;
+        }
+        catch(const std::invalid_argument & ie) {}
+
+        try
+        {
+            // Invalid continuation byte (0x9F) after 0xE0
+            char inv3[] = {'\xE0','\x9F','\xA7','\x00'};
+            string chstr = inv3;
+            UTF8string u8 = chstr;
+
+            return 25;
+        }
+        catch(const std::invalid_argument & ie) {}
+
+        try
+        {
+            // Invalid continuation byte (0x9F) after 0xED
+            char inv3[] = {'\xED','\x7F','\xA7','\x00'};
+            string chstr = inv3;
+            UTF8string u8 = chstr;
+
+            return 26;
+        }
+        catch(const std::invalid_argument & ie){}
+
+        try
+        {
+            // Invalid continuation byte (0x9F) after 0xED
+            char inv3[] = {'\xED','\xA0','\xA7','\x00'};
+            string chstr = inv3;
+            UTF8string u8 = chstr;
+
+            return 27;
+        }
+        catch(const std::invalid_argument & ie) {}
+
+        try
+        {
+            // valid string
+            char inv2[] = {'\xE0','\xA7','\xA7','\x00'};
+            string chstr = inv2;
+            UTF8string u8 = chstr;
+
+        }
+        catch(const std::invalid_argument & ie)
+        {
+            return 28;
+        }
+
+        try
+        {
+            // 0xE0 has no continuation byte
+            char inv2[] = {'\xED'};
+            string chstr = inv2;
+            UTF8string u8 = chstr;
+
+            return 29;
+        }
+        catch(const std::invalid_argument & ie) {}
+
+        /// 4-byte codepoint
+        try
+        {
+            // 0xF0 has no continuation byte
+            char inv2[] = {'\xF0'};
+            string chstr = inv2;
+            UTF8string u8 = chstr;
+
+            return 30;
+        }
+        catch(const std::invalid_argument & ie) {}
+
+        try
+        {
+            // 0xF4 has no continuation byte
+            char inv2[] = {'\xF4'};
+            string chstr = inv2;
+            UTF8string u8 = chstr;
+
+            return 31;
+        }
+        catch(const std::invalid_argument & ie) {}
+
+        try
+        {
+            // 0xF5 is not the first byte of a codepoint
+            char inv2[] = {'\xF4','\x90','\x90','\x90'};
+            string chstr = inv2;
+            UTF8string u8 = chstr;
+
+            return 31;
+        }
+        catch(const std::invalid_argument & ie) {}
+
+        // With 0xF0 as the first byte of the codepoint
+        try
+        {
+            // Invalid continuation byte (0x8F) after 0xF0
+            char inv2[] = {'\xF0','\x8F','\x91','\xB5','\x00'};
+            string chstr = inv2;
+            UTF8string u8 = chstr;
+
+            return 32;
+        }
+        catch(const std::invalid_argument & ie) {}
+
+        try
+        {
+            // Invalid continuation byte (0x8F) after 0xF0
+            char inv2[] = {'\xF0','\xC7','\x91','\xB5','\x00'};
+            string chstr = inv2;
+            UTF8string u8 = chstr;
+
+            return 33;
+        }
+        catch(const std::invalid_argument & ie) {}
+
+
+        // With 0xF4 as the first byte of the codepoint
+        try
+        {
+            // Invalid continuation byte (0x7F) after 0xF4
+            char inv2[] = {'\xF4','\x7F','\x91','\xB5','\x00'};
+            string chstr = inv2;
+            UTF8string u8 = chstr;
+
+            return 34;
+        }
+        catch(const std::invalid_argument & ie) {}
+
+        try
+        {
+            // Invalid continuation byte (0x92) after 0xF4
+            char inv2[] = {'\xF4','\x92','\x91','\xB5','\x00'};
+            string chstr = inv2;
+            UTF8string u8 = chstr;
+
+            return 35;
+        }
+        catch(const std::invalid_argument & ie) {}
+
+        try
+        {
+            // Not enough bytes after the first codepoint byte
+            char inv2[] = {'\xF4','\x92'};
+            string chstr = inv2;
+            UTF8string u8 = chstr;
+
+            return 36;
+        }
+        catch(const std::invalid_argument & ie) {}
+
+        try
+        {
+            // Not enough bytes after the first codepoint byte
+            char inv2[] = {'\xF4','\x92','\x91'};
+            string chstr = inv2;
+            UTF8string u8 = chstr;
+
+            return 37;
+        }
+        catch(const std::invalid_argument & ie) {}
+
+        try
+        {
+            // Not enough bytes after the first codepoint byte
+            char inv2[] = {'\xF0','\x92','\x91'};
+            string chstr = inv2;
+            UTF8string u8 = chstr;
+
+            return 38;
+        }
+        catch(const std::invalid_argument & ie) {}
+
+        try
+        {
+            // Valid string
+            string jap1 = "ドロテ: すみません、ゆうびんきょくはどこですか。";
+            string jap2 = "けいかん: ゆうびんきょくですか。このみちをまっすぐいってください。ひとつめのしんごうをみぎにまがってください。";
+            string jap3 = "ドロテ: ひとつめのしんごうをみぎですね。";
+            string jap4 = "けいかん: はい、それから、まっすぐいってください。ふたつめのかどにゆうびんきょくがあります。";
+            string jap5 = "ドロテ: ふたつめのかどですね。わかりました。どうもありがとうございます。";
+            string jap6 = "けいかん: いいえ、どういたしまして。";
+            UTF8string u8 = (jap1 + jap2 + jap3 + jap4 + jap5 + jap6);
+
+        }
+        catch(const std::invalid_argument & ie)
+        {
+            return 39;
+        }
+    }
+
     return 0;
 }
