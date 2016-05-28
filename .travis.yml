@@ -1,9 +1,8 @@
 language: cpp
 
 compiler:
-  - gcc
   - clang
 
 script:
-  - make CC=$(CXX)
+  - make
   - ./utf8test
