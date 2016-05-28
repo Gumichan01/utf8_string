@@ -9,7 +9,6 @@ TEST_SRC=./test/
 TEST_MAIN=$(TEST_SRC)main.cpp
 TEST_EXE=utf8test
 
-UTF8_TYPES=$(SRC)utf8_types.hpp
 UTF8_HEADER=$(SRC)utf8_string.hpp
 UTF8_SRC=$(SRC)utf8_string.cpp
 
@@ -29,7 +28,7 @@ $(TEST_EXE) : $(UTF8_OBJ) $(TEST_OBJ)
 	$(CC) $(CFLAGS) -o $@ $^ $(LFLAGS)
 	@echo $@" - done."
 
-$(UTF8_OBJ) : $(UTF8_SRC) $(UTF8_HEADER) $(UTF8_TYPES)
+$(UTF8_OBJ) : $(UTF8_SRC) $(UTF8_HEADER)
 	@echo $<" -> "$@
 	$(CC) -c $(CFLAGS) -o $@ $< $(LFLAGS)
 	@echo $<" -> "$@ " done."
