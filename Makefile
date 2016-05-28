@@ -1,6 +1,6 @@
 
 
-CC=clang++
+# CC must be specified
 CFLAGS=-Weverything -std=c++11 -Wno-c++98-compat
 LFLAGS=
 

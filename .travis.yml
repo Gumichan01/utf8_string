@@ -5,5 +5,5 @@ compiler:
   - clang
 
 script:
-  - make
+  - make CC=$(CXX)
   - ./utf8test
