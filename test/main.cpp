@@ -402,10 +402,17 @@ int main()
             string jap6 = "けいかん: いいえ、どういたしまして。";
             UTF8string u8 = (jap1 + jap2 + jap3 + jap4 + jap5 + jap6);
 
+            UTF8string u8sub = string("わかりました");
+
+            if(u8.utf8_find(u8sub) == std::string::npos)
+            {
+                return 39;
+            }
+
         }
         catch(const std::invalid_argument &)
         {
-            return 39;
+            return 40;
         }
     }
 
