@@ -11,7 +11,6 @@
 *
 */
 
-#include <cstring>
 #include <stdexcept>
 #include "utf8_string.hpp"
 
