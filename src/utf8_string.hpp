@@ -9,11 +9,11 @@
 class UTF8string
 {
     std::string utf8data;
-    utf8_len_t utf8length;
+    size_t utf8length;
 
     bool utf8_is_valid_();
-    utf8_len_t utf8_length_() const;
-    utf8_len_t utf8_codepoint_len_(size_t j) const;
+    size_t utf8_length_() const;
+    size_t utf8_codepoint_len_(size_t j) const;
 
 public:
 
@@ -33,8 +33,8 @@ public:
     UTF8string utf8_substr(size_t pos = 0,size_t len = std::string::npos) const;
     size_t utf8_find(const UTF8string& str, size_t pos = 0) const;
 
-    utf8_len_t utf8_size() const;
-    utf8_len_t utf8_length() const;
+    size_t utf8_size() const;
+    size_t utf8_length() const;
     const char * utf8_str() const;
 
     std::string::iterator utf8_begin() noexcept;

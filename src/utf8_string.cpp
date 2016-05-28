@@ -121,7 +121,7 @@ UTF8string UTF8string::utf8_substr(size_t pos,size_t len) const
 
     for(size_t j = beginsz; j < u8size && u8count < n;)
     {
-        const utf8_len_t cplen = utf8_codepoint_len_(j);
+        const size_t cplen = utf8_codepoint_len_(j);
         size_t i = j;
 
         while(i < (j+cplen))
@@ -166,7 +166,7 @@ size_t UTF8string::utf8_find(const UTF8string& str, size_t pos) const
 }
 
 
-utf8_len_t UTF8string::utf8_codepoint_len_(size_t j) const
+size_t UTF8string::utf8_codepoint_len_(size_t j) const
 {
     if (0xf0 == (0xf8 & utf8data[j]))
     {
@@ -185,7 +185,7 @@ utf8_len_t UTF8string::utf8_codepoint_len_(size_t j) const
 }
 
 
-utf8_len_t UTF8string::utf8_size() const
+size_t UTF8string::utf8_size() const
 {
     return utf8data.size();
 }
@@ -296,11 +296,11 @@ bool UTF8string::utf8_is_valid_()
 }
 
 
-utf8_len_t UTF8string::utf8_length_() const
+size_t UTF8string::utf8_length_() const
 {
     auto end_data = utf8data.end();
     auto it = utf8data.begin();
-    utf8_len_t len = 0;
+    size_t len = 0;
 
     while(it != end_data)
     {
@@ -335,7 +335,7 @@ utf8_len_t UTF8string::utf8_length_() const
     return len;
 }
 
-utf8_len_t UTF8string::utf8_length() const
+size_t UTF8string::utf8_length() const
 {
     return utf8length;
 }
