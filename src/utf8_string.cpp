@@ -258,7 +258,7 @@ bool UTF8string::utf8_is_valid_()
             }
             else if(*it == '\xED')
             {
-                if(*(it + 1) < 0x80 || *(it + 1) > 0x9F)
+                if(*(it + 1) < '\x80' || *(it + 1) > '\x9F')
                     return false;
             }
 

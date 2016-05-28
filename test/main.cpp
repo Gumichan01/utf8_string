@@ -159,7 +159,7 @@ int main()
 
             return 19;
         }
-        catch(const std::invalid_argument & ie) {}
+        catch(const std::invalid_argument &) {}
 
         /// 2-byte codepoint
         // 0xC2 is not followed by a continuation byte
@@ -171,7 +171,7 @@ int main()
 
             return 20;
         }
-        catch(const std::invalid_argument & ie) {}
+        catch(const std::invalid_argument &) {}
 
         try
         {
@@ -182,7 +182,7 @@ int main()
 
             return 21;
         }
-        catch(const std::invalid_argument & ie) {}
+        catch(const std::invalid_argument &) {}
 
 
         try
@@ -194,7 +194,7 @@ int main()
 
             return 22;
         }
-        catch(const std::invalid_argument & ie) {}
+        catch(const std::invalid_argument &) {}
 
 
         /// 3-byte codepoint
@@ -207,7 +207,7 @@ int main()
 
             return 23;
         }
-        catch(const std::invalid_argument & ie) {}
+        catch(const std::invalid_argument &) {}
 
         try
         {
@@ -218,7 +218,7 @@ int main()
 
             return 24;
         }
-        catch(const std::invalid_argument & ie) {}
+        catch(const std::invalid_argument &) {}
 
         try
         {
@@ -229,29 +229,29 @@ int main()
 
             return 25;
         }
-        catch(const std::invalid_argument & ie) {}
+        catch(const std::invalid_argument &) {}
 
         try
         {
-            // Invalid continuation byte (0x9F) after 0xED
-            char inv3[] = {'\xED','\x7F','\xA7','\x00'};
+            // Invalid continuation byte (0x71) after 0xED
+            char inv3[] = {'\xED','\x71','\xA7','\x00'};
             string chstr = inv3;
             UTF8string u8 = chstr;
 
             return 26;
         }
-        catch(const std::invalid_argument & ie){}
+        catch(const std::invalid_argument &){}
 
         try
         {
-            // Invalid continuation byte (0x9F) after 0xED
+            // Invalid continuation byte (0xA0) after 0xED
             char inv3[] = {'\xED','\xA0','\xA7','\x00'};
             string chstr = inv3;
             UTF8string u8 = chstr;
 
             return 27;
         }
-        catch(const std::invalid_argument & ie) {}
+        catch(const std::invalid_argument &) {}
 
         try
         {
@@ -261,7 +261,7 @@ int main()
             UTF8string u8 = chstr;
 
         }
-        catch(const std::invalid_argument & ie)
+        catch(const std::invalid_argument &)
         {
             return 28;
         }
@@ -275,7 +275,7 @@ int main()
 
             return 29;
         }
-        catch(const std::invalid_argument & ie) {}
+        catch(const std::invalid_argument &) {}
 
         /// 4-byte codepoint
         try
@@ -287,7 +287,7 @@ int main()
 
             return 30;
         }
-        catch(const std::invalid_argument & ie) {}
+        catch(const std::invalid_argument &) {}
 
         try
         {
@@ -298,7 +298,7 @@ int main()
 
             return 31;
         }
-        catch(const std::invalid_argument & ie) {}
+        catch(const std::invalid_argument &) {}
 
         try
         {
@@ -309,7 +309,7 @@ int main()
 
             return 31;
         }
-        catch(const std::invalid_argument & ie) {}
+        catch(const std::invalid_argument &) {}
 
         // With 0xF0 as the first byte of the codepoint
         try
@@ -321,7 +321,7 @@ int main()
 
             return 32;
         }
-        catch(const std::invalid_argument & ie) {}
+        catch(const std::invalid_argument &) {}
 
         try
         {
@@ -332,7 +332,7 @@ int main()
 
             return 33;
         }
-        catch(const std::invalid_argument & ie) {}
+        catch(const std::invalid_argument &) {}
 
 
         // With 0xF4 as the first byte of the codepoint
@@ -345,7 +345,7 @@ int main()
 
             return 34;
         }
-        catch(const std::invalid_argument & ie) {}
+        catch(const std::invalid_argument &) {}
 
         try
         {
@@ -356,7 +356,7 @@ int main()
 
             return 35;
         }
-        catch(const std::invalid_argument & ie) {}
+        catch(const std::invalid_argument &) {}
 
         try
         {
@@ -367,7 +367,7 @@ int main()
 
             return 36;
         }
-        catch(const std::invalid_argument & ie) {}
+        catch(const std::invalid_argument &) {}
 
         try
         {
@@ -378,7 +378,7 @@ int main()
 
             return 37;
         }
-        catch(const std::invalid_argument & ie) {}
+        catch(const std::invalid_argument &) {}
 
         try
         {
@@ -389,7 +389,7 @@ int main()
 
             return 38;
         }
-        catch(const std::invalid_argument & ie) {}
+        catch(const std::invalid_argument &) {}
 
         try
         {
@@ -403,7 +403,7 @@ int main()
             UTF8string u8 = (jap1 + jap2 + jap3 + jap4 + jap5 + jap6);
 
         }
-        catch(const std::invalid_argument & ie)
+        catch(const std::invalid_argument &)
         {
             return 39;
         }
