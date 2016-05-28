@@ -11,10 +11,11 @@
 *
 */
 
-#include "utf8_string.hpp"
 #include <cstring>
 #include <stdexcept>
+#include "utf8_string.hpp"
 
+typedef char byte_t;
 
 UTF8string::UTF8string() : utf8length(0){}
 

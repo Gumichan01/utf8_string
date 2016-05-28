@@ -4,7 +4,6 @@
 #include <string>
 #include <iostream>
 
-#include "utf8_types.hpp"
 
 class UTF8string
 {
