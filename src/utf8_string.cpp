@@ -106,7 +106,7 @@ UTF8string UTF8string::utf8_substr(size_t pos,size_t len) const
         return std::string();
 
     // Length of the substring (number of code points)
-    const size_t n = (len == std::string::npos || (pos + len) > utf8length) ?
+    const size_t n = (len == npos || (pos + len) > utf8length) ?
                         (utf8length - pos) : (pos + len - pos);
     // First position in bytes
     size_t beginsz = 0;
@@ -163,7 +163,7 @@ size_t UTF8string::utf8_find(const UTF8string& str, size_t pos) const
         }
     }
 
-    return std::string::npos;
+    return npos;
 }
 
 

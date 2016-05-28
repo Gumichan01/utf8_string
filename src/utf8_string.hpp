@@ -16,6 +16,8 @@ class UTF8string
 
 public:
 
+    const static size_t npos = std::string::npos;
+
     UTF8string();
     UTF8string(const std::string &str);
     UTF8string(const UTF8string &u8str);
@@ -29,7 +31,7 @@ public:
     void utf8_clear();
     bool utf8_empty() const;
 
-    UTF8string utf8_substr(size_t pos = 0,size_t len = std::string::npos) const;
+    UTF8string utf8_substr(size_t pos = 0, size_t len = npos) const;
     size_t utf8_find(const UTF8string& str, size_t pos = 0) const;
 
     size_t utf8_size() const;
