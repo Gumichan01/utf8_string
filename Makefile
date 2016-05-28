@@ -21,8 +21,7 @@ all : test
 
 
 test : $(TEST_EXE)
-	@echo $(TEST_EXE)" - Launch test... "
-	./$(TEST_EXE)
+	@echo $(TEST_EXE)" generated. "
 
 
 $(TEST_EXE) : $(UTF8_OBJ) $(TEST_OBJ)
