@@ -416,5 +416,55 @@ int main()
         }
     }
 
+    // Concatenate strings
+    {
+        UTF8string strex1("がんばつて Gumichan");
+        UTF8string strex2("Gumichanがんばつて ");
+        UTF8string ganba("がんばつて ");
+        std::string gumi("Gumichan");
+
+        const char * gumistr = "Gumichan";
+
+        // concatenate std::string and UTF8string
+        if(strex1 != (ganba + gumi))
+            return 41;
+
+        if(strex2 != (gumi + ganba))
+            return 42;
+
+        // concatenate UTF8string and const char *
+        if(strex2 != (gumistr + ganba))
+            return 43;
+
+        if(strex1 != (ganba + gumistr))
+            return 44;
+
+        UTF8string gumiex(gumi);
+
+        // concatenate 2 UTF8string objects
+        if(strex1 != (ganba + gumiex))
+            return 45;
+
+        if(strex2 != (gumiex + ganba))
+            return 46;
+    }
+
+    // Append strings
+    {
+        UTF8string strex1("Gumichan がんばつて");
+        UTF8string strex2("Gumichan がんばつて!");
+        UTF8string gumi("Gumichan");
+
+        gumi += " がんばつて";
+
+        if(gumi != strex1)
+            return 47;
+
+        strex1 += '!';
+
+        if(strex1 != strex2)
+            return 48;
+    }
+
     return 0;
 }
