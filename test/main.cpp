@@ -302,8 +302,8 @@ int main()
 
         try
         {
-            // 0xF5 is not the first byte of a codepoint
-            char inv2[] = {'\xF4','\x90','\x90','\x90'};
+            // Invalid continuation byte (0x90) after 0xF4
+            char inv2[] = {'\xF4','\x90','\x90','\x90','\x00'};
             string chstr = inv2;
             UTF8string u8 = chstr;
 
