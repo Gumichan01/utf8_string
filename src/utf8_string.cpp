@@ -408,6 +408,35 @@ bool operator >(const UTF8string &str1, const UTF8string &str2)
 }
 
 
+UTF8string operator +(const UTF8string &str1, const UTF8string &str2)
+{
+    return str1 + std::string(str2.utf8_str());
+}
+
+
+UTF8string operator +(const UTF8string &str1, const std::string &str2)
+{
+    return UTF8string(std::string(str1.utf8_str()) + str2);
+}
+
+UTF8string operator +(const std::string &str1, const UTF8string &str2)
+{
+    return UTF8string(std::string(str1 + str2.utf8_str()));
+}
+
+
+UTF8string operator +(const UTF8string &str1, const char * str2)
+{
+    return str1 + std::string(str2);
+}
+
+
+UTF8string operator +(const char * str1, const UTF8string &str2)
+{
+    return std::string(str1) + str2;
+}
+
+
 std::ostream & operator <<(std::ostream &os, const UTF8string &str)
 {
     os << str.utf8_str();

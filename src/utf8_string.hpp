@@ -51,6 +51,12 @@ bool operator >=(const UTF8string &str1, const UTF8string &str2);
 bool operator <(const UTF8string &str1, const UTF8string &str2);
 bool operator >(const UTF8string &str1, const UTF8string &str2);
 
+UTF8string operator +(const UTF8string &str1, const UTF8string &str2);
+UTF8string operator +(const UTF8string &str1, const std::string &str2);
+UTF8string operator +(const std::string &str1, const UTF8string &str2);
+UTF8string operator +(const UTF8string &str1, const char * str2);
+UTF8string operator +(const char * str1, const UTF8string &str2);
+
 std::ostream & operator <<(std::ostream &os, const UTF8string &str);
 std::istream & operator >>(std::istream &is, UTF8string &str);
 
