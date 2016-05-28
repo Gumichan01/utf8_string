@@ -6,3 +6,4 @@ compiler:
 
 script:
   - make
+  - ./utf8test
