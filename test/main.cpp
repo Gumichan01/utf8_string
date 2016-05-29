@@ -1,6 +1,7 @@
 
 #include <iostream>
 #include <string>
+#include <cstring>
 #include <stdexcept>
 
 #include "../src/utf8_string.hpp"
@@ -21,14 +22,11 @@ int main()
         if(u8 != u8)
             return 1;
 
-        if(u8 != hum)
-            return 2;
-
         // assignment
         UTF8string uu8 = u8;
 
         if(u8 != uu8)
-            return 3;
+            return 2;
 
         // assignment
         std::string str1 = "がんばつて";
@@ -36,7 +34,7 @@ int main()
         std::string str2 = utf8.utf8_str();
 
         if(str1 != str2)
-            return 4;
+            return 3;
 
         // assignment
         std::string strg1 = "Gumi";
@@ -51,14 +49,14 @@ int main()
         {
             cerr << "ERROR : expected : " << sz1
                  << "; got : " << utf8_cat.utf8_size() << endl;
-            return 5;
+            return 4;
         }
 
         if(utf8_cat.utf8_length() != len1)
         {
             cerr << "ERROR : expected : " << len1
                  << "; got : " << utf8_cat.utf8_length() << endl;
-            return 6;
+            return 5;
         }
 
         utf8_cat += strg2;
@@ -67,14 +65,14 @@ int main()
         {
             cerr << "ERROR : expected : " << (sz1 + sz2)
                  << "; got : " << utf8_cat.utf8_size() << endl;
-            return 7;
+            return 6;
         }
 
         if(utf8_cat.utf8_length() != (len1 + len2))
         {
             cerr << "ERROR : expected : " << (len1 + len2)
                  << "; got : " << utf8_cat.utf8_length() << endl;
-            return 8;
+            return 7;
         }
     }
 
@@ -91,18 +89,25 @@ int main()
         {
             cerr << "ERROR : expected : " << aexpected.utf8_str()
                  << "; got :" << sub1.utf8_str() << endl;
-            return 9;
+            return 8;
         }
 
         if(sub2 != u8expected)
         {
             cerr << "ERROR : expected : " << u8expected.utf8_str()
                  << "; got :" << sub2.utf8_str() << endl;
+            return 9;
+        }
+
+        UTF8string sub = utf.utf8_substr();
+        if(sub != utf)
+        {
+            cerr << "ERROR : expected : " << u8expected.utf8_str()
+                 << "; got :" << sub.utf8_str() << endl;
             return 10;
         }
 
         utf.utf8_clear();
-
         if(!utf.utf8_empty())
             return 11;
 
@@ -307,7 +312,7 @@ int main()
             string chstr = inv2;
             UTF8string u8 = chstr;
 
-            return 31;
+            return 32;
         }
         catch(const std::invalid_argument &) {}
 
@@ -319,7 +324,7 @@ int main()
             string chstr = inv2;
             UTF8string u8 = chstr;
 
-            return 32;
+            return 33;
         }
         catch(const std::invalid_argument &) {}
 
@@ -330,7 +335,7 @@ int main()
             string chstr = inv2;
             UTF8string u8 = chstr;
 
-            return 33;
+            return 34;
         }
         catch(const std::invalid_argument &) {}
 
@@ -343,7 +348,7 @@ int main()
             string chstr = inv2;
             UTF8string u8 = chstr;
 
-            return 34;
+            return 35;
         }
         catch(const std::invalid_argument &) {}
 
@@ -354,7 +359,7 @@ int main()
             string chstr = inv2;
             UTF8string u8 = chstr;
 
-            return 35;
+            return 36;
         }
         catch(const std::invalid_argument &) {}
 
@@ -365,7 +370,7 @@ int main()
             string chstr = inv2;
             UTF8string u8 = chstr;
 
-            return 36;
+            return 37;
         }
         catch(const std::invalid_argument &) {}
 
@@ -376,7 +381,7 @@ int main()
             string chstr = inv2;
             UTF8string u8 = chstr;
 
-            return 37;
+            return 38;
         }
         catch(const std::invalid_argument &) {}
 
@@ -387,7 +392,7 @@ int main()
             string chstr = inv2;
             UTF8string u8 = chstr;
 
-            return 38;
+            return 39;
         }
         catch(const std::invalid_argument &) {}
 
@@ -406,13 +411,13 @@ int main()
 
             if(u8.utf8_find(u8sub) == std::string::npos)
             {
-                return 39;
+                return 40;
             }
 
         }
         catch(const std::invalid_argument &)
         {
-            return 40;
+            return 41;
         }
     }
 
@@ -427,26 +432,54 @@ int main()
 
         // concatenate std::string and UTF8string
         if(strex1 != (ganba + gumi))
-            return 41;
+            return 42;
 
         if(strex2 != (gumi + ganba))
-            return 42;
+            return 43;
+
+        if((gumi.size() + ganba.utf8_size()) !=
+                (gumi + ganba).utf8_size())
+            return 44;
+
+        if((ganba.utf8_size() + gumi.size()) !=
+                (ganba + gumi).utf8_size())
+            return 45;
 
         // concatenate UTF8string and const char *
         if(strex2 != (gumistr + ganba))
-            return 43;
+            return 46;
 
         if(strex1 != (ganba + gumistr))
-            return 44;
+            return 46;
 
-        UTF8string gumiex(gumi);
+        if((std::strlen(gumistr) + ganba.utf8_size()) !=
+                (gumistr + ganba).utf8_size())
+            return 48;
+
 
         // concatenate 2 UTF8string objects
+        UTF8string gumiex(gumi);
         if(strex1 != (ganba + gumiex))
-            return 45;
+            return 49;
+
+        if((ganba.utf8_size() + gumiex.utf8_size()) !=
+                (ganba + gumiex).utf8_size())
+            return 50;
+
+        if((ganba.utf8_length() + gumiex.utf8_length()) !=
+                (ganba + gumiex).utf8_length())
+            return 51;
 
         if(strex2 != (gumiex + ganba))
-            return 46;
+            return 52;
+
+        if((gumiex.utf8_size() + ganba.utf8_size()) !=
+                (gumiex + ganba).utf8_size())
+            return 53;
+
+        if((gumiex.utf8_length() + ganba.utf8_length()) !=
+                (gumiex + ganba).utf8_length())
+            return 54;
     }
 
     // Append strings
@@ -458,47 +491,63 @@ int main()
         gumi += " がんばつて";
 
         if(gumi != strex1)
-            return 47;
+            return 55;
 
         strex1 += '!';
 
         if(strex1 != strex2)
-            return 48;
+            return 56;
     }
 
     // Get the codepoint at a specified position
     {
         UTF8string astr("Gumichan");
         UTF8string str("がんばつて Gumichan");
+        std::string gcpoint = "G";
         std::string ucpoint = "u";
+        std::string ncpoint = "n";
         std::string tcpoint = "て";
 
         try{
             std::string s = str.utf8_at(42);
-            return 49;
+            return 57;
         }
         catch(std::out_of_range &) {}
 
         std::string c0 = astr.utf8_at(1);
+        std::string cc = astr.utf8_at(0);
+        std::string ccc = astr.utf8_at(astr.utf8_size() - 1);
         std::string c1 = str.utf8_at(4);
         std::string c2 = str.utf8_at(7);
 
         if(ucpoint != c0)
         {
-            std::cout << "expected : " << ucpoint << ";got :" << c0 << std::endl;
-            return 50;
+            std::cout << "expected: " << ucpoint << "; got: " << c0 << std::endl;
+            return 58;
+        }
+
+        if(gcpoint != cc)
+        {
+            std::cout << "expected: " << gcpoint << "; got: " << cc << std::endl;
+            return 59;
+        }
+
+        if(ncpoint != ccc)
+        {
+            std::cout << "expected: " << ncpoint << ";got: " << ccc << std::endl;
+            return 60;
         }
 
         if(tcpoint != c1)
         {
-            std::cout << "expected : " << tcpoint << ";got :" << c1 << std::endl;
-            return 50;
+            std::cout << "expected: " << tcpoint << ";got: " << c1 << std::endl;
+            return 61;
         }
 
         if(ucpoint != c2)
         {
-            std::cout << "expected : " << ucpoint << ";got :" << c2 << std::endl;
-            return 51;
+            std::cout << "expected: " << ucpoint << ";got: " << c2 << std::endl;
+            return 62;
         }
 
         std::string point = "。";
@@ -507,11 +556,9 @@ int main()
 
         if(point != c)
         {
-            std::cout << "expected : " << point << ";got :" << c << std::endl;
-            return 52;
+            std::cout << "expected: " << point << ";got : " << c << std::endl;
+            return 63;
         }
-
     }
-
     return 0;
 }
