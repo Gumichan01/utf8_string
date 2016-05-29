@@ -327,28 +327,22 @@ UTF8string UTF8string::utf8_substr(size_t pos,size_t len)
     {
         s += *(it++);
     }
+
     return s;
 }
 
 
 size_t UTF8string::utf8_find(const UTF8string& str, size_t pos)
 {
-    // Go to the position
-    size_t beginsz = utf8_bpos_at(pos);
-    const size_t u8size = utf8_size();
-
     // Look for the string
-    while(beginsz < u8size)
+    while(pos < utf8length)
     {
         UTF8string tmp = utf8_substr(pos,str.utf8_length());
 
         if(tmp == str)
             return pos;
-        else
-        {
-            beginsz += utf8_codepoint_len_(pos);
-            pos++;
-        }
+
+        pos++;
     }
 
     return npos;
