@@ -33,7 +33,7 @@ public:
 
     bool operator ==(const UTF8iterator& it) const;
     bool operator !=(const UTF8iterator& it) const;
-    const UTF8iterator operator +(const size_t n) const;
+    UTF8iterator operator +(const size_t n) const;
 
     const std::string operator *() const;
 

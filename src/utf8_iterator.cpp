@@ -67,7 +67,7 @@ const std::string UTF8iterator::operator *() const
     return data.utf8_at(index);
 }
 
-const UTF8iterator UTF8iterator::operator +(const size_t n) const
+UTF8iterator UTF8iterator::operator +(const size_t n) const
 {
     UTF8iterator newit(*this);
     const size_t len = newit.data.utf8_length();
