@@ -64,4 +64,4 @@ UTF8string operator +(const char * str1, const UTF8string &str2);
 std::ostream & operator <<(std::ostream &os, const UTF8string &str);
 std::istream & operator >>(std::istream &is, UTF8string &str);
 
-#endif // UTF_STRING_HPP_INCLUDED
+#endif // UTF8_STRING_HPP_INCLUDED
