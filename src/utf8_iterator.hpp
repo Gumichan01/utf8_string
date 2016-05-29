@@ -17,6 +17,7 @@
 // Iterator on UTF8string
 class UTF8iterator
 {
+    size_t index;
     UTF8string data;
 
     char& operator ->();
@@ -27,11 +28,15 @@ public:
     UTF8iterator(const UTF8iterator& it);
 
     UTF8iterator& operator ++();
-    UTF8iterator& operator ++(int);
+    UTF8iterator operator ++(int);
     UTF8iterator& operator =(const UTF8iterator& it);
+
     bool operator ==(const UTF8iterator& it) const;
     bool operator !=(const UTF8iterator& it) const;
-    const char& operator *() const;
+    const UTF8iterator operator +(const size_t n) const;
+
+    const std::string operator *() const;
+
     ~UTF8iterator();
 };
 

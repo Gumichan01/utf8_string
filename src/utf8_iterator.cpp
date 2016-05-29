@@ -14,15 +14,13 @@
 #include "utf8_string.hpp"
 
 
-UTF8iterator::UTF8iterator(UTF8string& u) : data(u) {}
+UTF8iterator::UTF8iterator(UTF8string& u) : index(0), data(u) {}
 
 UTF8iterator::UTF8iterator(const UTF8iterator& it)
-{
-    data = it.data;
-}
+    : index(it.index), data(it.data) {}
 
 
-UTF8iterator::~UTF8iterator(){}
+UTF8iterator::~UTF8iterator() {}
 
 
 UTF8iterator& UTF8iterator::operator =(const UTF8iterator& it)
@@ -34,29 +32,50 @@ UTF8iterator& UTF8iterator::operator =(const UTF8iterator& it)
 
 UTF8iterator& UTF8iterator::operator ++()
 {
+    if(index < data.utf8_length())
+        index += 1;
+
     return *this;
 }
 
 
-UTF8iterator& UTF8iterator::operator ++(int)
+UTF8iterator UTF8iterator::operator ++(int)
 {
-    return *this;
+    UTF8iterator oldit(*this);
+
+    if(index < data.utf8_length())
+        index += 1;
+
+    return oldit;
 }
 
 
 bool UTF8iterator::operator ==(const UTF8iterator& it) const
 {
-    return true;
+    return (index == it.index) && (data == it.data);
 }
 
 
 bool UTF8iterator::operator !=(const UTF8iterator& it) const
 {
-    return true;
+    return !(*this == it);
 }
 
 
-const char& UTF8iterator::operator *() const
+const std::string UTF8iterator::operator *() const
 {
-    return '\0';
+    return data.utf8_at(index);
+}
+
+const UTF8iterator UTF8iterator::operator +(const size_t n) const
+{
+    UTF8iterator newit(*this);
+    const size_t len = newit.data.utf8_length();
+
+    if(newit.index + n < len)
+        newit.index += n;
+    else
+        newit.index = len;
+
+    return newit;
 }

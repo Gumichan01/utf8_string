@@ -266,6 +266,19 @@ size_t UTF8string::utf8_codepoint_len_(size_t j) const
 }
 
 
+void UTF8string::utf8_clear()
+{
+    utf8data.clear();
+    utf8length = 0;
+}
+
+
+bool UTF8string::utf8_empty() const
+{
+    return utf8length == 0;
+}
+
+
 size_t UTF8string::utf8_bpos_at(const size_t cpos) const
 {
     size_t bpos = 0;
@@ -276,18 +289,6 @@ size_t UTF8string::utf8_bpos_at(const size_t cpos) const
         bpos += utf8_codepoint_len_(bpos);
     }
     return bpos;
-}
-
-
-void UTF8string::utf8_clear()
-{
-    utf8data.clear();
-    utf8length = 0;
-}
-
-bool UTF8string::utf8_empty() const
-{
-    return utf8length == 0;
 }
 
 
@@ -362,6 +363,37 @@ size_t UTF8string::utf8_find(const UTF8string& str, size_t pos) const
     }
 
     return npos;
+}
+
+
+UTF8string UTF8string::utf8_reverse_aux(UTF8iterator& it,
+                                        const UTF8iterator& end, UTF8string& res)
+{
+    if(it == end)
+        return res;
+
+    UTF8string tmp = res.utf8_empty() ? *it : *it + res;
+    return utf8_reverse_aux(++it,end, tmp);
+}
+
+
+UTF8string& UTF8string::utf8_reverse()
+{
+    UTF8string rev;
+    UTF8iterator it = utf8_iterator();
+    const UTF8iterator end = it + utf8length;
+
+    /*rev = *it;
+    ++it;
+
+    for(;it != end; ++it)
+    {
+        rev = *it + rev;
+    }*/
+
+    rev = utf8_reverse_aux(it,end,rev);
+    utf8data = rev.utf8data;
+    return *this;
 }
 
 

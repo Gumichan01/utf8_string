@@ -28,6 +28,8 @@ class UTF8string
     size_t utf8_length_() const;
     size_t utf8_codepoint_len_(size_t j) const;
     size_t utf8_bpos_at(const size_t cpos) const;
+    UTF8string utf8_reverse_aux(UTF8iterator& it,
+                                const UTF8iterator& end, UTF8string& res);
 
 public:
 
@@ -51,6 +53,7 @@ public:
 
     UTF8string utf8_substr(size_t pos = 0, size_t len = npos) const;
     size_t utf8_find(const UTF8string& str, size_t pos = 0) const;
+    UTF8string& utf8_reverse();
 
     size_t utf8_size() const;
     size_t utf8_length() const;

@@ -1,4 +1,16 @@
 
+/*
+*
+*	Copyright (C) 2016 Luxon Jean-Pierre
+*	gumichan01.olympe.in
+*
+*   This library is under the MIT license
+*
+*	Luxon Jean-Pierre (Gumichan01)
+*	luxon.jean.pierre@gmail.com
+*
+*/
+
 #include <iostream>
 #include <string>
 #include <cstring>
@@ -133,10 +145,10 @@ int main()
         if(aaaa < aaaa)
             return 15;
 
-        //auto it_begin = aaaa.utf8_begin();
+        auto it_begin = aaaa.utf8_iterator();
 
-        /*if(it_begin == it_end)
-            return 16;*/
+        if(it_begin != it_begin)
+            return 16;
 
         UTF8string str("がんばつて! Gumichan");
         UTF8string ganbatsute("がんばつて");
@@ -571,5 +583,34 @@ int main()
             return 63;
         }
     }
+
+    // Reverse string using iterator
+    {
+        UTF8string utf8orig("がんばつて Gumichan");
+        UTF8string utf8str("がんばつて Gumichan");
+
+        // Bijection
+        if(utf8orig != (utf8str.utf8_reverse()).utf8_reverse())
+        {
+            std::cout << "expected: " << utf8orig << "; got: "
+                      << (utf8str.utf8_reverse()).utf8_reverse() << std::endl;
+            return 64;
+        }
+
+        if(utf8orig.utf8_size() != (utf8str.utf8_reverse()).utf8_size())
+        {
+            std::cout << "expected: " << utf8orig.utf8_size() << "; got: "
+                      << (utf8str.utf8_reverse()).utf8_size() << std::endl;
+            return 65;
+        }
+
+        if(utf8orig.utf8_length() != (utf8str.utf8_reverse()).utf8_length())
+        {
+            std::cout << "expected: " << utf8orig.utf8_length() << "; got: "
+                      << (utf8str.utf8_reverse()).utf8_length() << std::endl;
+            return 66;
+        }
+    }
+
     return 0;
 }
