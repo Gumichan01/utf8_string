@@ -28,6 +28,7 @@ class UTF8string
     size_t utf8_length_() const;
     size_t utf8_codepoint_len_(size_t j) const;
     size_t utf8_bpos_at(const size_t cpos) const;
+    UTF8iterator utf8_iterator_() noexcept;
     UTF8string utf8_reverse_aux(UTF8iterator& it,
                                 const UTF8iterator& end, UTF8string& res);
 
@@ -59,7 +60,8 @@ public:
     size_t utf8_length() const;
     const char * utf8_str() const;
 
-    UTF8iterator utf8_iterator() noexcept;
+    UTF8iterator utf8_begin() noexcept;
+    const UTF8iterator utf8_end() noexcept;
 
     ~UTF8string() = default;
 };

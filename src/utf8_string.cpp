@@ -367,7 +367,7 @@ size_t UTF8string::utf8_find(const UTF8string& str, size_t pos) const
 
 
 UTF8string UTF8string::utf8_reverse_aux(UTF8iterator& it,
-                                        const UTF8iterator& end, 
+                                        const UTF8iterator& end,
                                         UTF8string& res)
 {
     if(it == end)
@@ -380,8 +380,9 @@ UTF8string UTF8string::utf8_reverse_aux(UTF8iterator& it,
 
 UTF8string& UTF8string::utf8_reverse()
 {
-    UTF8iterator it = utf8_iterator();
-    utf8data = (UTF8string(utf8_reverse_aux(it,(it + utf8length),rev))).utf8data;
+    UTF8iterator it = utf8_iterator_();
+    UTF8string rev;
+    utf8data = (UTF8string(utf8_reverse_aux(it,utf8_end(),rev))).utf8data;
     return *this;
 }
 
@@ -403,9 +404,21 @@ const char * UTF8string::utf8_str() const
 }
 
 
-UTF8iterator UTF8string::utf8_iterator() noexcept
+UTF8iterator UTF8string::utf8_iterator_() noexcept
 {
     return UTF8iterator(*this);
+}
+
+
+UTF8iterator UTF8string::utf8_begin() noexcept
+{
+    return utf8_iterator_();
+}
+
+
+const UTF8iterator UTF8string::utf8_end() noexcept
+{
+    return utf8_begin() + utf8length;
 }
 
 

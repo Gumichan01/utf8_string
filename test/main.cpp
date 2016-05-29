@@ -145,9 +145,10 @@ int main()
         if(aaaa < aaaa)
             return 15;
 
-        auto it_begin = aaaa.utf8_iterator();
+        auto it_begin = aaaa.utf8_begin();
+        auto it_end = aaaa.utf8_end();
 
-        if(it_begin != it_begin)
+        if(it_begin == it_end)
             return 16;
 
         UTF8string str("がんばつて! Gumichan");
