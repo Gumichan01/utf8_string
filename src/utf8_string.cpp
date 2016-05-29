@@ -356,8 +356,8 @@ UTF8string UTF8string::utf8_reverse_aux(UTF8iterator& it,
     if(it == end)
         return res;
 
-    UTF8string tmp = res.utf8_empty() ? *it : *it + res;
-    return utf8_reverse_aux(++it,end, tmp);
+    UTF8string tmp = *it + res;
+    return utf8_reverse_aux(++it, end, tmp);
 }
 
 
@@ -365,7 +365,7 @@ UTF8string& UTF8string::utf8_reverse()
 {
     UTF8iterator it = utf8_iterator_();
     UTF8string rev;
-    utf8data = (UTF8string(utf8_reverse_aux(it,utf8_end(),rev))).utf8data;
+    utf8data = (utf8_reverse_aux(it, utf8_end(), rev)).utf8data;
     return *this;
 }
 
