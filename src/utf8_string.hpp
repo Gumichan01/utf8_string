@@ -13,6 +13,7 @@ class UTF8string
     bool utf8_is_valid_();
     size_t utf8_length_() const;
     size_t utf8_codepoint_len_(size_t j) const;
+    size_t utf8_bpos_at(const size_t cpos) const;
 
 public:
 
@@ -32,6 +33,7 @@ public:
 
     void utf8_clear();
     bool utf8_empty() const;
+    std::string utf8_at(const size_t index) const;
 
     UTF8string utf8_substr(size_t pos = 0, size_t len = npos) const;
     size_t utf8_find(const UTF8string& str, size_t pos = 0) const;

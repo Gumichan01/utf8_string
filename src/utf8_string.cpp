@@ -111,6 +111,174 @@ const UTF8string& UTF8string::operator +=(const char c)
 }
 
 
+bool UTF8string::utf8_is_valid_()
+{
+    auto it = utf8data.begin();
+    const auto itend = utf8data.end();
+
+    while(it < itend)
+    {
+        if((0xF8 & *it) == 0xF0)
+        {
+            // The UTF-8 codepoint begin with 0b11110xxx -> 4-byte codepoint
+            // If the iterator reach the end of the string before the
+            // end of the 4-byte codepoint -> invalid string
+            if((it + 1) == itend || (it + 2) == itend || (it + 3) == itend)
+                return false;
+
+            // Each of the following bytes is a value
+            // between 0x80 and 0xBF
+            if(((0xC0 & *(it + 1)) != 0x80) || ((0xC0 & *(it + 2)) != 0x80)
+               || ((0xC0 & *(it + 3)) != 0x80))
+            {
+                return false;
+            }
+
+            // If the first byte of the sequence is 0xF0
+            // then the first continuation byte must be between 90 and BF
+            // otherwise, if the byte is 0xF4
+            // then the first continuation byte must be between 80 and 8F
+            if(*it == '\xF0')
+            {
+                if(*(it + 1) < '\x90' || *(it + 1) > '\xBF')
+                    return false;
+            }
+            else if(*it == '\xF4')
+            {
+                if(*(it + 1) < '\x80' || *(it + 1) > '\x8F')
+                    return false;
+            }
+
+            it += 4;    // Jump to the next codepoint
+        }
+        else if((0xF0 & *it) == 0xE0)
+        {
+            // The UTF-8 codepoint begin with 0b1110xxxx -> 3-byte codepoint
+            if((it + 1) == itend || (it + 2) == itend)
+                return false;
+
+            // Each of the following bytes starts with
+            // 0b10xxxxxx in a valid string
+            if(((0xC0 & *(it + 1)) != 0x80) || ((0xC0 & *(it + 2)) != 0x80))
+                return false;
+
+            // If the first byte of the sequence is 0xE0
+            // then the first continuation byte must be between A0 and BF
+            // otherwise, if the byte is 0xF4
+            // then the first continuation byte must be between 80 and 9F
+            if(*it == '\xE0')
+            {
+                if(*(it + 1) < '\xA0' || *(it + 1) > '\xBF')
+                    return false;
+            }
+            else if(*it == '\xED')
+            {
+                if(*(it + 1) < '\x80' || *(it + 1) > '\x9F')
+                    return false;
+            }
+
+            it += 3;
+        }
+        else if((0xE0 & *it) == 0xC0)
+        {
+            // The UTF-8 codepoint begin with 0b110xxxxx -> 2-byte codepoint
+            if((it + 1) == itend)
+                return false;
+
+            // The following byte starts with 0b10xxxxxx in a valid string
+            if((0xC0 & *(it + 1)) != 0x80)
+                return false;
+
+            it += 2;
+        }
+        else if((0x80 & *it) == 0x00)
+        {
+            // The UTF-8 codepoint begin with 0b0xxxxxxx -> 1-byte codepoint
+            it += 1;
+        }
+        else
+        {
+            // Invalid codepoint
+            return false;
+        }
+    }
+
+    return true;
+}
+
+
+size_t UTF8string::utf8_length_() const
+{
+    auto end_data = utf8data.end();
+    auto it = utf8data.begin();
+    size_t len = 0;
+
+    while(it != end_data)
+    {
+        byte_t byte = *it;
+
+        if (0xf0 == (0xf8 & byte))
+        {
+            // 4-byte utf8 character
+            // (0b11110xxx 0bxxxxxxxx 0bxxxxxxxx 0bxxxxxxxx)
+            it += 4;
+        }
+        else if (0xe0 == (0xf0 & byte))
+        {
+            // 3-byte utf8 code point (0b110xxxxx 0bxxxxxxxx 0bxxxxxxxx)
+            it += 3;
+        }
+        else if (0xc0 == (0xe0 & byte))
+        {
+            // 2-byte utf8 code point (0b110xxxxx 0bxxxxxxxx)
+            it += 2;
+        }
+        else
+        {
+            // 1-byte utf8 code point (0b0xxxxxxx)
+            it += 1;
+        }
+
+        // We want the number of characters (utf-8 code point)
+        len += 1;
+    }
+
+    return len;
+}
+
+
+size_t UTF8string::utf8_codepoint_len_(size_t j) const
+{
+    if (0xf0 == (0xf8 & utf8data[j]))
+    {
+        return 4;
+    }
+    else if (0xe0 == (0xf0 & utf8data[j]))
+    {
+        return 3;
+    }
+    else if (0xc0 == (0xe0 & utf8data[j]))
+    {
+        return 2;
+    }
+    else
+        return 1;
+}
+
+
+size_t UTF8string::utf8_bpos_at(const size_t cpos) const
+{
+    size_t bpos = 0;
+    const size_t u8size = utf8_size();
+
+    for(size_t i = 0; bpos < u8size && i < cpos; i++)
+    {
+        bpos += utf8_codepoint_len_(bpos);
+    }
+    return bpos;
+}
+
+
 void UTF8string::utf8_clear()
 {
     utf8data.clear();
@@ -120,6 +288,24 @@ void UTF8string::utf8_clear()
 bool UTF8string::utf8_empty() const
 {
     return utf8length == 0;
+}
+
+
+std::string UTF8string::utf8_at(const size_t index) const
+{
+    if(index >= utf8data.size())
+        throw std::out_of_range("index value greater than the size of the string");
+
+    size_t bpos = utf8_bpos_at(index);
+    const size_t n = utf8_codepoint_len_(bpos);
+    std::string s;
+
+    for(size_t i = 0; i < n; i++)
+    {
+        s += utf8data[bpos + i];
+    }
+
+    return s;
 }
 
 
@@ -190,174 +376,11 @@ size_t UTF8string::utf8_find(const UTF8string& str, size_t pos) const
 }
 
 
-size_t UTF8string::utf8_codepoint_len_(size_t j) const
-{
-    if (0xf0 == (0xf8 & utf8data[j]))
-    {
-        return 4;
-    }
-    else if (0xe0 == (0xf0 & utf8data[j]))
-    {
-        return 3;
-    }
-    else if (0xc0 == (0xe0 & utf8data[j]))
-    {
-        return 2;
-    }
-    else
-        return 1;
-}
-
-
 size_t UTF8string::utf8_size() const
 {
     return utf8data.size();
 }
 
-bool UTF8string::utf8_is_valid_()
-{
-    auto it = utf8data.begin();
-    const auto itend = utf8data.end();
-
-    while(it < itend)
-    {
-        if((0xF8 & *it) == 0xF0)
-        {
-            // The UTF-8 codepoint begin with 0b11110xxx -> 4-byte codepoint
-            // If the iterator reach the end of the string before the
-            // end of the 4-byte codepoint -> invalid string
-            if((it + 1) == itend || (it + 2) == itend || (it + 3) == itend)
-            {
-                return false;
-            }
-
-            // Each of the following bytes is a value
-            // between 0x80 and 0xBF
-            if(((0xC0 & *(it + 1)) != 0x80) || ((0xC0 & *(it + 2)) != 0x80)
-               || ((0xC0 & *(it + 3)) != 0x80))
-            {
-                return false;
-            }
-
-            // If the first byte of the sequence is 0xF0
-            // then the first continuation byte must be between 90 and BF
-            // otherwise, if the byte is 0xF4
-            // then the first continuation byte must be between 80 and 8F
-            if(*it == '\xF0')
-            {
-                if(*(it + 1) < '\x90' || *(it + 1) > '\xBF')
-                    return false;
-            }
-            else if(*it == '\xF4')
-            {
-                if(*(it + 1) < '\x80' || *(it + 1) > '\x8F')
-                    return false;
-            }
-
-            it += 4;    // Jump to the next codepoint
-        }
-        else if((0xF0 & *it) == 0xE0)
-        {
-            // The UTF-8 codepoint begin with 0b1110xxxx -> 3-byte codepoint
-            if((it + 1) == itend || (it + 2) == itend)
-            {
-                return false;
-            }
-
-            // Each of the following bytes starts with
-            // 0b10xxxxxx in a valid string
-            if(((0xC0 & *(it + 1)) != 0x80) || ((0xC0 & *(it + 2)) != 0x80))
-            {
-                return false;
-            }
-
-            // If the first byte of the sequence is 0xE0
-            // then the first continuation byte must be between A0 and BF
-            // otherwise, if the byte is 0xF4
-            // then the first continuation byte must be between 80 and 9F
-            if(*it == '\xE0')
-            {
-                if(*(it + 1) < '\xA0' || *(it + 1) > '\xBF')
-                    return false;
-            }
-            else if(*it == '\xED')
-            {
-                if(*(it + 1) < '\x80' || *(it + 1) > '\x9F')
-                    return false;
-            }
-
-            it += 3;
-        }
-        else if((0xE0 & *it) == 0xC0)
-        {
-            // The UTF-8 codepoint begin with 0b110xxxxx -> 2-byte codepoint
-            if((it + 1) == itend)
-            {
-                return false;
-            }
-
-            // The following byte starts with 0b10xxxxxx in a valid string
-            if((0xC0 & *(it + 1)) != 0x80)
-            {
-                return false;
-            }
-
-            it += 2;
-        }
-        else if((0x80 & *it) == 0x00)
-        {
-            // The UTF-8 codepoint begin with 0b0xxxxxxx -> 1-byte codepoint
-            it += 1;
-        }
-        else
-        {
-            // Invalid codepoint
-            return false;
-        }
-    }
-
-    return true;
-}
-
-
-size_t UTF8string::utf8_length_() const
-{
-    auto end_data = utf8data.end();
-    auto it = utf8data.begin();
-    size_t len = 0;
-
-    while(it != end_data)
-    {
-        byte_t byte = *it;
-
-        if (0xf0 == (0xf8 & byte))
-        {
-            // 4-byte utf8 character
-            // (0b11110xxx 0bxxxxxxxx 0bxxxxxxxx 0bxxxxxxxx)
-            it += 4;
-        }
-        else if (0xe0 == (0xf0 & byte))
-        {
-            // 3-byte utf8 code point (0b110xxxxx 0bxxxxxxxx 0bxxxxxxxx)
-            it += 3;
-        }
-        else if (0xc0 == (0xe0 & byte))
-        {
-            // 2-byte utf8 code point (0b110xxxxx 0bxxxxxxxx)
-            it += 2;
-        }
-        else
-        {
-            // 1-byte utf8 code point (0b0xxxxxxx)
-            it += 1;
-        }
-
-        // We want the number of characters (utf-8 code point)
-        len += 1;
-    }
-
-    return len;
-}
 
 size_t UTF8string::utf8_length() const
 {

@@ -466,5 +466,54 @@ int main()
             return 48;
     }
 
+    // Get the codepoint at a specified position
+    {
+        UTF8string astr("Gumichan");
+        UTF8string str("がんばつて Gumichan");
+        std::string ucpoint = "u";
+        std::string tcpoint = "て";
+
+        try{
+            std::string s = str.utf8_at(42);
+            return 49;
+        }
+        catch(std::out_of_range &) {}
+
+        std::string c0 = astr.utf8_at(1);
+        std::string c1 = str.utf8_at(4);
+        std::string c2 = str.utf8_at(7);
+
+        if(ucpoint != c0)
+        {
+            std::cout << "expected : " << ucpoint << ";got :" << c0 << std::endl;
+            return 50;
+        }
+
+        if(tcpoint != c1)
+        {
+            std::cout << "expected : " << tcpoint << ";got :" << c1 << std::endl;
+            return 50;
+        }
+
+        if(ucpoint != c2)
+        {
+            std::cout << "expected : " << ucpoint << ";got :" << c2 << std::endl;
+            return 51;
+        }
+
+        std::cout << c0 << " " << c1 << " " << c2 << std::endl;
+
+        std::string point = "。";
+        UTF8string u8str("łþø けいかん: いいえ、どういたしまして。");
+        std::string c = astr.utf8_at(22);
+
+        if(point != c)
+        {
+            std::cout << "expected : " << point << ";got :" << c << std::endl;
+            return 52;
+        }
+
+    }
+
     return 0;
 }
