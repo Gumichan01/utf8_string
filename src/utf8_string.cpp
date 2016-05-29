@@ -471,7 +471,7 @@ std::ostream & operator <<(std::ostream &os, const UTF8string &str)
 std::istream & operator >>(std::istream &is, UTF8string &str)
 {
     std::string tmp;
-    is >> tmp;
+    std::getline(is,tmp);
     str = tmp;
     return is;
 }
