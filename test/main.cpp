@@ -82,6 +82,7 @@ int main()
         UTF8string utf("がんばつて Gumichan");
         UTF8string sub1 = utf.utf8_substr(6,4);
         UTF8string sub2 = utf.utf8_substr(0,5);
+        UTF8string sub3 = utf.utf8_substr(64,1024);
         UTF8string aexpected("Gumi");
         UTF8string u8expected("がんばつて");
 
@@ -97,6 +98,11 @@ int main()
             cerr << "ERROR : expected : " << u8expected.utf8_str()
                  << "; got :" << sub2.utf8_str() << endl;
             return 9;
+        }
+
+        if(!sub3.utf8_empty())
+        {
+            return 99;
         }
 
         UTF8string sub = utf.utf8_substr();
@@ -138,6 +144,7 @@ int main()
         UTF8string gumichan("Gumichan");
         size_t lenstr1 = str.utf8_find(ganbatsute);
         size_t lenstr2 = str.utf8_find(gumichan);
+        size_t lenpos = str.utf8_find(ganbatsute,1024);
 
         if(lenstr1 != 0)
         {
@@ -149,6 +156,11 @@ int main()
         {
             cout << lenstr2 << " expected : 7" << endl;
             return 18;
+        }
+
+        if(lenpos != UTF8string::npos)
+        {
+            return 181;
         }
     }
 
