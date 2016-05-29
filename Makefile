@@ -1,4 +1,4 @@
-
+# Makefile of UTFstring
 
 CC=clang++
 CFLAGS=-Weverything -std=c++11 -Wno-c++98-compat
