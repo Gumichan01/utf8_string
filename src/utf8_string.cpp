@@ -4,6 +4,7 @@
 *	Copyright (C) 2016 Luxon Jean-Pierre
 *	gumichan01.olympe.in
 *
+*   This library is under the MIT license
 *
 *	Luxon Jean-Pierre (Gumichan01)
 *	luxon.jean.pierre@gmail.com
