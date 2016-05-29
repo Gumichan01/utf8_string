@@ -34,18 +34,18 @@ $(TEST_EXE) : $(OBJS)
 $(UTF8_OBJ) : $(UTF8_SRC) $(UTF8_HEADER)
 	@echo $<" -> "$@
 	$(CC) -c $(CFLAGS) -o $@ $< $(LFLAGS)
-	@echo $<" -> "$@ " done."
+	@echo $<" -> "$@" done."
 
 $(UTF8_ITER_OBJ) : $(UTF8_ITER_SRC) $(UTF8_ITER_HEADER)
 	@echo $<" -> "$@
 	$(CC) -c $(CFLAGS) -o $@ $< $(LFLAGS)
-	@echo $<" -> "$@ " done."
+	@echo $<" -> "$@" done."
 
 
 $(TEST_OBJ) : $(TEST_MAIN) $(UTF8_HEADER)
 	@echo $<" -> "$@
 	$(CC) -c $(CFLAGS) -o $@ $< $(LFLAGS)
-	@echo $<" -> "$@ " done."
+	@echo $<" -> "$@" done."
 
 clean :
 	rm -f $(TEST_EXE) $(OBJS)
