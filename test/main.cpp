@@ -501,11 +501,9 @@ int main()
             return 51;
         }
 
-        std::cout << c0 << " " << c1 << " " << c2 << std::endl;
-
         std::string point = "。";
         UTF8string u8str("łþø けいかん: いいえ、どういたしまして。");
-        std::string c = astr.utf8_at(22);
+        std::string c = u8str.utf8_at(22);
 
         if(point != c)
         {
