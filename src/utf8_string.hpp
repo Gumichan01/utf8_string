@@ -52,8 +52,8 @@ public:
     bool utf8_empty() const;
     std::string utf8_at(const size_t index) const;
 
-    UTF8string utf8_substr(size_t pos = 0, size_t len = npos) const;
-    size_t utf8_find(const UTF8string& str, size_t pos = 0) const;
+    UTF8string utf8_substr(size_t pos = 0, size_t len = npos);
+    size_t utf8_find(const UTF8string& str, size_t pos = 0);
     UTF8string& utf8_reverse();
 
     size_t utf8_size() const;
