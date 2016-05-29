@@ -367,7 +367,8 @@ size_t UTF8string::utf8_find(const UTF8string& str, size_t pos) const
 
 
 UTF8string UTF8string::utf8_reverse_aux(UTF8iterator& it,
-                                        const UTF8iterator& end, UTF8string& res)
+                                        const UTF8iterator& end, 
+                                        UTF8string& res)
 {
     if(it == end)
         return res;
@@ -379,20 +380,8 @@ UTF8string UTF8string::utf8_reverse_aux(UTF8iterator& it,
 
 UTF8string& UTF8string::utf8_reverse()
 {
-    UTF8string rev;
     UTF8iterator it = utf8_iterator();
-    const UTF8iterator end = it + utf8length;
-
-    /*rev = *it;
-    ++it;
-
-    for(;it != end; ++it)
-    {
-        rev = *it + rev;
-    }*/
-
-    rev = utf8_reverse_aux(it,end,rev);
-    utf8data = rev.utf8data;
+    utf8data = (UTF8string(utf8_reverse_aux(it,(it + utf8length),rev))).utf8data;
     return *this;
 }
 
