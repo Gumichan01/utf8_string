@@ -10,7 +10,7 @@ class UTF8string
     std::string utf8data;
     size_t utf8length;
 
-    bool utf8_is_valid_();
+    bool utf8_is_valid_() const;
     size_t utf8_length_() const;
     size_t utf8_codepoint_len_(size_t j) const;
     size_t utf8_bpos_at(const size_t cpos) const;

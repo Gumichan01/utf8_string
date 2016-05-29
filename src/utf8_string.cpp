@@ -111,7 +111,7 @@ const UTF8string& UTF8string::operator +=(const char c)
 }
 
 
-bool UTF8string::utf8_is_valid_()
+bool UTF8string::utf8_is_valid_() const
 {
     auto it = utf8data.begin();
     const auto itend = utf8data.end();
