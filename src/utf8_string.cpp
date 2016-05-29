@@ -1,5 +1,4 @@
 
-
 /*
 *
 *	Copyright (C) 2016 Luxon Jean-Pierre
@@ -382,15 +381,9 @@ const char * UTF8string::utf8_str() const
 }
 
 
-std::string::iterator UTF8string::utf8_begin() noexcept
+UTF8iterator UTF8string::utf8_iterator() noexcept
 {
-    return utf8data.begin();
-}
-
-
-std::string::iterator UTF8string::utf8_end() noexcept
-{
-    return utf8data.end();
+    return UTF8iterator(*this);
 }
 
 

@@ -4,6 +4,7 @@
 #include <string>
 #include <iostream>
 
+class UTF8iterator;
 
 class UTF8string
 {
@@ -42,8 +43,7 @@ public:
     size_t utf8_length() const;
     const char * utf8_str() const;
 
-    std::string::iterator utf8_begin() noexcept;
-    std::string::iterator utf8_end() noexcept;
+    UTF8iterator utf8_iterator() noexcept;
 
     ~UTF8string() = default;
 };
@@ -63,5 +63,7 @@ UTF8string operator +(const char * str1, const UTF8string &str2);
 
 std::ostream & operator <<(std::ostream &os, const UTF8string &str);
 std::istream & operator >>(std::istream &is, UTF8string &str);
+
+#include "utf8_iterator.hpp"
 
 #endif // UTF8_STRING_HPP_INCLUDED
