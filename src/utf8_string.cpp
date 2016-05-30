@@ -11,6 +11,7 @@
 *
 */
 
+#include <map>
 #include <stdexcept>
 #include "utf8_string.hpp"
 
@@ -334,15 +335,35 @@ UTF8string UTF8string::utf8_substr(size_t pos,size_t len)
 
 size_t UTF8string::utf8_find(const UTF8string& str, size_t pos)
 {
-    // Look for the string
-    while(pos < utf8length)
+    std::map<std::string,size_t> u8map;
+    const size_t n = str.utf8_length();
+    size_t index = pos;
+
+    // Preprocessing
+    for(long i = n - 2; i >= 0; i--)
     {
-        UTF8string tmp = utf8_substr(pos,str.utf8_length());
+        std::string s = str.utf8_at(i);
 
-        if(tmp == str)
-            return pos;
+        if(u8map.find(s) == u8map.end())
+            u8map[s] = n - 1 - i;
+    }
 
-        pos++;
+    while(index <= utf8length - n)
+    {
+        long j = n - 1;
+
+        while(j >= 0 && (str.utf8_at(j) == utf8_at(index + j)))
+        {
+            j--;
+        }
+
+        if(j >= 0)
+        {
+            std::string ss = utf8_at(index + j);
+            index += (u8map.find(ss) == u8map.end()) ? n : u8map[ss];
+        }
+        else
+            return index;
     }
 
     return npos;
