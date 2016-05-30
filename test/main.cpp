@@ -22,6 +22,13 @@ using namespace std;
 
 int main()
 {
+    string jap1 = "ドロテ: すみません、ゆうびんきょくはどこですか。\n";
+    string jap2 = "けいかん: ゆうびんきょくですか。このみちをまっすぐいってください。ひとつめのしんごうをみぎにまがってください。\n";
+    string jap3 = "ドロテ: ひとつめのしんごうをみぎですね。\n";
+    string jap4 = "けいかん: はい、それから、まっすぐいってください。ふたつめのかどにゆうびんきょくがあります。\n";
+    string jap5 = "ドロテ: ふたつめのかどですね。わかりました。どうもありがとうございます。\n";
+    string jap6 = "けいかん: いいえ、どういたしまして。";
+
     /* First test suite */
     {
         UTF8string u8("がんばつて Gumichan");
@@ -155,8 +162,12 @@ int main()
         UTF8string ganbatsute("がんばつて");
         UTF8string gumichan("Gumichan");
         size_t lenstr1 = str.utf8_find(ganbatsute);
-        size_t lenstr2 = str.utf8_find(gumichan);
+        size_t lenstr2 = str.utf8_find(gumichan,2);
         size_t lenpos = str.utf8_find(ganbatsute,1024);
+
+        UTF8string u8 = (jap1 + jap2 + jap3 + jap4 + jap5 + jap6);
+        UTF8string subjp(std::string("いいえ、どういたしまして。"));
+        size_t res = u8.utf8_find(subjp);
 
         if(lenstr1 != 0)
         {
@@ -174,6 +185,12 @@ int main()
         {
             return 181;
         }
+
+        if(res != (u8.utf8_length() - subjp.utf8_length()))
+        {
+            return 182;
+        }
+
     }
 
     // Invalid UTF-8 string test
@@ -423,14 +440,7 @@ int main()
         try
         {
             // Valid string
-            string jap1 = "ドロテ: すみません、ゆうびんきょくはどこですか。";
-            string jap2 = "けいかん: ゆうびんきょくですか。このみちをまっすぐいってください。ひとつめのしんごうをみぎにまがってください。";
-            string jap3 = "ドロテ: ひとつめのしんごうをみぎですね。";
-            string jap4 = "けいかん: はい、それから、まっすぐいってください。ふたつめのかどにゆうびんきょくがあります。";
-            string jap5 = "ドロテ: ふたつめのかどですね。わかりました。どうもありがとうございます。";
-            string jap6 = "けいかん: いいえ、どういたしまして。";
             UTF8string u8 = (jap1 + jap2 + jap3 + jap4 + jap5 + jap6);
-
             UTF8string u8sub = string("わかりました");
 
             if(u8.utf8_find(u8sub) == std::string::npos)
