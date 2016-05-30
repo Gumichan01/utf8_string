@@ -61,7 +61,7 @@ public:
     const char * utf8_str() const;
 
     UTF8iterator utf8_begin() noexcept;
-    const UTF8iterator utf8_end() noexcept;
+    UTF8iterator utf8_end() noexcept;
 
     ~UTF8string() = default;
 };

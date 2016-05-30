@@ -356,16 +356,16 @@ UTF8string UTF8string::utf8_reverse_aux(UTF8iterator& it,
     if(it == end)
         return res;
 
-    UTF8string tmp = *it + res;
-    return utf8_reverse_aux(++it, end, tmp);
+    UTF8string tmp = res + *(--it);
+    return utf8_reverse_aux(it, end, tmp);
 }
 
 
 UTF8string& UTF8string::utf8_reverse()
 {
-    UTF8iterator it = utf8_iterator_();
+    UTF8iterator it = utf8_end();
     UTF8string rev;
-    utf8data = (utf8_reverse_aux(it, utf8_end(), rev)).utf8data;
+    utf8data = (utf8_reverse_aux(it, utf8_iterator_(), rev)).utf8data;
     return *this;
 }
 
@@ -399,7 +399,7 @@ UTF8iterator UTF8string::utf8_begin() noexcept
 }
 
 
-const UTF8iterator UTF8string::utf8_end() noexcept
+UTF8iterator UTF8string::utf8_end() noexcept
 {
     return utf8_begin() + utf8length;
 }
