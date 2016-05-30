@@ -29,11 +29,14 @@ public:
 
     UTF8iterator& operator ++();
     UTF8iterator operator ++(int);
+    UTF8iterator& operator --();
+    UTF8iterator operator --(int);
     UTF8iterator& operator =(const UTF8iterator& it);
 
     bool operator ==(const UTF8iterator& it) const;
     bool operator !=(const UTF8iterator& it) const;
     UTF8iterator operator +(const size_t n) const;
+    UTF8iterator operator -(const size_t n) const;
 
     const std::string operator *() const;
 

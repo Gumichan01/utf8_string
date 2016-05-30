@@ -50,6 +50,26 @@ UTF8iterator UTF8iterator::operator ++(int)
 }
 
 
+UTF8iterator& UTF8iterator::operator --()
+{
+    if(index > 0)
+        index -= 1;
+
+    return *this;
+}
+
+
+UTF8iterator UTF8iterator::operator --(int)
+{
+    UTF8iterator oldit(*this);
+
+    if(index < 0)
+        index -= 1;
+
+    return oldit;
+}
+
+
 bool UTF8iterator::operator ==(const UTF8iterator& it) const
 {
     return (index == it.index) && (data == it.data);
@@ -77,6 +97,20 @@ UTF8iterator UTF8iterator::operator +(const size_t n) const
         newit.index += n;
     else
         newit.index = len;
+
+    return newit;
+}
+
+
+UTF8iterator UTF8iterator::operator -(const size_t n) const
+{
+    UTF8iterator newit(*this);
+    const size_t len = newit.data.utf8_length();
+
+    if(newit.index - n >= 0)
+        newit.index -= n;
+    else
+        newit.index = 0;
 
     return newit;
 }
