@@ -106,7 +106,7 @@ UTF8iterator UTF8iterator::operator -(const size_t n) const
 {
     UTF8iterator newit(*this);
 
-    if(newit.index > n)
+    if(newit.index >= n)
         newit.index -= n;
     else
         newit.index = 0;
