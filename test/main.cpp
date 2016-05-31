@@ -635,5 +635,57 @@ int main()
         }
     }
 
+    // Remove the last code point
+    {
+        UTF8string str("がんばつて Gumichan");
+        UTF8string str2("がんばつて Gumichan");
+        UTF8string strpop("がんばつて Gumicha");
+        UTF8string strempty;
+
+        str.utf8_pop();
+
+        if(str.utf8_length() != strpop.utf8_length())
+        {
+            std::cout << "Excpected : " << strpop.utf8_length() << ";got  : "
+                      << str.utf8_length() << std::endl;
+            return 67;
+        }
+
+        if(str != strpop)
+        {
+            std::cout << "Excpected : " << strpop << ";got  : "
+                      << str << std::endl;
+            return 68;
+        }
+
+        str.utf8_clear();
+        str = "がんばつて Gumichan";
+
+        str2.utf8_pop();
+        str2 += "n";
+
+        if(str2.utf8_length() != str.utf8_length())
+        {
+            std::cout << "Excpected : " << str.utf8_length() << ";got  : "
+                      << str2.utf8_length() << std::endl;
+            return 69;
+        }
+
+        if(str != str2)
+        {
+            std::cout << "Excpected : " << str2 << ";got  : "
+                      << str << std::endl;
+            return 70;
+        }
+
+        try{
+            strempty.utf8_pop();
+
+            return 71;
+
+        } catch(...) {}
+
+    }
+
     return 0;
 }
