@@ -408,19 +408,19 @@ const char * UTF8string::utf8_str() const
 }
 
 
-UTF8iterator UTF8string::utf8_iterator_() noexcept
+UTF8iterator UTF8string::utf8_iterator_() const noexcept
 {
     return UTF8iterator(*this);
 }
 
 
-UTF8iterator UTF8string::utf8_begin() noexcept
+UTF8iterator UTF8string::utf8_begin() const noexcept
 {
     return utf8_iterator_();
 }
 
 
-UTF8iterator UTF8string::utf8_end() noexcept
+UTF8iterator UTF8string::utf8_end() const noexcept
 {
     return utf8_begin() + utf8length;
 }
