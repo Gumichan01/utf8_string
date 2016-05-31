@@ -321,7 +321,7 @@ UTF8string UTF8string::utf8_substr(size_t pos,size_t len)
                         (utf8length - pos) : (pos + len - pos);
 
     UTF8iterator it = utf8_iterator_() + pos;
-    UTF8iterator end = (it + n);
+    const UTF8iterator end = (it + n);
     std::string s;
 
     while(it != end)
@@ -394,8 +394,8 @@ UTF8string UTF8string::utf8_reverse_aux(UTF8iterator& it,
     if(it == end)
         return res;
 
-    UTF8string tmp = res + *(--it);
-    return utf8_reverse_aux(it, end, tmp);
+    res += *(--it);
+    return utf8_reverse_aux(it, end, res);
 }
 
 
