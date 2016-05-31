@@ -340,17 +340,17 @@ size_t UTF8string::utf8_find(const UTF8string& str, size_t pos)
     size_t index = pos;
 
     // Preprocessing
-    for(long i = n - 2; i >= 0; i--)
+    for(long i = static_cast<long>(n - 2); i >= 0; i--)
     {
         std::string s = str.utf8_at(i);
 
         if(u8map.find(s) == u8map.end())
-            u8map[s] = n - 1 - i;
+            u8map[s] = static_cast<size_t>(n - 1 - i);
     }
 
     while(index <= utf8length - n)
     {
-        long j = n - 1;
+        long j = static_cast<long>(n - 1);
 
         while(j >= 0 && (str.utf8_at(j) == utf8_at(index + j)))
         {
