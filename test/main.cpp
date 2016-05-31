@@ -158,9 +158,11 @@ int main()
         if(it_begin == it_end)
             return 16;
 
+        // Find the string
         UTF8string str("がんばつて! Gumichan");
         UTF8string ganbatsute("がんばつて");
         UTF8string gumichan("Gumichan");
+        size_t lenstr0 = str.utf8_find(UTF8string("a"));
         size_t lenstr1 = str.utf8_find(ganbatsute);
         size_t lenstr2 = str.utf8_find(gumichan,2);
         size_t lenpos = str.utf8_find(ganbatsute,1024);
@@ -169,10 +171,16 @@ int main()
         UTF8string subjp(std::string("いいえ、どういたしまして。"));
         size_t res = u8.utf8_find(subjp);
 
+        if(lenstr0 != 13)
+        {
+            cout << lenstr0 << " expected : 13" << endl;
+            return 17;
+        }
+
         if(lenstr1 != 0)
         {
             cout << lenstr1 << " expected : 0" << endl;
-            return 17;
+            return 171;
         }
 
         if(lenstr2 != 7)
@@ -190,7 +198,6 @@ int main()
         {
             return 182;
         }
-
     }
 
     // Invalid UTF-8 string test
