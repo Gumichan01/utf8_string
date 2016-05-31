@@ -268,7 +268,7 @@ bool UTF8string::utf8_empty() const
 }
 
 
-size_t UTF8string::utf8_bpos_at(const size_t cpos) const
+size_t UTF8string::utf8_bpos_at_(const size_t cpos) const
 {
     size_t bpos = 0;
     const size_t u8size = utf8_size();
@@ -286,7 +286,7 @@ std::string UTF8string::utf8_at(const size_t index) const
     if(index >= utf8data.size())
         throw std::out_of_range("index value greater than the size of the string");
 
-    size_t bpos = utf8_bpos_at(index);
+    size_t bpos = utf8_bpos_at_(index);
     const size_t n = utf8_codepoint_len_(bpos);
     std::string s;
 
@@ -375,7 +375,7 @@ size_t UTF8string::utf8_find(const UTF8string& str, size_t pos)
 }
 
 
-UTF8string UTF8string::utf8_reverse_aux(UTF8iterator& it,
+UTF8string UTF8string::utf8_reverse_aux_(UTF8iterator& it,
                                         const UTF8iterator& end,
                                         UTF8string& res)
 {
@@ -383,7 +383,7 @@ UTF8string UTF8string::utf8_reverse_aux(UTF8iterator& it,
         return res;
 
     res += *(--it);
-    return utf8_reverse_aux(it, end, res);
+    return utf8_reverse_aux_(it, end, res);
 }
 
 
@@ -391,7 +391,7 @@ UTF8string& UTF8string::utf8_reverse()
 {
     UTF8iterator it = utf8_end();
     UTF8string rev;
-    utf8data = (utf8_reverse_aux(it, utf8_iterator_(), rev)).utf8data;
+    utf8data = (utf8_reverse_aux_(it, utf8_iterator_(), rev)).utf8data;
     return *this;
 }
 
