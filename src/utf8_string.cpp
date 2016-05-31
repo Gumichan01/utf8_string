@@ -335,29 +335,46 @@ UTF8string UTF8string::utf8_substr(size_t pos,size_t len)
 // This fuction implements the Boyer-Moore string search algorithm
 size_t UTF8string::utf8_find(const UTF8string& str, size_t pos)
 {
+    if(str.utf8length == 0)
+        return npos;
+
     std::map<std::string,size_t> u8map;
     const size_t n = str.utf8_length();
     size_t index = pos;
 
     // Preprocessing
-    for(long i = static_cast<long>(n - 2); i >= 0; i--)
+    if(str.utf8length > 1)
     {
-        std::string s = str.utf8_at(i);
+        for(size_t i = n - 2; ; i--)
+        {
+            std::string s = str.utf8_at(i);
 
-        if(u8map.find(s) == u8map.end())
-            u8map[s] = static_cast<size_t>(n - 1 - i);
+            if(u8map.find(s) == u8map.end())
+                u8map[s] = n - 1 - i;
+
+            if(i == 0)
+                break;
+        }
     }
 
+    // Look for the subtring
     while(index <= utf8length - n)
     {
-        long j = static_cast<long>(n - 1);
+        size_t j = n - 1;
+        bool found = false;
 
-        while(j >= 0 && (str.utf8_at(j) == utf8_at(index + j)))
+        while((str.utf8_at(j) == utf8_at(index + j)))
         {
+            if(j == 0)
+            {
+                found = true;
+                break;
+            }
+
             j--;
         }
 
-        if(j >= 0)
+        if(!found)
         {
             std::string ss = utf8_at(index + j);
             index += (u8map.find(ss) == u8map.end()) ? n : u8map[ss];
