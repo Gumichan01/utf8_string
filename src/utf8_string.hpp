@@ -46,7 +46,6 @@ public:
     const UTF8string& operator +=(const UTF8string u8str);
     const UTF8string& operator +=(const std::string str);
     const UTF8string& operator +=(const char * str);
-    const UTF8string& operator +=(const char c);
 
     void utf8_clear();
     bool utf8_empty() const;

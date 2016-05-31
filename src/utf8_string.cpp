@@ -100,18 +100,6 @@ const UTF8string& UTF8string::operator +=(const char * str)
 }
 
 
-const UTF8string& UTF8string::operator +=(const char c)
-{
-    utf8data += c;
-
-    if(!utf8_is_valid_())
-        throw std::invalid_argument("Invalid UTF-8 string\n");
-
-    utf8length = utf8_length_();
-    return *this;
-}
-
-
 bool UTF8string::utf8_is_valid_() const
 {
     auto it = utf8data.begin();
