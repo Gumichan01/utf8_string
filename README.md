@@ -23,16 +23,22 @@ in your project. For each file that uses UTF8string, include this piece of code 
 
     #include "utf8_string.hpp"
 
-
 ## Example ##
 
     UTF8string u8("がんばつて Gumichan");
-    UTF8string sub = utf.utf8_substr(0,5);
+    UTF8string sub = u8.utf8_substr(0,5);
+    size_t pos = u8.utf8_find(UTF8string("chan"));
+    size_t sz  = u8.utf8_size();
+    size_t l   = u8.utf8_length();
 
-    std::cout << "utf8 string: " << u8 << endl;
+    std::cout << "u8 string: " << u8 << endl;
     std::cout << "utf8 substring: " << sub << endl;
     std::cout << "utf8 substring at 2: " << sub.utf8_at(2) << endl;
     std::cout << "utf8 string at 13: " << sub.utf8_at(13) << endl;
+    std::cout << "utf8 string at 13: " << sub.utf8_at(13) << endl;
+    std::cout << "utf8 string \"chan\" at " << pos << endl;
+    std::cout << "u8 string - size: " << sz << "; length: " << l << endl;
+
 
 Output :
 
@@ -40,6 +46,8 @@ Output :
     utf8 substring: がんばつて
     utf8 substring at 2: ば
     utf8 string at 13: a
+    utf8 string chan at 11
+    u8 string - size: 24; length: 14
 
 ## License ##
 
