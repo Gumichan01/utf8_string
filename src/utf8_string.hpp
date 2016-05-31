@@ -50,6 +50,7 @@ public:
     void utf8_clear();
     bool utf8_empty() const;
     std::string utf8_at(const size_t index) const;
+    void utf8_pop();
 
     UTF8string utf8_substr(size_t pos = 0, size_t len = npos);
     size_t utf8_find(const UTF8string& str, size_t pos = 0);

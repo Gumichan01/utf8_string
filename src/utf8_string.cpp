@@ -299,6 +299,17 @@ std::string UTF8string::utf8_at(const size_t index) const
 }
 
 
+void UTF8string::utf8_pop()
+{
+    if(utf8length == 0)
+        throw std::length_error("Cannot remove the last element from an empty string");
+
+    size_t bpos = utf8_bpos_at_(utf8length - 1);
+    utf8data.erase(bpos);
+    utf8length -=1;
+}
+
+
 UTF8string UTF8string::utf8_substr(size_t pos,size_t len)
 {
     if(pos > utf8length)
