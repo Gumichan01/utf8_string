@@ -183,6 +183,11 @@ int main()
             return 171;
         }
 
+        if(UTF8string::npos != str.utf8_find(UTF8string("")))
+        {
+            return 172;
+        }
+
         if(lenstr2 != 7)
         {
             cout << lenstr2 << " expected : 7" << endl;
