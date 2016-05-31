@@ -638,7 +638,7 @@ int main()
     // Remove the last code point
     {
         UTF8string str("がんばつて Gumichan");
-        UTF8string str2("がんばつて Gumichan");
+        UTF8string str2("がんばつて Gumichan がんばつて");
         UTF8string strpop("がんばつて Gumicha");
         UTF8string strempty;
 
@@ -659,10 +659,10 @@ int main()
         }
 
         str.utf8_clear();
-        str = "がんばつて Gumichan";
+        str = "がんばつて Gumichan がんばつて";
 
         str2.utf8_pop();
-        str2 += "n";
+        str2 += "て";
 
         if(str2.utf8_length() != str.utf8_length())
         {
