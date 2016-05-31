@@ -539,7 +539,7 @@ int main()
         if(gumi != strex1)
             return 55;
 
-        strex1 += '!';
+        strex1 += "!";
 
         if(strex1 != strex2)
             return 56;
