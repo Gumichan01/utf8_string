@@ -713,7 +713,7 @@ int main()
             }
 
             cout << "File " << endl << "name: lipsum.txt"
-                 << endl << "size: " << text.utf8_size() << endl
+                 << endl << "size: " << text.utf8_size()
                  << endl << "Number of characters: "
                  << text.utf8_length() << endl;
 
