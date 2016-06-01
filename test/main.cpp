@@ -11,10 +11,11 @@
 *
 */
 
-#include <iostream>
 #include <string>
 #include <cstring>
 #include <stdexcept>
+#include <iostream>
+#include <fstream>
 
 #include "../src/utf8_string.hpp"
 
@@ -680,11 +681,61 @@ int main()
 
         try{
             strempty.utf8_pop();
-
             return 71;
 
         } catch(...) {}
 
+    }
+
+    // Last test : search for a substring in a file
+    {
+        UTF8string text;
+        UTF8string strreq;
+        std::ifstream u8file("test/lipsum.txt");
+
+        strreq += "速スご薄具そなラひ置更けゃっ文犬2社ぎル由人へいきつ回見ト供崩モ催屋エ国続セワルリ";
+        strreq += "謙髪テシ県住ざ新球ごくき名昨ツセ戸読役ホ細16態量番などトぱ。";
+
+        if(u8file.is_open())
+        {
+            std::string tmp((std::istreambuf_iterator<char>(u8file)),
+                            (std::istreambuf_iterator<char>()));
+            u8file.close();
+
+            try
+            {
+                text = tmp;
+            }
+            catch(std::invalid_argument& e)
+            {
+                cerr << e.what() << endl;
+                return 72;
+            }
+
+            cout << "File " << endl << "name: lipsum.txt"
+                 << endl << "size: " << text.utf8_size() << endl
+                 << endl << "Number of characters: "
+                 << text.utf8_length() << endl;
+
+            cout << "string from position 256161: " << endl
+                 << text.utf8_substr(256161) << endl;
+        }
+        else
+        {
+            cerr << "File not found!" << endl;
+            return 73;
+        }
+
+        size_t pos = text.utf8_find(strreq);
+
+        if(pos == UTF8string::npos)
+        {
+            cerr << "utf8_find: " << strreq << " not found!" << endl;
+            return 74;
+        }
+
+        cout << "string from position " << pos << ": " << endl
+             << text.utf8_substr(pos) << endl;
     }
 
     return 0;
