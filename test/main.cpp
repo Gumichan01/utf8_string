@@ -717,8 +717,8 @@ int main()
                  << endl << "Number of characters: "
                  << text.utf8_length() << endl;
 
-            cout << "string from position 256161: " << endl
-                 << text.utf8_substr(256161) << endl;
+            cout << "string from position 254217: " << endl
+                 << text.utf8_substr(254217) << endl;
         }
         else
         {
