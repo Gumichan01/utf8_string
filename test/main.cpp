@@ -691,6 +691,7 @@ int main()
     {
         UTF8string text;
         UTF8string strreq;
+        UTF8string strgumi("がんばつて gumichan01。");
         std::ifstream u8file("test/lipsum.txt");
 
         strreq += "速スご薄具そなラひ置更けゃっ文犬2社ぎル由人へいきつ回見ト供崩モ催屋エ国続セワルリ";
@@ -717,13 +718,21 @@ int main()
                  << endl << "Number of characters: "
                  << text.utf8_length() << endl;
 
-            cout << "string from position 254217: " << endl
-                 << text.utf8_substr(254217) << endl;
+            size_t pgumi = text.utf8_find(strgumi);
+
+            if(pgumi == UTF8string::npos)
+            {
+                cerr << "The position of \"" << strgumi
+                     << "\" in the text must not be UTF8string::npos" << endl;
+                return 73;
+            }
+            cout << "string from position " << pgumi << ": " << endl
+                 << text.utf8_substr(pgumi) << endl;
         }
         else
         {
             cerr << "File not found!" << endl;
-            return 73;
+            return 74;
         }
 
         size_t pos = text.utf8_find(strreq);
@@ -731,7 +740,7 @@ int main()
         if(pos == UTF8string::npos)
         {
             cerr << "utf8_find: " << strreq << " not found!" << endl;
-            return 74;
+            return 75;
         }
 
         cout << "string from position " << pos << ": " << endl
