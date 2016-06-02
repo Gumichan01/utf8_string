@@ -317,7 +317,7 @@ UTF8string UTF8string::utf8_substr(size_t pos,size_t len)
 
     // Length of the substring (number of code points)
     const size_t n = (len == npos || (pos + len) > utf8length) ?
-                        (utf8length - pos) : (pos + len - pos);
+                        (utf8length - pos) : len;
 
     UTF8iterator it = utf8_iterator_() + pos;
     const UTF8iterator end = (it + n);
