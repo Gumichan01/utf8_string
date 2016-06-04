@@ -20,7 +20,7 @@ typedef char byte_t;
 UTF8string::UTF8string() : utf8length(0){}
 
 
-UTF8string::UTF8string(const std::string str)
+UTF8string::UTF8string(const std::string &str)
  : utf8data(str)
 {
     if(!utf8_is_valid_())
