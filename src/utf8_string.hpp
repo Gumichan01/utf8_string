@@ -41,10 +41,10 @@ public:
     UTF8string(const UTF8string &u8str);
 
     const UTF8string& operator =(const char * str);
-    const UTF8string& operator =(const std::string str);
-    const UTF8string& operator =(const UTF8string u8str);
-    const UTF8string& operator +=(const UTF8string u8str);
-    const UTF8string& operator +=(const std::string str);
+    const UTF8string& operator =(const std::string &str);
+    const UTF8string& operator =(const UTF8string &u8str);
+    const UTF8string& operator +=(const UTF8string &u8str);
+    const UTF8string& operator +=(const std::string &str);
     const UTF8string& operator +=(const char * str);
 
     void utf8_clear();

@@ -31,10 +31,7 @@ UTF8string::UTF8string(const std::string &str)
 
 
 UTF8string::UTF8string(const UTF8string &u8str)
-{
-    utf8data = u8str.utf8data;
-    utf8length = u8str.utf8length;
-}
+ : utf8data(u8str.utf8data), utf8length(u8str.utf8length) {}
 
 
 const UTF8string& UTF8string::operator =(const char * str)
@@ -49,7 +46,7 @@ const UTF8string& UTF8string::operator =(const char * str)
 }
 
 
-const UTF8string& UTF8string::operator =(const std::string str)
+const UTF8string& UTF8string::operator =(const std::string &str)
 {
     utf8data = str;
 
@@ -61,7 +58,7 @@ const UTF8string& UTF8string::operator =(const std::string str)
 }
 
 
-const UTF8string& UTF8string::operator =(const UTF8string u8str)
+const UTF8string& UTF8string::operator =(const UTF8string &u8str)
 {
     utf8data = u8str.utf8data;
     utf8length = u8str.utf8length;
@@ -69,7 +66,7 @@ const UTF8string& UTF8string::operator =(const UTF8string u8str)
 }
 
 
-const UTF8string& UTF8string::operator +=(const std::string str)
+const UTF8string& UTF8string::operator +=(const std::string &str)
 {
     utf8data += str;
 
@@ -81,7 +78,7 @@ const UTF8string& UTF8string::operator +=(const std::string str)
 }
 
 
-const UTF8string& UTF8string::operator +=(const UTF8string u8str)
+const UTF8string& UTF8string::operator +=(const UTF8string &u8str)
 {
     utf8data += u8str.utf8data;
     utf8length = utf8_length_();
