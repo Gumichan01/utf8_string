@@ -26,6 +26,7 @@ UTF8iterator::~UTF8iterator() {}
 UTF8iterator& UTF8iterator::operator =(const UTF8iterator& it)
 {
     data = it.data;
+    index = it.index;
     return *this;
 }
 

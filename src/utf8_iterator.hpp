@@ -24,7 +24,7 @@ class UTF8iterator
 
 public:
 
-    UTF8iterator(const UTF8string& u);
+    explicit UTF8iterator(const UTF8string& u);
     UTF8iterator(const UTF8iterator& it);
 
     UTF8iterator& operator ++();
