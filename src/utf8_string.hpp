@@ -37,7 +37,7 @@ public:
     const static size_t npos = std::string::npos;
 
     UTF8string();
-    UTF8string(const std::string &str);
+    UTF8string(const std::string str);
     UTF8string(const UTF8string &u8str);
 
     const UTF8string& operator =(const char * str);
