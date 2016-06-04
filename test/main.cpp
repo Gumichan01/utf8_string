@@ -556,7 +556,7 @@ int main()
         std::string tcpoint = "て";
 
         try{
-            std::string s = str.utf8_at(42);
+            str.utf8_at(42);
             return 57;
         }
         catch(std::out_of_range &) {}
