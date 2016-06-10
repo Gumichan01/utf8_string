@@ -17,11 +17,11 @@
 
 typedef char byte_t;
 
-UTF8string::UTF8string() : utf8length(0){}
+UTF8string::UTF8string() : utf8length(0) {}
 
 
 UTF8string::UTF8string(const std::string &str)
- : utf8data(str)
+    : utf8data(str)
 {
     if(!utf8_is_valid_())
         throw std::invalid_argument("Invalid UTF-8 string\n");
@@ -31,7 +31,7 @@ UTF8string::UTF8string(const std::string &str)
 
 
 UTF8string::UTF8string(const UTF8string &u8str)
- : utf8data(u8str.utf8data), utf8length(u8str.utf8length) {}
+    : utf8data(u8str.utf8data), utf8length(u8str.utf8length) {}
 
 
 const UTF8string& UTF8string::operator =(const char * str)
@@ -116,7 +116,7 @@ bool UTF8string::utf8_is_valid_() const
             // Each of the following bytes is a value
             // between 0x80 and 0xBF
             if(((0xC0 & *(it + 1)) != 0x80) || ((0xC0 & *(it + 2)) != 0x80)
-               || ((0xC0 & *(it + 3)) != 0x80))
+                    || ((0xC0 & *(it + 3)) != 0x80))
             {
                 return false;
             }
@@ -315,7 +315,7 @@ UTF8string UTF8string::utf8_substr(size_t pos,size_t len)
 
     // Length of the substring (number of code points)
     const size_t n = (len == npos || (pos + len) > utf8length) ?
-                        (utf8length - pos) : len;
+                     (utf8length - pos) : len;
 
     UTF8iterator it = utf8_iterator_() + pos;
     const UTF8iterator end = (it + n);
@@ -385,8 +385,8 @@ size_t UTF8string::utf8_find(const UTF8string& str, size_t pos)
 
 
 UTF8string UTF8string::utf8_reverse_aux_(UTF8iterator& it,
-                                        const UTF8iterator& end,
-                                        UTF8string& res)
+        const UTF8iterator& end,
+        UTF8string& res)
 {
     if(it == end)
         return res;
