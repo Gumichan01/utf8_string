@@ -68,10 +68,14 @@ const UTF8string& UTF8string::operator =(const UTF8string &u8str)
 
 const UTF8string& UTF8string::operator +=(const std::string &str)
 {
+    std::string s = utf8data;
     utf8data += str;
 
     if(!utf8_is_valid_())
+    {
+        utf8data = s;
         throw std::invalid_argument("Invalid UTF-8 string\n");
+    }
 
     utf8length = utf8_length_();
     return *this;
@@ -88,10 +92,14 @@ const UTF8string& UTF8string::operator +=(const UTF8string &u8str)
 
 const UTF8string& UTF8string::operator +=(const char * str)
 {
+    std::string s = utf8data;
     utf8data += str;
 
     if(!utf8_is_valid_())
+    {
+        utf8data = s;
         throw std::invalid_argument("Invalid UTF-8 string\n");
+    }
 
     utf8length = utf8_length_();
     return *this;
