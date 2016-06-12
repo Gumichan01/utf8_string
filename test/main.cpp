@@ -1,4 +1,3 @@
-
 /*
 *
 *	Copyright (C) 2016 Luxon Jean-Pierre
@@ -299,7 +298,7 @@ int main()
 
             return 26;
         }
-        catch(const std::invalid_argument &){}
+        catch(const std::invalid_argument &) {}
 
         try
         {
@@ -555,7 +554,8 @@ int main()
         std::string ncpoint = "n";
         std::string tcpoint = "て";
 
-        try{
+        try
+        {
             str.utf8_at(42);
             return 57;
         }
@@ -679,11 +679,13 @@ int main()
             return 70;
         }
 
-        try{
+        try
+        {
             strempty.utf8_pop();
             return 71;
 
-        } catch(...) {}
+        }
+        catch(...) {}
 
     }
 
