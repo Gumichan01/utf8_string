@@ -11,6 +11,7 @@ but has been implemented to support UTF-8 encoded strings.
 
 Some functions have been adapted for utf8 strings :
  - utf8_length : get number of characters in a string (number of codepoints).
+ - utf8_length : get get the memory size of the string (in byte).
  - utf8_find   : find a utf8 substring in the current string.
  - utf8_substr : get a utf8 substring of the current string.
  - utf8_at     : get the codepoint at a specified position.
@@ -32,22 +33,19 @@ in your project. For each file that uses UTF8string, include this piece of code 
     size_t l   = u8.utf8_length();
 
     std::cout << "u8 string: " << u8 << endl;
-    std::cout << "utf8 substring: " << sub << endl;
-    std::cout << "utf8 substring at 2: " << sub.utf8_at(2) << endl;
-    std::cout << "utf8 string at 13: " << sub.utf8_at(13) << endl;
-    std::cout << "utf8 string at 13: " << sub.utf8_at(13) << endl;
+    std::cout << "utf8 substring from 0 to 5: " << sub << endl;
+    std::cout << "utf8 codepoint at 2: " << u8.utf8_at(2) << endl;
     std::cout << "utf8 string \"chan\" at " << pos << endl;
-    std::cout << "u8 string - size: " << sz << "; length: " << l << endl;
+    std::cout << "u8 string - memory size: " << sz << "; length: " << l << endl;
 
 
 Output :
 
     utf8 string: がんばつて Gumichan
-    utf8 substring: がんばつて
-    utf8 substring at 2: ば
-    utf8 string at 13: a
-    utf8 string chan at 11
-    u8 string - size: 24; length: 14
+    utf8 substring from 0 to 5: がんばつて
+    utf8 codepoint at 2: ば
+    utf8 string "chan" at 10
+    u8 string - memory size: 24; length: 14
 
 ## License ##
 
