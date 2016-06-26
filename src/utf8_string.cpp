@@ -337,7 +337,7 @@ UTF8string UTF8string::utf8_substr(size_t pos,size_t len) const
 }
 
 // This function implements the Boyer-Moore string search algorithm
-size_t UTF8string::utf8_find(const UTF8string& str, size_t pos)
+size_t UTF8string::utf8_find(const UTF8string& str, size_t pos) const
 {
     if(str.utf8length == 0)
         return npos;
