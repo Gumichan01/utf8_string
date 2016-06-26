@@ -18,6 +18,8 @@
 *   @brief This is a UTF-8 string library header
 */
 
+#include "utf8_string.hpp"
+
 // Iterator on UTF8string
 class UTF8iterator
 {
