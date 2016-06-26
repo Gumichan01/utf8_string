@@ -20,7 +20,13 @@
 
 #include "utf8_string.hpp"
 
-// Iterator on UTF8string
+
+/**
+*   @class UTF8iterator
+*   @brief Iterator on UTF8 string
+*
+*   This class defines the iterator of UTF-8 string
+*/
 class UTF8iterator
 {
     size_t index;
