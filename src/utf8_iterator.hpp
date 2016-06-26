@@ -15,7 +15,7 @@
 
 /**
 *   @file utf8_iterator.hpp
-*   This is a UTF-8 string library header
+*   @brief This is a UTF-8 string library header
 */
 
 // Iterator on UTF8string

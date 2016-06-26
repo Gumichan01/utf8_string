@@ -16,7 +16,7 @@
 
 /**
 *   @file utf8_string.hpp
-*   This is a UTF-8 string library header
+*   @brief This is a UTF-8 string library header
 */
 
 #include <string>
