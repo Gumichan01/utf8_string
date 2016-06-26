@@ -315,7 +315,7 @@ void UTF8string::utf8_pop()
 }
 
 
-UTF8string UTF8string::utf8_substr(size_t pos,size_t len)
+UTF8string UTF8string::utf8_substr(size_t pos,size_t len) const
 {
     if(pos > utf8length)
         return std::string();
