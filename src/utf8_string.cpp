@@ -289,20 +289,25 @@ size_t UTF8string::utf8_bpos_at_(const size_t cpos) const
 }
 
 
-std::string UTF8string::utf8_at(const size_t index) const
+void UTF8string::utf8_at_(const size_t index, std::string& s) const
 {
-    if(index >= utf8data.size())
-        throw std::out_of_range("index value greater than the size of the string");
-
     size_t bpos = utf8_bpos_at_(index);
     const size_t n = utf8_codepoint_len_(bpos);
-    std::string s;
 
     for(size_t i = 0; i < n; i++)
     {
         s += utf8data[bpos + i];
     }
+}
 
+
+std::string UTF8string::utf8_at(const size_t index) const
+{
+    if(index >= utf8data.size())
+        throw std::out_of_range("index value greater than the size of the string");
+
+    std::string s;
+    utf8_at_(index,s);
     return s;
 }
 
@@ -314,7 +319,7 @@ void UTF8string::utf8_pop()
 
     size_t bpos = utf8_bpos_at_(utf8length - 1);
     utf8data.erase(bpos);
-    utf8length -=1;
+    utf8length -= 1;
 }
 
 
