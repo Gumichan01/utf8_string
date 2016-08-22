@@ -161,9 +161,22 @@ public:
     *
     *   @param index The index of the requested codepoint in the string
     *   @return The codepoint
-    *   @exception std::out_of_range If the index if out of the string range
+    *   @exception std::out_of_range If the index is out of the string range
     */
     std::string utf8_at(const size_t index) const;
+
+    /**
+    *   @fn std::string utf8_at(const size_t index) const
+    *
+    *   Get the codepoint at a specified position.
+    *
+    *   @param index The index of the requested codepoint in the string
+    *   @return The codepoint
+    *
+    *   @note If the index is out of the string range, calling this functions
+    *         causes undefined behaviour
+    */
+    std::string operator [](const size_t index) const;
 
     /**
     *   @fn void utf8_pop()

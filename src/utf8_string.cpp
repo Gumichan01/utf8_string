@@ -312,6 +312,14 @@ std::string UTF8string::utf8_at(const size_t index) const
 }
 
 
+std::string UTF8string::operator [](const size_t index) const
+{
+    std::string s;
+    utf8_at_(index,s);
+    return s;
+}
+
+
 void UTF8string::utf8_pop()
 {
     if(utf8length == 0)
