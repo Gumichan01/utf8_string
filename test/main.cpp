@@ -33,7 +33,7 @@ int main()
     {
         UTF8string u8("がんばつて Gumichan");
 
-        // copy construtore
+        // copy construtor
         UTF8string hum;
         hum = "がんばつて Gumichan";
 
@@ -220,7 +220,7 @@ int main()
         catch(const std::invalid_argument &) {}
 
         /// 2-byte codepoint
-        // 0xC2 is not followed by a continuation byte
+        // Bad start codepoint
         try
         {
             char inv1[] = {'\xFF', '\x00'};
