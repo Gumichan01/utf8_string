@@ -37,8 +37,9 @@ class UTF8string
 
     bool utf8_is_valid_() const;
     size_t utf8_length_() const;
-    size_t utf8_codepoint_len_(size_t j) const;
+    size_t utf8_codepoint_len_(const size_t j) const;
     size_t utf8_bpos_at_(const size_t cpos) const;
+    void utf8_at_(const size_t index, std::string& s) const;
     UTF8iterator utf8_iterator_() const noexcept;
     UTF8string utf8_reverse_aux_(UTF8iterator& it,
                                  const UTF8iterator& end, UTF8string& res);
@@ -61,7 +62,7 @@ public:
     *   it is the largest possible representable value for this type.
     *
     */
-    const static size_t npos = -1;
+    const static size_t npos = static_cast<const size_t>(-1);
 
     /**
     *   @fn UTF8string()
@@ -160,9 +161,22 @@ public:
     *
     *   @param index The index of the requested codepoint in the string
     *   @return The codepoint
-    *   @exception std::out_of_range If the index if out of the string range
+    *   @exception std::out_of_range If the index is out of the string range
     */
     std::string utf8_at(const size_t index) const;
+
+    /**
+    *   @fn std::string utf8_at(const size_t index) const
+    *
+    *   Get the codepoint at a specified position.
+    *
+    *   @param index The index of the requested codepoint in the string
+    *   @return The codepoint
+    *
+    *   @note If the index is out of the string range, calling this functions
+    *         causes undefined behaviour
+    */
+    std::string operator [](const size_t index) const;
 
     /**
     *   @fn void utf8_pop()

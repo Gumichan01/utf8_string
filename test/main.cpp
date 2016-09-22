@@ -561,11 +561,11 @@ int main()
         }
         catch(std::out_of_range &) {}
 
-        std::string c0 = astr.utf8_at(1);
-        std::string cc = astr.utf8_at(0);
+        std::string c0 = astr[1];
+        std::string cc = astr[0];
         std::string ccc = astr.utf8_at(astr.utf8_size() - 1);
-        std::string c1 = str.utf8_at(4);
-        std::string c2 = str.utf8_at(7);
+        std::string c1 = str[4];
+        std::string c2 = str[7];
 
         if(ucpoint != c0)
         {
