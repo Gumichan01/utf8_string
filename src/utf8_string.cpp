@@ -241,7 +241,7 @@ size_t UTF8string::utf8_length_() const
 }
 
 // Compute the memory size of a codepoint in the string (in byte)
-const size_t UTF8string::utf8_codepoint_len_(const size_t j) const
+size_t UTF8string::utf8_codepoint_len_(const size_t j) const
 {
     if (0xf0 == (0xf8 & utf8data[j]))
     {
@@ -276,7 +276,7 @@ bool UTF8string::utf8_empty() const
     Get the memory position of a codepoint according
     to its position in the utf-8 string
 */
-const size_t UTF8string::utf8_bpos_at_(const size_t cpos) const
+size_t UTF8string::utf8_bpos_at_(const size_t cpos) const
 {
     size_t bpos = 0;
     const size_t u8size = utf8_size();

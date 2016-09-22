@@ -37,8 +37,8 @@ class UTF8string
 
     bool utf8_is_valid_() const;
     size_t utf8_length_() const;
-    const size_t utf8_codepoint_len_(const size_t j) const;
-    const size_t utf8_bpos_at_(const size_t cpos) const;
+    size_t utf8_codepoint_len_(const size_t j) const;
+    size_t utf8_bpos_at_(const size_t cpos) const;
     void utf8_at_(const size_t index, std::string& s) const;
     UTF8iterator utf8_iterator_() const noexcept;
     UTF8string utf8_reverse_aux_(UTF8iterator& it,
@@ -62,7 +62,7 @@ public:
     *   it is the largest possible representable value for this type.
     *
     */
-    const static size_t npos = -1;
+    const static size_t npos = static_cast<const size_t>(-1);
 
     /**
     *   @fn UTF8string()
