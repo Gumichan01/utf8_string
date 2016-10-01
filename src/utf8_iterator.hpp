@@ -30,18 +30,18 @@ class UTF8string;
 class UTF8iterator
 {
     size_t index;
-    UTF8string& data;
+    UTF8string data;
 
     char& operator ->();
 
 public:
 
     /**
-    *   @fn explicit UTF8iterator(UTF8string& u)
+    *   @fn explicit UTF8iterator(const UTF8string& u)
     *   Build an iterator object using a UTF8string object
     *   @param u utf-8 string
     */
-    explicit UTF8iterator(UTF8string& u);
+    explicit UTF8iterator(const UTF8string& u);
 
     /**
     *   @fn UTF8iterator(const UTF8iterator& it)
