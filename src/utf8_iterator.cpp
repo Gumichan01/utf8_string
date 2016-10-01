@@ -13,11 +13,10 @@
 #include "utf8_string.hpp"
 
 
-UTF8iterator::UTF8iterator(const UTF8string& u) : index(0), data(u) {}
+UTF8iterator::UTF8iterator(UTF8string& u) : index(0), data(u) {}
 
 UTF8iterator::UTF8iterator(const UTF8iterator& it)
     : index(it.index), data(it.data) {}
-
 
 UTF8iterator::~UTF8iterator() {}
 

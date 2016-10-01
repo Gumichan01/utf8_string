@@ -331,7 +331,7 @@ void UTF8string::utf8_pop()
 }
 
 
-UTF8string UTF8string::utf8_substr(size_t pos,size_t len) const
+UTF8string UTF8string::utf8_substr(size_t pos,size_t len)
 {
     if(pos > utf8length)
         return std::string();
@@ -444,19 +444,19 @@ const char * UTF8string::utf8_str() const
 }
 
 // Internal function that creates an iterator of the current string
-UTF8iterator UTF8string::utf8_iterator_() const noexcept
+UTF8iterator UTF8string::utf8_iterator_()
 {
     return UTF8iterator(*this);
 }
 
 
-UTF8iterator UTF8string::utf8_begin() const noexcept
+UTF8iterator UTF8string::utf8_begin()
 {
     return utf8_iterator_();
 }
 
 
-UTF8iterator UTF8string::utf8_end() const noexcept
+UTF8iterator UTF8string::utf8_end()
 {
     return utf8_begin() + utf8length;
 }
