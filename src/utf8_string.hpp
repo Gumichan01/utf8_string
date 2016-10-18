@@ -100,12 +100,12 @@ public:
     const UTF8string& operator =(const std::string &str);
 
     /**
-    *   @fn const UTF8string& operator =(const UTF8string &u8str)
+    *   @fn UTF8string& operator =(const UTF8string &u8str)
     *   @param u8str The utf-8 string
     *   @return A reference to the new utf-8 string
     *   @exception std::invalid_argument If the string is not valid
     */
-    const UTF8string& operator =(const UTF8string &u8str);
+    UTF8string& operator =(const UTF8string &u8str);
 
     /**
     *   @fn const UTF8string& operator +=(const UTF8string &u8str)

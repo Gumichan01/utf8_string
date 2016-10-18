@@ -57,7 +57,7 @@ const UTF8string& UTF8string::operator =(const std::string &str)
 }
 
 
-const UTF8string& UTF8string::operator =(const UTF8string &u8str)
+UTF8string& UTF8string::operator =(const UTF8string &u8str)
 {
     utf8data = u8str.utf8data;
     utf8length = u8str.utf8length;
