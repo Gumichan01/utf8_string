@@ -132,14 +132,14 @@ bool UTF8string::utf8_is_valid_() const
             // then the first continuation byte must be between 90 and BF
             // otherwise, if the byte is 0xF4
             // then the first continuation byte must be between 80 and 8F
-            if(*it == '\xF0')
+            if(*it == 0xF0)
             {
-                if(*(it + 1) < '\x90' || *(it + 1) > '\xBF')
+                if(*(it + 1) < 0x90 || *(it + 1) > 0xBF)
                     return false;
             }
-            else if(*it == '\xF4')
+            else if(*it == 0xF4)
             {
-                if(*(it + 1) < '\x80' || *(it + 1) > '\x8F')
+                if(*(it + 1) < 0x80 || *(it + 1) > 0x8F)
                     return false;
             }
 
@@ -160,14 +160,14 @@ bool UTF8string::utf8_is_valid_() const
             // then the first continuation byte must be between A0 and BF
             // otherwise, if the byte is 0xF4
             // then the first continuation byte must be between 80 and 9F
-            if(*it == '\xE0')
+            if(*it == 0xE0)
             {
-                if(*(it + 1) < '\xA0' || *(it + 1) > '\xBF')
+                if(*(it + 1) < 0xA0 || *(it + 1) > 0xBF)
                     return false;
             }
-            else if(*it == '\xED')
+            else if(*it == 0xED)
             {
-                if(*(it + 1) < '\x80' || *(it + 1) > '\x9F')
+                if(*(it + 1) < 0x80 || *(it + 1) > 0x9F)
                     return false;
             }
 
