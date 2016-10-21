@@ -61,7 +61,6 @@ public:
     *
     *   Postfix incrementation
     *
-    *   @param int dummy parameter
     *   @return The same iterator before it has moved forward
     */
     UTF8iterator operator ++(int);
@@ -78,7 +77,6 @@ public:
     *
     *   Postfix decrementation
     *
-    *   @param int dummy parameter
     *   @return The same iterator before it has moved backward
     */
     UTF8iterator operator --(int);
@@ -94,7 +92,7 @@ public:
     /**
     *   @fn bool operator ==(const UTF8iterator& it) const
     *
-    *   Check if the current iterators it pointing to the same position as
+    *   Check if the current iterator is pointing to the same position as
     *   the iterator given in argument equals.
     *
     *   @param it The iterator to compare with
@@ -105,7 +103,7 @@ public:
     /**
     *   @fn bool operator !=(const UTF8iterator& it) const
     *
-    *   Check if the current iterators it pointing to a different position
+    *   Check if the current iterator is pointing to a different position
     *   from the iterator given in argument equals.
     *
     *   @param it The iterator to compare with
@@ -117,7 +115,7 @@ public:
     /**
     *   @fn UTF8iterator operator +(const size_t n) const
     *
-    *   Returns an iterator witch has been moved 10 positions forward
+    *   Returns an iterator which has been moved n positions forward
     *
     *   @param n the number of step to move forward
     *   @return The same iterator that moved forward
@@ -127,7 +125,7 @@ public:
     /**
     *   @fn UTF8iterator operator -(const size_t n) const
     *
-    *   Returns an iterator witch has been moved 10 positions backward
+    *   Returns an iterator which has been moved n positions backward
     *
     *   @param n the number of steps to move backward
     *   @return The same iterator that moved backward
@@ -140,7 +138,7 @@ public:
     *   Dereferences the pointer returning the codepoint
     *   pointed by the iterator at its current potision
     *
-    *   @return The same iterator that moved backward
+    *   @return The codepoint
     *   @note This function will throw an *std::out_of_range* exception
     *         if the iterator does not point to a codepoint
     */
