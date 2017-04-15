@@ -32,11 +32,22 @@ int main()
     /* First test suite */
     {
         UTF8string u8("がんばつて Gumichan");
+        string utf8s("がんばつて Gumichan");
 
         // copy construtor
         UTF8string hum;
         hum = "がんばつて Gumichan";
 
+		{
+			try
+			{
+				UTF8string tmp(utf8s);
+			} catch(...)
+			{
+				return 100;
+			}
+		}
+		
         // Test the test
         if(u8 != u8)
             return 1;
