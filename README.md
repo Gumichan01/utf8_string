@@ -11,7 +11,7 @@ but has been implemented to support UTF-8 encoded strings.
 
 Some functions have been adapted for utf8 strings :
  - utf8_length : get number of characters in a string (number of codepoints).
- - utf8_length : get get the memory size of the string (in byte).
+ - utf8_size   : get get the memory size of the string (in byte).
  - utf8_find   : find a utf8 substring in the current string.
  - utf8_substr : get a utf8 substring of the current string.
  - utf8_at     : get the codepoint at a specified position.
@@ -24,7 +24,7 @@ in your project. For each file that uses UTF8string, include this piece of code 
 
     #include "utf8_string.hpp"
 
-## Example ##
+## Code example ##
 
     UTF8string u8("がんばつて Gumichan");
     UTF8string sub = u8.utf8_substr(0,5);
