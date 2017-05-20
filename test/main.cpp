@@ -29,7 +29,7 @@ int main()
     string jap5 = "ドロテ: ふたつめのかどですね。わかりました。どうもありがとうございます。\n";
     string jap6 = "けいかん: いいえ、どういたしまして。";
 
-    /* First test suite */
+    /// First test suite
     {
         UTF8string u8("がんばつて Gumichan");
         string utf8s("がんばつて Gumichan");
@@ -38,16 +38,17 @@ int main()
         UTF8string hum;
         hum = "がんばつて Gumichan";
 
-		{
-			try
-			{
-				UTF8string tmp(utf8s);
-			} catch(...)
-			{
-				return 100;
-			}
-		}
-		
+        {
+            try
+            {
+                UTF8string tmp(utf8s);
+            }
+            catch(...)
+            {
+                return 100;
+            }
+        }
+
         // Test the test
         if(u8 != u8)
             return 1;
@@ -106,7 +107,7 @@ int main()
         }
     }
 
-    /* Second test suite */
+    /// Second test suite
     {
         // Exract the utf8 string
         UTF8string utf("がんばつて Gumichan");
@@ -245,8 +246,8 @@ int main()
         try
         {
             // 0xC2 is followed by a continuation byte > BF
-            char inv2[] = {'\xC2', '\xFE', '\x00'};
-            string chstr = inv2;
+            char inv21[] = {'\xC2', '\xFE', '\x00'};
+            string chstr = inv21;
             UTF8string u8 = chstr;
 
             return 21;
@@ -257,8 +258,8 @@ int main()
         try
         {
             // 0xC2 is followed by a continuation byte < 0x80
-            char inv2[] = {'\xC2', '\x7F', '\x00'};
-            string chstr = inv2;
+            char inv22[] = {'\xC2', '\x7F', '\x00'};
+            string chstr = inv22;
             UTF8string u8 = chstr;
 
             return 22;
@@ -270,8 +271,8 @@ int main()
         try
         {
             // 0xE0 has no continuation byte
-            char inv2[] = {'\xE0'};
-            string chstr = inv2;
+            char inv23[] = {'\xE0'};
+            string chstr = inv23;
             UTF8string u8 = chstr;
 
             return 23;
@@ -281,8 +282,8 @@ int main()
         try
         {
             // Invalid continuation byte (0xC0) after 0xE0
-            char inv2[] = {'\xE0','\xA7','\xC0','\x00'};
-            string chstr = inv2;
+            char inv24[] = {'\xE0','\xA7','\xC0','\x00'};
+            string chstr = inv24;
             UTF8string u8 = chstr;
 
             return 24;
@@ -292,8 +293,8 @@ int main()
         try
         {
             // Invalid continuation byte (0x9F) after 0xE0
-            char inv3[] = {'\xE0','\x9F','\xA7','\x00'};
-            string chstr = inv3;
+            char inv25[] = {'\xE0','\x9F','\xA7','\x00'};
+            string chstr = inv25;
             UTF8string u8 = chstr;
 
             return 25;
@@ -303,8 +304,8 @@ int main()
         try
         {
             // Invalid continuation byte (0x71) after 0xED
-            char inv3[] = {'\xED','\x71','\xA7','\x00'};
-            string chstr = inv3;
+            char inv26[] = {'\xED','\x71','\xA7','\x00'};
+            string chstr = inv26;
             UTF8string u8 = chstr;
 
             return 26;
@@ -314,8 +315,8 @@ int main()
         try
         {
             // Invalid continuation byte (0xA0) after 0xED
-            char inv3[] = {'\xED','\xA0','\xA7','\x00'};
-            string chstr = inv3;
+            char inv27[] = {'\xED','\xA0','\xA7','\x00'};
+            string chstr = inv27;
             UTF8string u8 = chstr;
 
             return 27;
@@ -325,8 +326,8 @@ int main()
         try
         {
             // valid string
-            char inv2[] = {'\xE0','\xA7','\xA7','\x00'};
-            string chstr = inv2;
+            char inv28[] = {'\xE0','\xA7','\xA7','\x00'};
+            string chstr = inv28;
             UTF8string u8 = chstr;
 
         }
@@ -338,8 +339,8 @@ int main()
         try
         {
             // 0xE0 has no continuation byte
-            char inv2[] = {'\xED'};
-            string chstr = inv2;
+            char inv29[] = {'\xED'};
+            string chstr = inv29;
             UTF8string u8 = chstr;
 
             return 29;
@@ -350,8 +351,8 @@ int main()
         try
         {
             // 0xF0 has no continuation byte
-            char inv2[] = {'\xF0'};
-            string chstr = inv2;
+            char inv30[] = {'\xF0'};
+            string chstr = inv30;
             UTF8string u8 = chstr;
 
             return 30;
@@ -361,8 +362,8 @@ int main()
         try
         {
             // 0xF4 has no continuation byte
-            char inv2[] = {'\xF4'};
-            string chstr = inv2;
+            char inv31[] = {'\xF4'};
+            string chstr = inv31;
             UTF8string u8 = chstr;
 
             return 31;
@@ -372,8 +373,8 @@ int main()
         try
         {
             // Invalid continuation byte (0x90) after 0xF4
-            char inv2[] = {'\xF4','\x90','\x90','\x90','\x00'};
-            string chstr = inv2;
+            char inv32[] = {'\xF4','\x90','\x90','\x90','\x00'};
+            string chstr = inv32;
             UTF8string u8 = chstr;
 
             return 32;
@@ -384,8 +385,8 @@ int main()
         try
         {
             // Invalid continuation byte (0x8F) after 0xF0
-            char inv2[] = {'\xF0','\x8F','\x91','\xB5','\x00'};
-            string chstr = inv2;
+            char inv33[] = {'\xF0','\x8F','\x91','\xB5','\x00'};
+            string chstr = inv33;
             UTF8string u8 = chstr;
 
             return 33;
@@ -395,21 +396,20 @@ int main()
         try
         {
             // Invalid continuation byte (0x8F) after 0xF0
-            char inv2[] = {'\xF0','\xC7','\x91','\xB5','\x00'};
-            string chstr = inv2;
+            char inv34[] = {'\xF0','\xC7','\x91','\xB5','\x00'};
+            string chstr = inv34;
             UTF8string u8 = chstr;
 
             return 34;
         }
         catch(const std::invalid_argument &) {}
 
-
         // With 0xF4 as the first byte of the codepoint
         try
         {
             // Invalid continuation byte (0x7F) after 0xF4
-            char inv2[] = {'\xF4','\x7F','\x91','\xB5','\x00'};
-            string chstr = inv2;
+            char inv35[] = {'\xF4','\x7F','\x91','\xB5','\x00'};
+            string chstr = inv35;
             UTF8string u8 = chstr;
 
             return 35;
@@ -419,8 +419,8 @@ int main()
         try
         {
             // Invalid continuation byte (0x92) after 0xF4
-            char inv2[] = {'\xF4','\x92','\x91','\xB5','\x00'};
-            string chstr = inv2;
+            char inv36[] = {'\xF4','\x92','\x91','\xB5','\x00'};
+            string chstr = inv36;
             UTF8string u8 = chstr;
 
             return 36;
@@ -430,8 +430,8 @@ int main()
         try
         {
             // Not enough bytes after the first codepoint byte
-            char inv2[] = {'\xF4','\x92'};
-            string chstr = inv2;
+            char inv37[] = {'\xF4','\x92'};
+            string chstr = inv37;
             UTF8string u8 = chstr;
 
             return 37;
@@ -441,24 +441,14 @@ int main()
         try
         {
             // Not enough bytes after the first codepoint byte
-            char inv2[] = {'\xF4','\x92','\x91'};
-            string chstr = inv2;
+            char inv38[] = {'\xF4','\x92','\x91'};
+            string chstr = inv38;
             UTF8string u8 = chstr;
 
             return 38;
         }
         catch(const std::invalid_argument &) {}
 
-        try
-        {
-            // Not enough bytes after the first codepoint byte
-            char inv2[] = {'\xF0','\x92','\x91'};
-            string chstr = inv2;
-            UTF8string u8 = chstr;
-
-            return 39;
-        }
-        catch(const std::invalid_argument &) {}
 
         try
         {
