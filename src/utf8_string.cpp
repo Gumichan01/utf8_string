@@ -129,9 +129,9 @@ bool UTF8string::utf8_is_valid_() const
             }
 
             // If the first byte of the sequence is 0xF0
-            // then the first continuation byte must be between 90 and BF
+            // then the first continuation byte must be between 0x90 and 0xBF
             // otherwise, if the byte is 0xF4
-            // then the first continuation byte must be between 80 and 8F
+            // then the first continuation byte must be between 0x80 and 0x8F
             if(*it == '\xF0')
             {
                 if(*(it + 1) < '\x90' || *(it + 1) > '\xBF')
@@ -157,9 +157,9 @@ bool UTF8string::utf8_is_valid_() const
                 return false;
 
             // If the first byte of the sequence is 0xE0
-            // then the first continuation byte must be between A0 and BF
+            // then the first continuation byte must be between 0xA0 and 0xBF
             // otherwise, if the byte is 0xF4
-            // then the first continuation byte must be between 80 and 9F
+            // then the first continuation byte must be between 0x80 and 0x9F
             if(*it == '\xE0')
             {
                 if(*(it + 1) < '\xA0' || *(it + 1) > '\xBF')
