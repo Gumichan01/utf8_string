@@ -35,12 +35,12 @@ class UTF8string
     std::string utf8data;
     size_t utf8length;
 
-    bool utf8_is_valid_() const;
-    size_t utf8_length_() const;
-    size_t utf8_codepoint_len_(const size_t j) const;
-    size_t utf8_bpos_at_(const size_t cpos) const;
-    void utf8_at_(const size_t index, std::string& s) const;
-    UTF8iterator utf8_iterator_() const;
+    bool utf8_is_valid_() const noexcept;
+    size_t utf8_length_() const noexcept;
+    size_t utf8_codepoint_len_(const size_t j) const noexcept;
+    size_t utf8_bpos_at_(const size_t cpos) const noexcept;
+    void utf8_at_(const size_t index, std::string& s) const noexcept;
+    UTF8iterator utf8_iterator_() const noexcept;
     UTF8string utf8_reverse_aux_(UTF8iterator& it,
                                  const UTF8iterator& end, UTF8string& res);
 
@@ -65,9 +65,9 @@ public:
     const static size_t npos = static_cast<const size_t>(-1);
 
     /**
-    *   @fn UTF8string()
+    *   @fn UTF8string() noexcept
     */
-    UTF8string();
+    UTF8string() noexcept;
 
     /**
     *   @fn UTF8string(const std::string &str)
@@ -77,11 +77,11 @@ public:
     UTF8string(const std::string &str);
 
     /**
-    *   @fn UTF8string(const UTF8string &u8str)
+    *   @fn UTF8string(const UTF8string &u8str) noexcept
     *   @param u8str The string to convert from
     *   @exception std::invalid_argument If the string is not valid
     */
-    UTF8string(const UTF8string &u8str);
+    UTF8string(const UTF8string &u8str) noexcept;
 
     /**
     *   @fn const UTF8string& operator =(const char * str)
@@ -105,7 +105,7 @@ public:
     *   @return A reference to the new utf-8 string
     *   @exception std::invalid_argument If the string is not valid
     */
-    UTF8string& operator =(const UTF8string &u8str);
+    UTF8string& operator =(const UTF8string &u8str) noexcept;
 
     /**
     *   @fn const UTF8string& operator +=(const UTF8string &u8str)
@@ -140,19 +140,19 @@ public:
     const UTF8string& operator +=(const char * str);
 
     /**
-    *   @fn void utf8_clear()
+    *   @fn void utf8_clear() noexcept
     *   Clear the content of the object
     */
-    void utf8_clear();
+    void utf8_clear() noexcept;
 
     /**
-    *   @fn bool utf8_empty() const
+    *   @fn bool utf8_empty() const noexcept
     *
     *   Check if the content is empty
     *
     *   @return TRUE If it is empty, FALSE otherwise
     */
-    bool utf8_empty() const;
+    bool utf8_empty() const noexcept;
 
     /**
     *   @fn std::string utf8_at(const size_t index) const
@@ -166,7 +166,7 @@ public:
     std::string utf8_at(const size_t index) const;
 
     /**
-    *   @fn std::string utf8_at(const size_t index) const
+    *   @fn std::string utf8_at(const size_t index) const noexcept
     *
     *   Get the codepoint at a specified position.
     *
@@ -176,7 +176,7 @@ public:
     *   @note If the index is out of the string range, calling this functions
     *         causes undefined behaviour
     */
-    std::string operator [](const size_t index) const;
+    std::string operator [](const size_t index) const noexcept;
 
     /**
     *   @fn void utf8_pop()
@@ -227,21 +227,21 @@ public:
     UTF8string& utf8_reverse();
 
     /**
-    *   @fn size_t utf8_size() const
+    *   @fn size_t utf8_size() const noexcept
     *   Get the memory size (in bytes) of the utf-8 string
     *   @return The memory size of the utf-8 string
     */
-    size_t utf8_size() const;
+    size_t utf8_size() const noexcept;
 
     /**
-    *   @fn size_t utf8_length() const
+    *   @fn size_t utf8_length() const noexcept
     *   Get the length of the utf-8 string
     *   @return The length of the utf-8 string (in number of codepoints)
     */
-    size_t utf8_length() const;
+    size_t utf8_length() const noexcept;
 
     /**
-    *   @fn const char * utf8_str() const
+    *   @fn const char * utf8_str() const noexcept
     *
     *   Retunrs a pointer to an array that contains a null-terminated sequence
     *   of characters (C-string).
@@ -251,19 +251,19 @@ public:
     *
     *   @return A pointer to a C-string
     */
-    const char * utf8_str() const;
+    const char * utf8_str() const noexcept;
 
     /**
-    *   @fn UTF8iterator utf8_begin() const
+    *   @fn UTF8iterator utf8_begin() const noexcept
     *
     *   Returns an iterator that points to the first codepoint of the string
     *
     *   @return An iterator to the beginnigng of the string
     */
-    UTF8iterator utf8_begin() const;
+    UTF8iterator utf8_begin() const noexcept;
 
     /**
-    *   @fn UTF8iterator utf8_end() const
+    *   @fn UTF8iterator utf8_end() const noexcept
     *
     *   Returns an iterator that points to the *past-the-end* codepoint of the string
     *
@@ -272,14 +272,14 @@ public:
     *
     *   @return An iterator to the past-the-end codepoint
     */
-    UTF8iterator utf8_end() const;
+    UTF8iterator utf8_end() const noexcept;
 
     ~UTF8string() = default;
 };
 
 
 /**
-*   @fn bool operator ==(const UTF8string &str1, const UTF8string &str2)
+*   @fn bool operator ==(const UTF8string &str1, const UTF8string &str2) noexcept
 *
 *   Check if two utf-8 strings are equals.
 *
@@ -290,10 +290,10 @@ public:
 *   @param str2 utf-8 string
 *   @return TRUE if they are equals, FALSE otherwise
 */
-bool operator ==(const UTF8string &str1, const UTF8string &str2);
+bool operator ==(const UTF8string &str1, const UTF8string &str2) noexcept;
 
 /**
-*   @fn bool operator !=(const UTF8string &str1, const UTF8string &str2)
+*   @fn bool operator !=(const UTF8string &str1, const UTF8string &str2) noexcept
 *
 *   Check if two utf-8 strings are differents.
 *
@@ -301,10 +301,10 @@ bool operator ==(const UTF8string &str1, const UTF8string &str2);
 *   @param str2 utf-8 string
 *   @return TRUE if they are not equals, FALSE otherwise
 */
-bool operator !=(const UTF8string &str1, const UTF8string &str2);
+bool operator !=(const UTF8string &str1, const UTF8string &str2) noexcept;
 
 /**
-*   @fn bool operator <=(const UTF8string &str1, const UTF8string &str2)
+*   @fn bool operator <=(const UTF8string &str1, const UTF8string &str2) noexcept
 *
 *   Check if the first utf-8 string is shorter or equal
 *   than/to the second utf-8 string
@@ -313,10 +313,10 @@ bool operator !=(const UTF8string &str1, const UTF8string &str2);
 *   @param str2 utf-8 string
 *   @return TRUE if the first string is shorter, FALSE otherwise
 */
-bool operator <=(const UTF8string &str1, const UTF8string &str2);
+bool operator <=(const UTF8string &str1, const UTF8string &str2) noexcept;
 
 /**
-*   @fn bool operator >=(const UTF8string &str1, const UTF8string &str2)
+*   @fn bool operator >=(const UTF8string &str1, const UTF8string &str2) noexcept
 *
 *   Check if the first utf-8 string is longer or equal than/to the second utf-8 string
 *
@@ -324,10 +324,10 @@ bool operator <=(const UTF8string &str1, const UTF8string &str2);
 *   @param str2 utf-8 string
 *   @return TRUE if tthe first string is longer, FALSE otherwise
 */
-bool operator >=(const UTF8string &str1, const UTF8string &str2);
+bool operator >=(const UTF8string &str1, const UTF8string &str2) noexcept;
 
 /**
-*   @fn bool operator <(const UTF8string &str1, const UTF8string &str2)
+*   @fn bool operator <(const UTF8string &str1, const UTF8string &str2) noexcept
 *
 *   Check if the first utf-8 string is strictly shorter
 *   than the second utf-8 string
@@ -336,10 +336,10 @@ bool operator >=(const UTF8string &str1, const UTF8string &str2);
 *   @param str2 utf-8 string
 *   @return TRUE if the first string is strictly shorter, FALSE otherwise
 */
-bool operator <(const UTF8string &str1, const UTF8string &str2);
+bool operator <(const UTF8string &str1, const UTF8string &str2) noexcept;
 
 /**
-*   @fn bool operator >(const UTF8string &str1, const UTF8string &str2)
+*   @fn bool operator >(const UTF8string &str1, const UTF8string &str2) noexcept
 *
 *   Check if the first utf-8 string is strictly longer
 *   than the second utf-8 string
@@ -348,7 +348,7 @@ bool operator <(const UTF8string &str1, const UTF8string &str2);
 *   @param str2 utf-8 string
 *   @return TRUE if the string is strictly longer, FALSE otherwise
 */
-bool operator >(const UTF8string &str1, const UTF8string &str2);
+bool operator >(const UTF8string &str1, const UTF8string &str2) noexcept;
 
 /**
 *   @fn UTF8string operator +(const UTF8string &str1, const UTF8string &str2)

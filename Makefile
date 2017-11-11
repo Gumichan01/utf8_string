@@ -19,10 +19,9 @@ UTF8_ITER_OBJ=utf8_iterator.o
 TEST_OBJ=main.o
 OBJS=$(UTF8_OBJ) $(TEST_OBJ) $(UTF8_ITER_OBJ)
 
-all : test
+all: test
 
-
-test : $(TEST_EXE)
+test: $(TEST_EXE)
 	@echo $(TEST_EXE)" generated. "
 
 
@@ -47,5 +46,5 @@ $(TEST_OBJ) : $(TEST_MAIN) $(UTF8_HEADER)
 	$(CC) -c $(CFLAGS) -o $@ $< $(LFLAGS)
 	@echo $<" -> "$@" done."
 
-clean :
+mrproper:
 	rm -f $(TEST_EXE) $(OBJS)

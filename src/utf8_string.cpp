@@ -16,7 +16,7 @@
 
 typedef char byte_t;
 
-UTF8string::UTF8string() : utf8length(0) {}
+UTF8string::UTF8string() noexcept : utf8length(0) {}
 
 
 UTF8string::UTF8string(const std::string &str)
@@ -29,7 +29,7 @@ UTF8string::UTF8string(const std::string &str)
 }
 
 
-UTF8string::UTF8string(const UTF8string &u8str)
+UTF8string::UTF8string(const UTF8string &u8str) noexcept
     : utf8data(u8str.utf8data), utf8length(u8str.utf8length) {}
 
 
@@ -57,7 +57,7 @@ const UTF8string& UTF8string::operator =(const std::string &str)
 }
 
 
-UTF8string& UTF8string::operator =(const UTF8string &u8str)
+UTF8string& UTF8string::operator =(const UTF8string &u8str) noexcept
 {
     utf8data = u8str.utf8data;
     utf8length = u8str.utf8length;
@@ -105,7 +105,7 @@ const UTF8string& UTF8string::operator +=(const char * str)
 }
 
 // Check the validity of the string (utf-8 encoding)
-bool UTF8string::utf8_is_valid_() const
+bool UTF8string::utf8_is_valid_() const noexcept
 {
     auto it = utf8data.begin();
     const auto itend = utf8data.end();
@@ -201,7 +201,7 @@ bool UTF8string::utf8_is_valid_() const
 }
 
 // Compute the length of the utf-8 string (in number of codepoints)
-size_t UTF8string::utf8_length_() const
+size_t UTF8string::utf8_length_() const noexcept
 {
     auto end_data = utf8data.end();
     auto it = utf8data.begin();
@@ -241,7 +241,7 @@ size_t UTF8string::utf8_length_() const
 }
 
 // Compute the memory size of a codepoint in the string (in byte)
-size_t UTF8string::utf8_codepoint_len_(const size_t j) const
+size_t UTF8string::utf8_codepoint_len_(const size_t j) const noexcept
 {
     if (0xf0 == (0xf8 & utf8data[j]))
     {
@@ -260,14 +260,14 @@ size_t UTF8string::utf8_codepoint_len_(const size_t j) const
 }
 
 
-void UTF8string::utf8_clear()
+void UTF8string::utf8_clear() noexcept
 {
     utf8data.clear();
     utf8length = 0;
 }
 
 
-bool UTF8string::utf8_empty() const
+bool UTF8string::utf8_empty() const noexcept
 {
     return utf8length == 0;
 }
@@ -276,7 +276,7 @@ bool UTF8string::utf8_empty() const
     Get the memory position of a codepoint according
     to its position in the utf-8 string
 */
-size_t UTF8string::utf8_bpos_at_(const size_t cpos) const
+size_t UTF8string::utf8_bpos_at_(const size_t cpos) const noexcept
 {
     size_t bpos = 0;
     const size_t u8size = utf8_size();
@@ -289,7 +289,7 @@ size_t UTF8string::utf8_bpos_at_(const size_t cpos) const
 }
 
 
-void UTF8string::utf8_at_(const size_t index, std::string& s) const
+void UTF8string::utf8_at_(const size_t index, std::string& s) const noexcept
 {
     size_t bpos = utf8_bpos_at_(index);
     const size_t n = utf8_codepoint_len_(bpos);
@@ -312,7 +312,7 @@ std::string UTF8string::utf8_at(const size_t index) const
 }
 
 
-std::string UTF8string::operator [](const size_t index) const
+std::string UTF8string::operator [](const size_t index) const noexcept
 {
     std::string s;
     utf8_at_(index,s);
@@ -408,7 +408,8 @@ size_t UTF8string::utf8_find(const UTF8string& str, size_t pos) const
 
 // Terminal recursive function that reverse the string
 UTF8string UTF8string::utf8_reverse_aux_(UTF8iterator& it,
-        const UTF8iterator& end, UTF8string& res)
+                                         const UTF8iterator& end,
+                                         UTF8string& res)
 {
     if(it == end)
         return res;
@@ -427,56 +428,53 @@ UTF8string& UTF8string::utf8_reverse()
 }
 
 
-size_t UTF8string::utf8_size() const
+size_t UTF8string::utf8_size() const noexcept
 {
     return utf8data.size();
 }
 
 
-size_t UTF8string::utf8_length() const
+size_t UTF8string::utf8_length() const noexcept
 {
     return utf8length;
 }
 
-const char * UTF8string::utf8_str() const
+const char * UTF8string::utf8_str() const noexcept
 {
     return utf8data.c_str();
 }
 
 // Internal function that creates an iterator of the current string
-UTF8iterator UTF8string::utf8_iterator_() const
+UTF8iterator UTF8string::utf8_iterator_() const noexcept
 {
     return UTF8iterator(*this);
 }
 
 
-UTF8iterator UTF8string::utf8_begin() const
+UTF8iterator UTF8string::utf8_begin() const noexcept
 {
     return utf8_iterator_();
 }
 
 
-UTF8iterator UTF8string::utf8_end() const
+UTF8iterator UTF8string::utf8_end() const noexcept
 {
     return utf8_begin() + utf8length;
 }
 
 
-bool operator ==(const UTF8string &str1, const UTF8string &str2)
+bool operator ==(const UTF8string &str1, const UTF8string &str2) noexcept
 {
-    const std::string s1 = str1.utf8_str();
-    const std::string s2 = str2.utf8_str();
-
-    return s1 == s2;
+    return std::string(str1.utf8_str()) == std::string(str2.utf8_str());
 }
 
-bool operator !=(const UTF8string &str1, const UTF8string &str2)
+bool operator !=(const UTF8string &str1, const UTF8string &str2) noexcept
 {
     return !(str1 == str2);
 }
 
 
-bool operator <=(const UTF8string &str1, const UTF8string &str2)
+bool operator <=(const UTF8string &str1, const UTF8string &str2) noexcept
 {
     const std::string s1 = str1.utf8_str();
     const std::string s2 = str2.utf8_str();
@@ -485,7 +483,7 @@ bool operator <=(const UTF8string &str1, const UTF8string &str2)
 }
 
 
-bool operator >=(const UTF8string &str1, const UTF8string &str2)
+bool operator >=(const UTF8string &str1, const UTF8string &str2) noexcept
 {
     const std::string s1 = str1.utf8_str();
     const std::string s2 = str2.utf8_str();
@@ -494,7 +492,7 @@ bool operator >=(const UTF8string &str1, const UTF8string &str2)
 }
 
 
-bool operator <(const UTF8string &str1, const UTF8string &str2)
+bool operator <(const UTF8string &str1, const UTF8string &str2) noexcept
 {
     const std::string s1 = str1.utf8_str();
     const std::string s2 = str2.utf8_str();
@@ -503,7 +501,7 @@ bool operator <(const UTF8string &str1, const UTF8string &str2)
 }
 
 
-bool operator >(const UTF8string &str1, const UTF8string &str2)
+bool operator >(const UTF8string &str1, const UTF8string &str2) noexcept
 {
     const std::string s1 = str1.utf8_str();
     const std::string s2 = str2.utf8_str();
