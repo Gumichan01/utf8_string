@@ -1,6 +1,6 @@
 /*
 *
-*   Copyright © 2017 Luxon Jean-Pierre
+*   Copyright © 2018 Luxon Jean-Pierre
 *   https://gumichan01.github.io/
 *
 *   This library is under the MIT license
