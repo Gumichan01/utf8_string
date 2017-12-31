@@ -303,7 +303,7 @@ void UTF8string::utf8_at_(const size_t index, std::string& s) const noexcept
 
 std::string UTF8string::utf8_at(const size_t index) const
 {
-    if(index >= utf8data.size())
+    if(index >= utf8length)
         throw std::out_of_range("index value greater than the size of the string");
 
     std::string s;
