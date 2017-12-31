@@ -470,7 +470,7 @@ UTF8iterator UTF8string::utf8_end() const noexcept
 
 bool operator ==(const UTF8string &str1, const UTF8string &str2) noexcept
 {
-    return std::string(str1.utf8_str()) == std::string(str2.utf8_str());
+    return str1.utf8_sstring() == str2.utf8_sstring();
 }
 
 bool operator !=(const UTF8string &str1, const UTF8string &str2) noexcept
@@ -481,54 +481,42 @@ bool operator !=(const UTF8string &str1, const UTF8string &str2) noexcept
 
 bool operator <=(const UTF8string &str1, const UTF8string &str2) noexcept
 {
-    const std::string s1 = str1.utf8_str();
-    const std::string s2 = str2.utf8_str();
-
-    return s1 <= s2;
+    return str1.utf8_sstring() <= str2.utf8_sstring();
 }
 
 
 bool operator >=(const UTF8string &str1, const UTF8string &str2) noexcept
 {
-    const std::string s1 = str1.utf8_str();
-    const std::string s2 = str2.utf8_str();
-
-    return s1 >= s2;
+    return str1.utf8_sstring() >= str2.utf8_sstring();
 }
 
 
 bool operator <(const UTF8string &str1, const UTF8string &str2) noexcept
 {
-    const std::string s1 = str1.utf8_str();
-    const std::string s2 = str2.utf8_str();
-
-    return s1 < s2;
+    return str1.utf8_sstring() < str2.utf8_sstring();
 }
 
 
 bool operator >(const UTF8string &str1, const UTF8string &str2) noexcept
 {
-    const std::string s1 = str1.utf8_str();
-    const std::string s2 = str2.utf8_str();
-
-    return s1 > s2;
+    return str1.utf8_sstring() > str2.utf8_sstring();
 }
 
 
 UTF8string operator +(const UTF8string &str1, const UTF8string &str2)
 {
-    return str1 + std::string(str2.utf8_str());
+    return str1 + str2.utf8_sstring();
 }
 
 
 UTF8string operator +(const UTF8string &str1, const std::string &str2)
 {
-    return UTF8string(std::string(str1.utf8_str()) + str2);
+    return UTF8string(str1.utf8_sstring() + str2);
 }
 
 UTF8string operator +(const std::string &str1, const UTF8string &str2)
 {
-    return UTF8string(std::string(str1 + str2.utf8_str()));
+    return UTF8string(str1 + str2.utf8_sstring());
 }
 
 
@@ -546,7 +534,7 @@ UTF8string operator +(const char * str1, const UTF8string &str2)
 
 std::ostream & operator <<(std::ostream &os, const UTF8string &str)
 {
-    os << str.utf8_str();
+    os << str.utf8_sstring();
     return os;
 }
 

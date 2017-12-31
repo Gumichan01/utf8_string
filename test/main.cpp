@@ -67,6 +67,9 @@ int main()
         if(str1 != str2)
             return 3;
 
+        if(str1 != utf8.utf8_sstring())
+            return 4;
+
         // assignment
         std::string strg1 = "Gumi";
         std::string strg2 = "chan";
