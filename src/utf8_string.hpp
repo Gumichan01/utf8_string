@@ -68,14 +68,12 @@ public:
     *   @fn UTF8string() noexcept
     */
     UTF8string() noexcept;
-
     /**
     *   @fn UTF8string(const std::string &str)
     *   @param str The string to convert from
     *   @exception std::invalid_argument If the string is not valid
     */
     UTF8string(const std::string &str);
-
     /**
     *   @fn UTF8string(const UTF8string &u8str) noexcept
     *   @param u8str The string to convert from
@@ -90,7 +88,6 @@ public:
     *   @exception std::invalid_argument If the string is not valid
     */
     const UTF8string& operator =(const char * str);
-
     /**
     *   @fn const UTF8string& operator =(const std::string &str)
     *   @param str The string that will be converted and checked
@@ -98,7 +95,6 @@ public:
     *   @exception std::invalid_argument If the string is not valid
     */
     const UTF8string& operator =(const std::string &str);
-
     /**
     *   @fn UTF8string& operator =(const UTF8string &u8str)
     *   @param u8str The utf-8 string
@@ -106,7 +102,6 @@ public:
     *   @exception std::invalid_argument If the string is not valid
     */
     UTF8string& operator =(const UTF8string &u8str) noexcept;
-
     /**
     *   @fn const UTF8string& operator +=(const UTF8string &u8str)
     *
@@ -116,7 +111,6 @@ public:
     *   @return The reference to the concatenated utf-8 string
     */
     const UTF8string& operator +=(const UTF8string &u8str);
-
     /**
     *   @fn const UTF8string& operator +=(const std::string &str)
     *
@@ -127,7 +121,6 @@ public:
     *   @exception std::invalid_argument If the string is not valid
     */
     const UTF8string& operator +=(const std::string &str);
-
     /**
     *   @fn const UTF8string& operator +=(const char * str)
     *
@@ -144,7 +137,6 @@ public:
     *   Clear the content of the object
     */
     void utf8_clear() noexcept;
-
     /**
     *   @fn bool utf8_empty() const noexcept
     *
@@ -164,7 +156,6 @@ public:
     *   @exception std::out_of_range If the index is out of the string range
     */
     std::string utf8_at(const size_t index) const;
-
     /**
     *   @fn std::string utf8_at(const size_t index) const noexcept
     *
@@ -177,7 +168,6 @@ public:
     *         causes undefined behaviour
     */
     std::string operator [](const size_t index) const noexcept;
-
     /**
     *   @fn void utf8_pop()
     *
@@ -201,7 +191,6 @@ public:
     *   @return The substring
     */
     UTF8string utf8_substr(size_t pos = 0, size_t len = npos) const;
-
     /**
     *   @fn size_t utf8_find(const UTF8string& str, size_t pos = 0) const
     *
@@ -218,7 +207,6 @@ public:
     *           (in number of codepoints), UTF8string::npos otherwise.
     */
     size_t utf8_find(const UTF8string& str, size_t pos = 0) const;
-
     /**
     *   @fn UTF8string& utf8_reverse()
     *   Reverse the current utf-8 string.
@@ -232,7 +220,6 @@ public:
     *   @return The memory size of the utf-8 string
     */
     size_t utf8_size() const noexcept;
-
     /**
     *   @fn size_t utf8_length() const noexcept
     *   Get the length of the utf-8 string
@@ -241,9 +228,17 @@ public:
     size_t utf8_length() const noexcept;
 
     /**
+    *   @fn const std::string utf8_sstring() const noexcept
+    *
+    *   Returns the string related to the UTF-8 string
+    *
+    *   @return The string
+    */
+    const std::string utf8_sstring() const noexcept;
+    /**
     *   @fn const char * utf8_str() const noexcept
     *
-    *   Retunrs a pointer to an array that contains a null-terminated sequence
+    *   Returns a pointer to an array that contains a null-terminated sequence
     *   of characters (C-string).
     *
     *   This array include exactly the string plus the null character ('\0')
@@ -261,7 +256,6 @@ public:
     *   @return An iterator to the beginnigng of the string
     */
     UTF8iterator utf8_begin() const noexcept;
-
     /**
     *   @fn UTF8iterator utf8_end() const noexcept
     *

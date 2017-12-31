@@ -439,6 +439,11 @@ size_t UTF8string::utf8_length() const noexcept
     return utf8length;
 }
 
+const std::string UTF8string::utf8_sstring() const noexcept
+{
+    return utf8data;
+}
+
 const char * UTF8string::utf8_str() const noexcept
 {
     return utf8data.c_str();
