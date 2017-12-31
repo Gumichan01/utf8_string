@@ -358,19 +358,19 @@ size_t UTF8string::utf8_find(const UTF8string& str, size_t pos) const
     if(str.utf8length == 0)
         return npos;
 
-    std::map<std::string,size_t> u8map;
-    const size_t n = str.utf8_length();
+    std::map<std::string, size_t> u8map;
+    const size_t U8LEN = str.utf8length;
     size_t index = pos;
 
     // Preprocessing
     if(str.utf8length > 1)
     {
-        for(size_t i = n - 2; ; i--)
+        for(size_t i = U8LEN - 2; ; i--)
         {
             std::string s = str.utf8_at(i);
 
             if(u8map.find(s) == u8map.end())
-                u8map[s] = n - 1 - i;
+                u8map[s] = U8LEN - 1 - i;
 
             if(i == 0)
                 break;
@@ -378,9 +378,9 @@ size_t UTF8string::utf8_find(const UTF8string& str, size_t pos) const
     }
 
     // Look for the subtring
-    while(index <= utf8length - n)
+    while(index <= utf8length - U8LEN)
     {
-        size_t j = n - 1;
+        size_t j = U8LEN - 1;
         bool found = false;
 
         while((str.utf8_at(j) == utf8_at(index + j)))
@@ -397,7 +397,7 @@ size_t UTF8string::utf8_find(const UTF8string& str, size_t pos) const
         if(!found)
         {
             std::string ss = utf8_at(index + j);
-            index += (u8map.find(ss) == u8map.end()) ? n : u8map[ss];
+            index += (u8map.find(ss) == u8map.end()) ? U8LEN : u8map[ss];
         }
         else
             return index;
