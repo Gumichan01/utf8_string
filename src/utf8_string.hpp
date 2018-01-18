@@ -40,6 +40,7 @@ class UTF8string
     size_t utf8_codepoint_len_(const size_t j) const noexcept;
     size_t utf8_bpos_at_(const size_t cpos) const noexcept;
     void utf8_at_(const size_t index, std::string& s) const noexcept;
+
     UTF8iterator utf8_iterator_() const noexcept;
     UTF8string utf8_reverse_aux_(UTF8iterator& it,
                                  const UTF8iterator& end, UTF8string& res);
@@ -69,17 +70,17 @@ public:
     */
     UTF8string() noexcept;
     /**
-    *   @fn UTF8string(const std::string &str)
+    *   @fn UTF8string(const std::string& str)
     *   @param str The string to convert from
     *   @exception std::invalid_argument If the string is not valid
     */
-    UTF8string(const std::string &str);
+    UTF8string(const std::string& str);
     /**
-    *   @fn UTF8string(const UTF8string &u8str) noexcept
+    *   @fn UTF8string(const UTF8string& u8str) noexcept
     *   @param u8str The string to convert from
     *   @exception std::invalid_argument If the string is not valid
     */
-    UTF8string(const UTF8string &u8str) noexcept;
+    UTF8string(const UTF8string& u8str) noexcept;
 
     /**
     *   @fn const UTF8string& operator =(const char * str)
@@ -89,30 +90,30 @@ public:
     */
     const UTF8string& operator =(const char * str);
     /**
-    *   @fn const UTF8string& operator =(const std::string &str)
+    *   @fn const UTF8string& operator =(const std::string& str)
     *   @param str The string that will be converted and checked
     *   @return A reference to the new utf-8 string
     *   @exception std::invalid_argument If the string is not valid
     */
-    const UTF8string& operator =(const std::string &str);
+    const UTF8string& operator =(const std::string& str);
     /**
-    *   @fn UTF8string& operator =(const UTF8string &u8str)
+    *   @fn UTF8string& operator =(const UTF8string& u8str)
     *   @param u8str The utf-8 string
     *   @return A reference to the new utf-8 string
     *   @exception std::invalid_argument If the string is not valid
     */
-    UTF8string& operator =(const UTF8string &u8str) noexcept;
+    UTF8string& operator =(const UTF8string& u8str) noexcept;
     /**
-    *   @fn const UTF8string& operator +=(const UTF8string &u8str)
+    *   @fn const UTF8string& operator +=(const UTF8string& u8str)
     *
     *   Append a utf-8 string
     *
     *   @param u8str The string to convert from
     *   @return The reference to the concatenated utf-8 string
     */
-    const UTF8string& operator +=(const UTF8string &u8str);
+    const UTF8string& operator +=(const UTF8string& u8str);
     /**
-    *   @fn const UTF8string& operator +=(const std::string &str)
+    *   @fn const UTF8string& operator +=(const std::string& str)
     *
     *   Append a string
     *
@@ -120,7 +121,7 @@ public:
     *   @return The reference to the concatenated utf-8 string
     *   @exception std::invalid_argument If the string is not valid
     */
-    const UTF8string& operator +=(const std::string &str);
+    const UTF8string& operator +=(const std::string& str);
     /**
     *   @fn const UTF8string& operator +=(const char * str)
     *
@@ -273,7 +274,7 @@ public:
 
 
 /**
-*   @fn bool operator ==(const UTF8string &str1, const UTF8string &str2) noexcept
+*   @fn bool operator ==(const UTF8string& str1, const UTF8string& str2) noexcept
 *
 *   Check if two utf-8 strings are equals.
 *
@@ -284,10 +285,10 @@ public:
 *   @param str2 utf-8 string
 *   @return TRUE if they are equals, FALSE otherwise
 */
-bool operator ==(const UTF8string &str1, const UTF8string &str2) noexcept;
+bool operator ==(const UTF8string& str1, const UTF8string& str2) noexcept;
 
 /**
-*   @fn bool operator !=(const UTF8string &str1, const UTF8string &str2) noexcept
+*   @fn bool operator !=(const UTF8string& str1, const UTF8string& str2) noexcept
 *
 *   Check if two utf-8 strings are differents.
 *
@@ -295,10 +296,10 @@ bool operator ==(const UTF8string &str1, const UTF8string &str2) noexcept;
 *   @param str2 utf-8 string
 *   @return TRUE if they are not equals, FALSE otherwise
 */
-bool operator !=(const UTF8string &str1, const UTF8string &str2) noexcept;
+bool operator !=(const UTF8string& str1, const UTF8string& str2) noexcept;
 
 /**
-*   @fn bool operator <=(const UTF8string &str1, const UTF8string &str2) noexcept
+*   @fn bool operator <=(const UTF8string& str1, const UTF8string& str2) noexcept
 *
 *   Check if the first utf-8 string is shorter or equal
 *   than/to the second utf-8 string
@@ -307,10 +308,10 @@ bool operator !=(const UTF8string &str1, const UTF8string &str2) noexcept;
 *   @param str2 utf-8 string
 *   @return TRUE if the first string is shorter, FALSE otherwise
 */
-bool operator <=(const UTF8string &str1, const UTF8string &str2) noexcept;
+bool operator <=(const UTF8string& str1, const UTF8string& str2) noexcept;
 
 /**
-*   @fn bool operator >=(const UTF8string &str1, const UTF8string &str2) noexcept
+*   @fn bool operator >=(const UTF8string& str1, const UTF8string& str2) noexcept
 *
 *   Check if the first utf-8 string is longer or equal than/to the second utf-8 string
 *
@@ -318,10 +319,10 @@ bool operator <=(const UTF8string &str1, const UTF8string &str2) noexcept;
 *   @param str2 utf-8 string
 *   @return TRUE if tthe first string is longer, FALSE otherwise
 */
-bool operator >=(const UTF8string &str1, const UTF8string &str2) noexcept;
+bool operator >=(const UTF8string& str1, const UTF8string& str2) noexcept;
 
 /**
-*   @fn bool operator <(const UTF8string &str1, const UTF8string &str2) noexcept
+*   @fn bool operator <(const UTF8string& str1, const UTF8string& str2) noexcept
 *
 *   Check if the first utf-8 string is strictly shorter
 *   than the second utf-8 string
@@ -330,10 +331,10 @@ bool operator >=(const UTF8string &str1, const UTF8string &str2) noexcept;
 *   @param str2 utf-8 string
 *   @return TRUE if the first string is strictly shorter, FALSE otherwise
 */
-bool operator <(const UTF8string &str1, const UTF8string &str2) noexcept;
+bool operator <(const UTF8string& str1, const UTF8string& str2) noexcept;
 
 /**
-*   @fn bool operator >(const UTF8string &str1, const UTF8string &str2) noexcept
+*   @fn bool operator >(const UTF8string& str1, const UTF8string& str2) noexcept
 *
 *   Check if the first utf-8 string is strictly longer
 *   than the second utf-8 string
@@ -342,10 +343,10 @@ bool operator <(const UTF8string &str1, const UTF8string &str2) noexcept;
 *   @param str2 utf-8 string
 *   @return TRUE if the string is strictly longer, FALSE otherwise
 */
-bool operator >(const UTF8string &str1, const UTF8string &str2) noexcept;
+bool operator >(const UTF8string& str1, const UTF8string& str2) noexcept;
 
 /**
-*   @fn UTF8string operator +(const UTF8string &str1, const UTF8string &str2)
+*   @fn UTF8string operator +(const UTF8string& str1, const UTF8string& str2)
 *
 *   Generate a string as a concatenation of the two utf-8 givenin arguments
 *
@@ -353,10 +354,10 @@ bool operator >(const UTF8string &str1, const UTF8string &str2) noexcept;
 *   @param str2 utf-8 string
 *   @return A new string whose values is the concatenation of str1 and str2
 */
-UTF8string operator +(const UTF8string &str1, const UTF8string &str2);
+UTF8string operator +(const UTF8string& str1, const UTF8string& str2);
 
 /**
-*   @fn UTF8string operator +(const UTF8string &str1, const std::string &str2)
+*   @fn UTF8string operator +(const UTF8string& str1, const std::string& str2)
 *
 *   Generate a string as a concatenation of a utf-8 string and a string
 *   given in arguments
@@ -365,10 +366,10 @@ UTF8string operator +(const UTF8string &str1, const UTF8string &str2);
 *   @param str2 string
 *   @return A new string whose values is the concatenation of str1 and str2
 */
-UTF8string operator +(const UTF8string &str1, const std::string &str2);
+UTF8string operator +(const UTF8string& str1, const std::string& str2);
 
 /**
-*   @fn UTF8string operator +(const std::string &str1, const UTF8string &str2)
+*   @fn UTF8string operator +(const std::string& str1, const UTF8string& str2)
 *
 *   Generate a string as a concatenation of a string and a utf-8 string
 *   given in arguments
@@ -377,10 +378,10 @@ UTF8string operator +(const UTF8string &str1, const std::string &str2);
 *   @param str2 utf-8 string
 *   @return A new string whose values is the concatenation of str1 and str2
 */
-UTF8string operator +(const std::string &str1, const UTF8string &str2);
+UTF8string operator +(const std::string& str1, const UTF8string& str2);
 
 /**
-*   @fn UTF8string operator +(const UTF8string &str1, const char * str2)
+*   @fn UTF8string operator +(const UTF8string& str1, const char * str2)
 *
 *   Generate a string as a concatenation of a utf-8 string and a C-string
 *   given in arguments
@@ -389,10 +390,10 @@ UTF8string operator +(const std::string &str1, const UTF8string &str2);
 *   @param str2 C-string
 *   @return A new string whose values is the concatenation of str1 and str2
 */
-UTF8string operator +(const UTF8string &str1, const char * str2);
+UTF8string operator +(const UTF8string& str1, const char * str2);
 
 /**
-*   @fn UTF8string operator +(const char * str1, const UTF8string &str2)
+*   @fn UTF8string operator +(const char * str1, const UTF8string& str2)
 *
 *   Generate a string as a concatenation of a C-string and a utf-8 string
 *   given in arguments
@@ -401,10 +402,10 @@ UTF8string operator +(const UTF8string &str1, const char * str2);
 *   @param str2 utf8 string
 *   @return A new string whose values is the concatenation of str1 and str2
 */
-UTF8string operator +(const char * str1, const UTF8string &str2);
+UTF8string operator +(const char * str1, const UTF8string& str2);
 
 /**
-*   @fn std::ostream & operator <<(std::ostream &os, const UTF8string &str)
+*   @fn std::ostream& operator <<(std::ostream& os, const UTF8string& str)
 *
 *   Insert a utf-8 string into a stream.
 *
@@ -415,10 +416,10 @@ UTF8string operator +(const char * str1, const UTF8string &str2);
 *   @param str utf8 string to put
 *   @return The same as parameter *os*
 */
-std::ostream & operator <<(std::ostream &os, const UTF8string &str);
+std::ostream& operator <<(std::ostream& os, const UTF8string& str);
 
 /**
-*   @fn std::istream & operator >>(std::istream &is, UTF8string &str)
+*   @fn std::istream& operator >>(std::istream& is, UTF8string& str)
 *
 *   Extract a utf-8 string from a stream, storing the sequence in str,
 *   which is overwritten (the previous value of str is replaced).
@@ -430,7 +431,7 @@ std::ostream & operator <<(std::ostream &os, const UTF8string &str);
 *   @param str utf8 string to put
 *   @return The same as parameter *is*
 */
-std::istream & operator >>(std::istream &is, UTF8string &str);
+std::istream& operator >>(std::istream& is, UTF8string& str);
 
 #include "utf8_iterator.hpp"
 

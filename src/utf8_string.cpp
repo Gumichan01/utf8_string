@@ -19,7 +19,7 @@ typedef char byte_t;
 UTF8string::UTF8string() noexcept : utf8length(0) {}
 
 
-UTF8string::UTF8string(const std::string &str)
+UTF8string::UTF8string(const std::string& str)
     : utf8data(str)
 {
     if(!utf8_is_valid_())
@@ -29,7 +29,7 @@ UTF8string::UTF8string(const std::string &str)
 }
 
 
-UTF8string::UTF8string(const UTF8string &u8str) noexcept
+UTF8string::UTF8string(const UTF8string& u8str) noexcept
     : utf8data(u8str.utf8data), utf8length(u8str.utf8length) {}
 
 
@@ -45,7 +45,7 @@ const UTF8string& UTF8string::operator =(const char * str)
 }
 
 
-const UTF8string& UTF8string::operator =(const std::string &str)
+const UTF8string& UTF8string::operator =(const std::string& str)
 {
     utf8data = str;
 
@@ -57,7 +57,7 @@ const UTF8string& UTF8string::operator =(const std::string &str)
 }
 
 
-UTF8string& UTF8string::operator =(const UTF8string &u8str) noexcept
+UTF8string& UTF8string::operator =(const UTF8string& u8str) noexcept
 {
     utf8data = u8str.utf8data;
     utf8length = u8str.utf8length;
@@ -65,7 +65,7 @@ UTF8string& UTF8string::operator =(const UTF8string &u8str) noexcept
 }
 
 
-const UTF8string& UTF8string::operator +=(const std::string &str)
+const UTF8string& UTF8string::operator +=(const std::string& str)
 {
     std::string s = utf8data;
     utf8data += str;
@@ -81,7 +81,7 @@ const UTF8string& UTF8string::operator +=(const std::string &str)
 }
 
 
-const UTF8string& UTF8string::operator +=(const UTF8string &u8str)
+const UTF8string& UTF8string::operator +=(const UTF8string& u8str)
 {
     utf8data += u8str.utf8data;
     utf8length = utf8_length_();
@@ -104,7 +104,7 @@ const UTF8string& UTF8string::operator +=(const char * str)
     return *this;
 }
 
-// Check the validity of the string (utf-8 encoding)
+
 bool UTF8string::utf8_is_valid_() const noexcept
 {
     auto it = utf8data.begin();
@@ -112,7 +112,7 @@ bool UTF8string::utf8_is_valid_() const noexcept
 
     while(it < itend)
     {
-        if((0xF8 & *it) == 0xF0)
+        if((0xF8&  *it) == 0xF0)
         {
             // The UTF-8 codepoint begin with 0b11110xxx -> 4-byte codepoint
             // If the iterator reach the end of the string before the
@@ -122,8 +122,8 @@ bool UTF8string::utf8_is_valid_() const noexcept
 
             // Each of the following bytes is a value
             // between 0x80 and 0xBF
-            if(((0xC0 & *(it + 1)) != 0x80) || ((0xC0 & *(it + 2)) != 0x80)
-                    || ((0xC0 & *(it + 3)) != 0x80))
+            if(((0xC0&  *(it + 1)) != 0x80) || ((0xC0&  *(it + 2)) != 0x80)
+                    || ((0xC0&  *(it + 3)) != 0x80))
             {
                 return false;
             }
@@ -145,7 +145,7 @@ bool UTF8string::utf8_is_valid_() const noexcept
 
             it += 4;    // Jump to the next codepoint
         }
-        else if((0xF0 & *it) == 0xE0)
+        else if((0xF0&  *it) == 0xE0)
         {
             // The UTF-8 codepoint begin with 0b1110xxxx -> 3-byte codepoint
             if((it + 1) == itend || (it + 2) == itend)
@@ -153,7 +153,7 @@ bool UTF8string::utf8_is_valid_() const noexcept
 
             // Each of the following bytes starts with
             // 0b10xxxxxx in a valid string
-            if(((0xC0 & *(it + 1)) != 0x80) || ((0xC0 & *(it + 2)) != 0x80))
+            if(((0xC0&  *(it + 1)) != 0x80) || ((0xC0&  *(it + 2)) != 0x80))
                 return false;
 
             // If the first byte of the sequence is 0xE0
@@ -173,19 +173,19 @@ bool UTF8string::utf8_is_valid_() const noexcept
 
             it += 3;
         }
-        else if((0xE0 & *it) == 0xC0)
+        else if((0xE0&  *it) == 0xC0)
         {
             // The UTF-8 codepoint begin with 0b110xxxxx -> 2-byte codepoint
             if((it + 1) == itend)
                 return false;
 
             // The following byte starts with 0b10xxxxxx in a valid string
-            if((0xC0 & *(it + 1)) != 0x80)
+            if((0xC0&  *(it + 1)) != 0x80)
                 return false;
 
             it += 2;
         }
-        else if((0x80 & *it) == 0x00)
+        else if((0x80&  *it) == 0x00)
         {
             // The UTF-8 codepoint begin with 0b0xxxxxxx -> 1-byte codepoint
             it += 1;
@@ -211,18 +211,18 @@ size_t UTF8string::utf8_length_() const noexcept
     {
         byte_t byte = *it;
 
-        if (0xf0 == (0xf8 & byte))
+        if (0xf0 == (0xf8&  byte))
         {
             // 4-byte utf8 character
             // (0b11110xxx 0bxxxxxxxx 0bxxxxxxxx 0bxxxxxxxx)
             it += 4;
         }
-        else if (0xe0 == (0xf0 & byte))
+        else if (0xe0 == (0xf0&  byte))
         {
             // 3-byte utf8 code point (0b110xxxxx 0bxxxxxxxx 0bxxxxxxxx)
             it += 3;
         }
-        else if (0xc0 == (0xe0 & byte))
+        else if (0xc0 == (0xe0&  byte))
         {
             // 2-byte utf8 code point (0b110xxxxx 0bxxxxxxxx)
             it += 2;
@@ -243,15 +243,15 @@ size_t UTF8string::utf8_length_() const noexcept
 // Compute the memory size of a codepoint in the string (in byte)
 size_t UTF8string::utf8_codepoint_len_(const size_t j) const noexcept
 {
-    if (0xf0 == (0xf8 & utf8data[j]))
+    if (0xf0 == (0xf8&  utf8data[j]))
     {
         return 4;
     }
-    else if (0xe0 == (0xf0 & utf8data[j]))
+    else if (0xe0 == (0xf0&  utf8data[j]))
     {
         return 3;
     }
-    else if (0xc0 == (0xe0 & utf8data[j]))
+    else if (0xc0 == (0xe0&  utf8data[j]))
     {
         return 2;
     }
@@ -468,78 +468,78 @@ UTF8iterator UTF8string::utf8_end() const noexcept
 }
 
 
-bool operator ==(const UTF8string &str1, const UTF8string &str2) noexcept
+bool operator ==(const UTF8string& str1, const UTF8string& str2) noexcept
 {
     return str1.utf8_sstring() == str2.utf8_sstring();
 }
 
-bool operator !=(const UTF8string &str1, const UTF8string &str2) noexcept
+bool operator !=(const UTF8string& str1, const UTF8string& str2) noexcept
 {
     return !(str1 == str2);
 }
 
 
-bool operator <=(const UTF8string &str1, const UTF8string &str2) noexcept
+bool operator <=(const UTF8string& str1, const UTF8string& str2) noexcept
 {
     return str1.utf8_sstring() <= str2.utf8_sstring();
 }
 
 
-bool operator >=(const UTF8string &str1, const UTF8string &str2) noexcept
+bool operator >=(const UTF8string& str1, const UTF8string& str2) noexcept
 {
     return str1.utf8_sstring() >= str2.utf8_sstring();
 }
 
 
-bool operator <(const UTF8string &str1, const UTF8string &str2) noexcept
+bool operator <(const UTF8string& str1, const UTF8string& str2) noexcept
 {
     return str1.utf8_sstring() < str2.utf8_sstring();
 }
 
 
-bool operator >(const UTF8string &str1, const UTF8string &str2) noexcept
+bool operator >(const UTF8string& str1, const UTF8string& str2) noexcept
 {
     return str1.utf8_sstring() > str2.utf8_sstring();
 }
 
 
-UTF8string operator +(const UTF8string &str1, const UTF8string &str2)
+UTF8string operator +(const UTF8string& str1, const UTF8string& str2)
 {
     return str1 + str2.utf8_sstring();
 }
 
 
-UTF8string operator +(const UTF8string &str1, const std::string &str2)
+UTF8string operator +(const UTF8string& str1, const std::string& str2)
 {
     return UTF8string(str1.utf8_sstring() + str2);
 }
 
-UTF8string operator +(const std::string &str1, const UTF8string &str2)
+UTF8string operator +(const std::string& str1, const UTF8string& str2)
 {
     return UTF8string(str1 + str2.utf8_sstring());
 }
 
 
-UTF8string operator +(const UTF8string &str1, const char * str2)
+UTF8string operator +(const UTF8string& str1, const char * str2)
 {
     return str1 + std::string(str2);
 }
 
 
-UTF8string operator +(const char * str1, const UTF8string &str2)
+UTF8string operator +(const char * str1, const UTF8string& str2)
 {
     return std::string(str1) + str2;
 }
 
 
-std::ostream & operator <<(std::ostream &os, const UTF8string &str)
+std::ostream& operator <<(std::ostream& os, const UTF8string& str)
 {
     os << str.utf8_sstring();
     return os;
 }
 
 
-std::istream & operator >>(std::istream &is, UTF8string &str)
+std::istream& operator >>(std::istream& is, UTF8string& str)
 {
     std::string tmp;
     std::getline(is,tmp);
