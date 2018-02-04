@@ -341,10 +341,10 @@ UTF8string UTF8string::utf8_substr(size_t pos,size_t len) const
                      (utf8length - pos) : len;
 
     UTF8iterator it = utf8_iterator_() + pos;
-    const UTF8iterator end = (it + n);
+    const UTF8iterator _end = (it + n);
     std::string s;
 
-    while(it != end)
+    while(it != _end)
     {
         s += *(it++);
     }
@@ -408,14 +408,14 @@ size_t UTF8string::utf8_find(const UTF8string& str, size_t pos) const
 
 // Terminal recursive function that reverse the string
 UTF8string UTF8string::utf8_reverse_aux_(UTF8iterator& it,
-                                         const UTF8iterator& end,
+                                         const UTF8iterator& _end,
                                          UTF8string& res)
 {
-    if(it == end)
+    if(it == _end)
         return res;
 
     res += *(--it);
-    return utf8_reverse_aux_(it, end, res);
+    return utf8_reverse_aux_(it, _end, res);
 }
 
 
@@ -463,6 +463,18 @@ UTF8iterator UTF8string::utf8_begin() const noexcept
 
 
 UTF8iterator UTF8string::utf8_end() const noexcept
+{
+    return utf8_begin() + utf8length;
+}
+
+
+UTF8iterator UTF8string::begin() const noexcept
+{
+    return utf8_begin();
+}
+
+
+UTF8iterator UTF8string::end() const noexcept
 {
     return utf8_begin() + utf8length;
 }

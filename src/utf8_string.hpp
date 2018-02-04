@@ -43,7 +43,7 @@ class UTF8string
 
     UTF8iterator utf8_iterator_() const noexcept;
     UTF8string utf8_reverse_aux_(UTF8iterator& it,
-                                 const UTF8iterator& end, UTF8string& res);
+                                 const UTF8iterator& _end, UTF8string& res);
 
 public:
 
@@ -268,6 +268,28 @@ public:
     *   @return An iterator to the past-the-end codepoint
     */
     UTF8iterator utf8_end() const noexcept;
+
+    /**
+    *   @fn UTF8iterator begin() const noexcept
+    *
+    *   Returns an iterator that points to the first codepoint of the string
+    *
+    *   @return An iterator to the beginnigng of the string
+    *   @note Same as utf8_begin()
+    */
+    UTF8iterator begin() const noexcept;
+    /**
+    *   @fn UTF8iterator end() const noexcept
+    *
+    *   Returns an iterator that points to the *past-the-end* codepoint of the string
+    *
+    *   The past-the-end codepoint is a theoretical codepoint that would follow
+    *   the last codepoint in the string. It shall not be dereferenced.
+    *
+    *   @return An iterator to the past-the-end codepoint
+    *   @note Same as utf8_end()
+    */
+    UTF8iterator end() const noexcept;
 
     ~UTF8string() = default;
 };
