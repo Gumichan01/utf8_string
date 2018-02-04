@@ -39,7 +39,7 @@ class UTF8string
     size_t utf8_length_() const noexcept;
     size_t utf8_codepoint_len_(const size_t j) const noexcept;
     size_t utf8_bpos_at_(const size_t cpos) const noexcept;
-    void utf8_at_(const size_t index, std::string& s) const noexcept;
+    std::string utf8_at_(const size_t index) const noexcept;
 
     UTF8iterator utf8_iterator_() const noexcept;
     UTF8string utf8_reverse_aux_(UTF8iterator& it,

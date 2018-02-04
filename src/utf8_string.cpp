@@ -10,8 +10,8 @@
 *
 */
 
-#include <map>
 #include <stdexcept>
+#include <unordered_map>
 #include "utf8_string.hpp"
 
 typedef char byte_t;
@@ -289,15 +289,17 @@ size_t UTF8string::utf8_bpos_at_(const size_t cpos) const noexcept
 }
 
 
-void UTF8string::utf8_at_(const size_t index, std::string& s) const noexcept
+std::string UTF8string::utf8_at_(const size_t index) const noexcept
 {
     size_t bpos = utf8_bpos_at_(index);
     const size_t n = utf8_codepoint_len_(bpos);
 
-    for(size_t i = 0; i < n; i++)
+    /*for(size_t i = 0; i < n; i++)
     {
         s += utf8data[bpos + i];
-    }
+    }*/
+
+    return utf8data.substr(bpos, n);
 }
 
 
@@ -306,17 +308,18 @@ std::string UTF8string::utf8_at(const size_t index) const
     if(index >= utf8length)
         throw std::out_of_range("index value greater than the size of the string");
 
-    std::string s;
-    utf8_at_(index,s);
-    return s;
+    /*std::string s;
+    utf8_at_(index,s);*/
+    return utf8_at_(index);
 }
 
 
 std::string UTF8string::operator [](const size_t index) const noexcept
 {
-    std::string s;
+    /*std::string s;
     utf8_at_(index,s);
-    return s;
+    return s;*/
+    return utf8_at_(index);
 }
 
 
@@ -358,7 +361,7 @@ size_t UTF8string::utf8_find(const UTF8string& str, size_t pos) const
     if(str.utf8length == 0)
         return npos;
 
-    std::map<std::string, size_t> u8map;
+    std::unordered_map<std::string, size_t> u8map;
     const size_t U8LEN = str.utf8length;
     size_t index = pos;
 
@@ -408,8 +411,8 @@ size_t UTF8string::utf8_find(const UTF8string& str, size_t pos) const
 
 // Terminal recursive function that reverse the string
 UTF8string UTF8string::utf8_reverse_aux_(UTF8iterator& it,
-                                         const UTF8iterator& _end,
-                                         UTF8string& res)
+        const UTF8iterator& _end,
+        UTF8string& res)
 {
     if(it == _end)
         return res;
