@@ -14,12 +14,10 @@
 
 
 UTF8iterator::UTF8iterator(const UTF8string& u) noexcept
-    : index(0),data(u) {}
+    : index(0), data(u) {}
 
 UTF8iterator::UTF8iterator(const UTF8iterator& it) noexcept
     : index(it.index), data(it.data) {}
-
-UTF8iterator::~UTF8iterator() {}
 
 
 UTF8iterator& UTF8iterator::operator =(const UTF8iterator& it) noexcept
@@ -82,7 +80,7 @@ bool UTF8iterator::operator !=(const UTF8iterator& it) const noexcept
 }
 
 
-const std::string UTF8iterator::operator *() const noexcept
+const std::string UTF8iterator::operator *() const
 {
     return data.utf8_at(index);
 }
