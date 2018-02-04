@@ -32,8 +32,8 @@ class UTF8iterator;
 */
 class UTF8string
 {
-    std::string utf8data;
-    size_t utf8length;
+    std::string utf8data{""};
+    size_t utf8length = 0;
 
     bool utf8_is_valid_() const noexcept;
     size_t utf8_length_() const noexcept;
@@ -66,9 +66,9 @@ public:
     const static size_t npos = static_cast<const size_t>(-1);
 
     /**
-    *   @fn UTF8string() noexcept
+    *   @fn UTF8string() noexcept = default
     */
-    UTF8string() noexcept;
+    UTF8string() noexcept = default;
     /**
     *   @fn UTF8string(const std::string& str)
     *   @param str The string to convert from

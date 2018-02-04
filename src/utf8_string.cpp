@@ -16,7 +16,30 @@
 
 typedef char byte_t;
 
-UTF8string::UTF8string() noexcept : utf8length(0) {}
+namespace
+{
+void preprocess(const UTF8string& str,
+                std::unordered_map<std::string, size_t>& u8map) noexcept
+{
+    const size_t U8LEN = str.utf8_length();
+
+    // Preprocessing
+    if(U8LEN > 1)
+    {
+        for(size_t i = U8LEN - 2U; ; --i)
+        {
+            const std::string& s = str.utf8_at(i);
+
+            if(u8map.find(s) == u8map.end())
+                u8map[s] = U8LEN - 1 - i;
+
+            if(i == 0)
+                break;
+        }
+    }
+}
+
+}
 
 
 UTF8string::UTF8string(const std::string& str)
@@ -83,7 +106,7 @@ const UTF8string& UTF8string::operator +=(const std::string& str)
 
 const UTF8string& UTF8string::operator +=(const UTF8string& u8str)
 {
-    utf8data += u8str.utf8data;
+    utf8data  += u8str.utf8data;
     utf8length = utf8_length_();
     return *this;
 }
@@ -350,24 +373,12 @@ size_t UTF8string::utf8_find(const UTF8string& str, size_t pos) const
     if(str.utf8length == 0)
         return npos;
 
+    // Preprocessing
     std::unordered_map<std::string, size_t> u8map;
+    preprocess(str, u8map);
+
     const size_t U8LEN = str.utf8length;
     size_t index = pos;
-
-    // Preprocessing
-    if(str.utf8length > 1)
-    {
-        for(size_t i = U8LEN - 2; ; i--)
-        {
-            std::string s = str.utf8_at(i);
-
-            if(u8map.find(s) == u8map.end())
-                u8map[s] = U8LEN - 1 - i;
-
-            if(i == 0)
-                break;
-        }
-    }
 
     // Look for the subtring
     while(index <= utf8length - U8LEN)
