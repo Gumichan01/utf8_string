@@ -10,9 +10,11 @@
 *
 */
 
-#include <stdexcept>
-#include <unordered_map>
 #include "utf8_string.hpp"
+
+#include <unordered_map>
+#include <stdexcept>
+
 
 typedef char byte_t;
 
