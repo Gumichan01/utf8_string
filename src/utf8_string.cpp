@@ -291,14 +291,8 @@ size_t UTF8string::utf8_bpos_at_(const size_t cpos) const noexcept
 
 std::string UTF8string::utf8_at_(const size_t index) const noexcept
 {
-    size_t bpos = utf8_bpos_at_(index);
+    size_t bpos    = utf8_bpos_at_(index);
     const size_t n = utf8_codepoint_len_(bpos);
-
-    /*for(size_t i = 0; i < n; i++)
-    {
-        s += utf8data[bpos + i];
-    }*/
-
     return utf8data.substr(bpos, n);
 }
 
@@ -308,17 +302,12 @@ std::string UTF8string::utf8_at(const size_t index) const
     if(index >= utf8length)
         throw std::out_of_range("index value greater than the size of the string");
 
-    /*std::string s;
-    utf8_at_(index,s);*/
     return utf8_at_(index);
 }
 
 
 std::string UTF8string::operator [](const size_t index) const noexcept
 {
-    /*std::string s;
-    utf8_at_(index,s);
-    return s;*/
     return utf8_at_(index);
 }
 
@@ -337,7 +326,7 @@ void UTF8string::utf8_pop()
 UTF8string UTF8string::utf8_substr(size_t pos,size_t len) const
 {
     if(pos > utf8length)
-        return std::string();
+        return UTF8string();
 
     // Length of the substring (number of code points)
     const size_t n = (len == npos || (pos + len) > utf8length) ?
