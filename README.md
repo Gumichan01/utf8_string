@@ -63,6 +63,10 @@ u8 string - memory size: 24; length: 14
 
 ```
 
+## Project that uses UTF8string ##
+
+- [LunatiX](https://github.com/Gumichan01/lunatix)
+
 ## License ##
 
 This library is under the MIT License.
