@@ -26,26 +26,42 @@ in your project. For each file that uses UTF8string, include this piece of code 
 
 ## Code example ##
 
-    UTF8string u8("がんばつて Gumichan");
-    UTF8string sub = u8.utf8_substr(0,5);
-    size_t pos = u8.utf8_find(UTF8string("chan"));
-    size_t sz  = u8.utf8_size();
-    size_t l   = u8.utf8_length();
+```cpp
+UTF8string u8("がんばつて Gumichan");
+UTF8string sub = u8.utf8_substr(0,5);
+size_t pos = u8.utf8_find(UTF8string("chan"));
+size_t sz  = u8.utf8_size();
+size_t l   = u8.utf8_length();
 
-    std::cout << "u8 string: " << u8 << endl;
-    std::cout << "utf8 substring from 0 to 5: " << sub << endl;
-    std::cout << "utf8 codepoint at 2: " << u8.utf8_at(2) << endl;
-    std::cout << "utf8 string \"chan\" at " << pos << endl;
-    std::cout << "u8 string - memory size: " << sz << "; length: " << l << endl;
+std::cout << "u8 string: " << u8 << "\n";
+std::cout << "utf8 substring from 0 to 5: " << sub << "\n";
+std::cout << "utf8 codepoint at 2: " << u8.utf8_at(2) << "\n";
+std::cout << "utf8 string \"chan\" at " << pos << "\n";
+std::cout << "u8 string - memory size: " << sz << "; length: " << l << "\n\n";
 
+for (auto s: sub)    // or for (const std::string& s: u8)
+{
+    std::cout << "-> " << s << "\n";
+}
+
+```
 
 Output :
 
-    utf8 string: がんばつて Gumichan
-    utf8 substring from 0 to 5: がんばつて
-    utf8 codepoint at 2: ば
-    utf8 string "chan" at 10
-    u8 string - memory size: 24; length: 14
+```
+utf8 string: がんばつて Gumichan
+utf8 substring from 0 to 5: がんばつて
+utf8 codepoint at 2: ば
+utf8 string "chan" at 10
+u8 string - memory size: 24; length: 14
+
+-> が
+-> ん
+-> ば
+-> つ
+-> て
+
+```
 
 ## License ##
 
