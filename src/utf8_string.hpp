@@ -66,9 +66,9 @@ public:
     const static size_t npos = static_cast<const size_t>(-1);
 
     /**
-    *   @fn UTF8string() noexcept = default
+    *   @fn UTF8string() = default
     */
-    UTF8string() noexcept = default;
+    UTF8string() = default;
     /**
     *   @fn UTF8string(const std::string& str)
     *   @param str The string to convert from
