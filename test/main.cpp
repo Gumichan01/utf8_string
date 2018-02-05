@@ -82,14 +82,14 @@ int main()
         if(utf8_cat.utf8_size() != sz1)
         {
             cerr << "ERROR : expected : " << sz1
-                 << "; got : " << utf8_cat.utf8_size() << endl;
+                 << "; got : " << utf8_cat.utf8_size() << "\n";
             return 4;
         }
 
         if(utf8_cat.utf8_length() != len1)
         {
             cerr << "ERROR : expected : " << len1
-                 << "; got : " << utf8_cat.utf8_length() << endl;
+                 << "; got : " << utf8_cat.utf8_length() << "\n";
             return 5;
         }
 
@@ -98,14 +98,14 @@ int main()
         if(utf8_cat.utf8_size() != (sz1 + sz2))
         {
             cerr << "ERROR : expected : " << (sz1 + sz2)
-                 << "; got : " << utf8_cat.utf8_size() << endl;
+                 << "; got : " << utf8_cat.utf8_size() << "\n";
             return 6;
         }
 
         if(utf8_cat.utf8_length() != (len1 + len2))
         {
             cerr << "ERROR : expected : " << (len1 + len2)
-                 << "; got : " << utf8_cat.utf8_length() << endl;
+                 << "; got : " << utf8_cat.utf8_length() << "\n";
             return 7;
         }
     }
@@ -123,14 +123,14 @@ int main()
         if(sub1 != aexpected)
         {
             cerr << "ERROR : expected : " << aexpected.utf8_str()
-                 << "; got :" << sub1.utf8_str() << endl;
+                 << "; got :" << sub1.utf8_str() << "\n";
             return 8;
         }
 
         if(sub2 != u8expected)
         {
             cerr << "ERROR : expected : " << u8expected.utf8_str()
-                 << "; got :" << sub2.utf8_str() << endl;
+                 << "; got :" << sub2.utf8_str() << "\n";
             return 9;
         }
 
@@ -143,7 +143,7 @@ int main()
         if(sub != utf)
         {
             cerr << "ERROR : expected : " << u8expected.utf8_str()
-                 << "; got :" << sub.utf8_str() << endl;
+                 << "; got :" << sub.utf8_str() << "\n";
             return 10;
         }
 
@@ -188,13 +188,13 @@ int main()
 
         if(lenstr0 != 13)
         {
-            cout << lenstr0 << " expected : 13" << endl;
+            cout << lenstr0 << " expected : 13 \n";
             return 17;
         }
 
         if(lenstr1 != 0)
         {
-            cout << lenstr1 << " expected : 0" << endl;
+            cout << lenstr1 << " expected : 0 \n";
             return 171;
         }
 
@@ -205,7 +205,7 @@ int main()
 
         if(lenstr2 != 7)
         {
-            cout << lenstr2 << " expected : 7" << endl;
+            cout << lenstr2 << " expected : 7" << "\n";
             return 18;
         }
 
@@ -573,31 +573,31 @@ int main()
 
         if(ucpoint != c0)
         {
-            std::cout << "expected: " << ucpoint << "; got: " << c0 << std::endl;
+            std::cout << "expected: " << ucpoint << "; got: " << c0 << "\n";
             return 58;
         }
 
         if(gcpoint != cc)
         {
-            std::cout << "expected: " << gcpoint << "; got: " << cc << std::endl;
+            std::cout << "expected: " << gcpoint << "; got: " << cc << "\n";
             return 59;
         }
 
         if(ncpoint != ccc)
         {
-            std::cout << "expected: " << ncpoint << ";got: " << ccc << std::endl;
+            std::cout << "expected: " << ncpoint << ";got: " << ccc << "\n";
             return 60;
         }
 
         if(tcpoint != c1)
         {
-            std::cout << "expected: " << tcpoint << ";got: " << c1 << std::endl;
+            std::cout << "expected: " << tcpoint << ";got: " << c1 << "\n";
             return 61;
         }
 
         if(ucpoint != c2)
         {
-            std::cout << "expected: " << ucpoint << ";got: " << c2 << std::endl;
+            std::cout << "expected: " << ucpoint << ";got: " << c2 << "\n";
             return 62;
         }
 
@@ -607,7 +607,7 @@ int main()
 
         if(point != c)
         {
-            std::cout << "expected: " << point << ";got : " << c << std::endl;
+            std::cout << "expected: " << point << ";got : " << c << "\n";
             return 63;
         }
     }
@@ -621,21 +621,21 @@ int main()
         if(utf8orig != (utf8str.utf8_reverse()).utf8_reverse())
         {
             std::cout << "expected: " << utf8orig << "; got: "
-                      << (utf8str.utf8_reverse()).utf8_reverse() << std::endl;
+                      << (utf8str.utf8_reverse()).utf8_reverse() << "\n";
             return 64;
         }
 
         if(utf8orig.utf8_size() != (utf8str.utf8_reverse()).utf8_size())
         {
             std::cout << "expected: " << utf8orig.utf8_size() << "; got: "
-                      << (utf8str.utf8_reverse()).utf8_size() << std::endl;
+                      << (utf8str.utf8_reverse()).utf8_size() << "\n";
             return 65;
         }
 
         if(utf8orig.utf8_length() != (utf8str.utf8_reverse()).utf8_length())
         {
             std::cout << "expected: " << utf8orig.utf8_length() << "; got: "
-                      << (utf8str.utf8_reverse()).utf8_length() << std::endl;
+                      << (utf8str.utf8_reverse()).utf8_length() << "\n";
             return 66;
         }
     }
@@ -652,14 +652,14 @@ int main()
         if(str.utf8_length() != strpop.utf8_length())
         {
             std::cout << "Excpected : " << strpop.utf8_length() << ";got  : "
-                      << str.utf8_length() << std::endl;
+                      << str.utf8_length() << "\n";
             return 67;
         }
 
         if(str != strpop)
         {
             std::cout << "Excpected : " << strpop << ";got  : "
-                      << str << std::endl;
+                      << str << "\n";
             return 68;
         }
 
@@ -672,14 +672,14 @@ int main()
         if(str2.utf8_length() != str.utf8_length())
         {
             std::cout << "Excpected : " << str.utf8_length() << ";got  : "
-                      << str2.utf8_length() << std::endl;
+                      << str2.utf8_length() << "\n";
             return 69;
         }
 
         if(str != str2)
         {
             std::cout << "Excpected : " << str2 << ";got  : "
-                      << str << std::endl;
+                      << str << "\n";
             return 70;
         }
 
@@ -715,29 +715,29 @@ int main()
             }
             catch(std::invalid_argument& e)
             {
-                cerr << e.what() << endl;
+                cerr << e.what() << "\n";
                 return 72;
             }
 
-            cout << "File " << endl << "name: lipsum.txt"
-                 << endl << "size: " << text.utf8_size()
-                 << endl << "Number of characters: "
-                 << text.utf8_length() << endl;
+            cout << "File \n" << "name: lipsum.txt"
+                 << "\n" << "size: " << text.utf8_size()
+                 << "\n" << "Number of characters: "
+                 << text.utf8_length() << "\n";
 
             size_t pgumi = text.utf8_find(strgumi);
 
             if(pgumi == UTF8string::npos)
             {
                 cerr << "The position of \"" << strgumi
-                     << "\" in the text must not be UTF8string::npos" << endl;
+                     << "\" in the text must not be UTF8string::npos\n";
                 return 73;
             }
-            cout << "string from position " << pgumi << ": " << endl
-                 << text.utf8_substr(pgumi) << endl;
+            cout << "string from position " << pgumi << ": \n"
+                 << text.utf8_substr(pgumi) << "\n";
         }
         else
         {
-            cerr << "File not found!" << endl;
+            cerr << "File not found!\n";
             return 74;
         }
 
@@ -745,12 +745,12 @@ int main()
 
         if(pos == UTF8string::npos)
         {
-            cerr << "utf8_find: " << strreq << " not found!" << endl;
+            cerr << "utf8_find: " << strreq << " not found!\n";
             return 75;
         }
 
-        cout << "string from position " << pos << ": " << endl
-             << text.utf8_substr(pos) << endl;
+        cout << "string from position " << pos << ": \n"
+             << text.utf8_substr(pos) << "\n";
     }
 
     return 0;
