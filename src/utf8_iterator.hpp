@@ -36,6 +36,8 @@ class UTF8iterator
 
 public:
 
+    UTF8iterator() = delete;
+
     /**
     *   @fn explicit UTF8iterator(const UTF8string& u) noexcept
     *   Build an iterator object using a UTF8string object
