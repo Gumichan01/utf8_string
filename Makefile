@@ -1,7 +1,7 @@
 # Makefile of UTFstring
 
 CC=g++
-CFLAGS=-Wall -Wextra -std=c++11
+CFLAGS=-Wall -Wextra -Weffc++ -std=c++11
 LFLAGS=
 
 SRC=./src/
