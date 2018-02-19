@@ -137,7 +137,7 @@ bool UTF8string::utf8_is_valid_() const noexcept
 
     while(it < itend)
     {
-        if((0xF8&  *it) == 0xF0)
+        if((0xF8 & *it) == 0xF0)
         {
             // The UTF-8 codepoint begin with 0b11110xxx -> 4-byte codepoint
             // If the iterator reach the end of the string before the
@@ -147,8 +147,8 @@ bool UTF8string::utf8_is_valid_() const noexcept
 
             // Each of the following bytes is a value
             // between 0x80 and 0xBF
-            if(((0xC0&  *(it + 1)) != 0x80) || ((0xC0&  *(it + 2)) != 0x80)
-                    || ((0xC0&  *(it + 3)) != 0x80))
+            if(((0xC0 & *(it + 1)) != 0x80) || ((0xC0 & *(it + 2)) != 0x80)
+                    || ((0xC0 & *(it + 3)) != 0x80))
             {
                 return false;
             }
@@ -170,7 +170,7 @@ bool UTF8string::utf8_is_valid_() const noexcept
 
             it += 4;    // Jump to the next codepoint
         }
-        else if((0xF0&  *it) == 0xE0)
+        else if((0xF0 & *it) == 0xE0)
         {
             // The UTF-8 codepoint begin with 0b1110xxxx -> 3-byte codepoint
             if((it + 1) == itend || (it + 2) == itend)
@@ -178,7 +178,7 @@ bool UTF8string::utf8_is_valid_() const noexcept
 
             // Each of the following bytes starts with
             // 0b10xxxxxx in a valid string
-            if(((0xC0&  *(it + 1)) != 0x80) || ((0xC0&  *(it + 2)) != 0x80))
+            if(((0xC0 & *(it + 1)) != 0x80) || ((0xC0 & *(it + 2)) != 0x80))
                 return false;
 
             // If the first byte of the sequence is 0xE0
@@ -198,19 +198,19 @@ bool UTF8string::utf8_is_valid_() const noexcept
 
             it += 3;
         }
-        else if((0xE0&  *it) == 0xC0)
+        else if((0xE0 & *it) == 0xC0)
         {
             // The UTF-8 codepoint begin with 0b110xxxxx -> 2-byte codepoint
             if((it + 1) == itend)
                 return false;
 
             // The following byte starts with 0b10xxxxxx in a valid string
-            if((0xC0&  *(it + 1)) != 0x80)
+            if((0xC0 & *(it + 1)) != 0x80)
                 return false;
 
             it += 2;
         }
-        else if((0x80&  *it) == 0x00)
+        else if((0x80 & *it) == 0x00)
         {
             // The UTF-8 codepoint begin with 0b0xxxxxxx -> 1-byte codepoint
             it += 1;
@@ -236,18 +236,18 @@ size_t UTF8string::utf8_length_() const noexcept
     {
         byte_t byte = *it;
 
-        if (0xf0 == (0xf8&  byte))
+        if (0xf0 == (0xf8 & byte))
         {
             // 4-byte utf8 character
             // (0b11110xxx 0bxxxxxxxx 0bxxxxxxxx 0bxxxxxxxx)
             it += 4;
         }
-        else if (0xe0 == (0xf0&  byte))
+        else if (0xe0 == (0xf0 & byte))
         {
             // 3-byte utf8 code point (0b110xxxxx 0bxxxxxxxx 0bxxxxxxxx)
             it += 3;
         }
-        else if (0xc0 == (0xe0&  byte))
+        else if (0xc0 == (0xe0 & byte))
         {
             // 2-byte utf8 code point (0b110xxxxx 0bxxxxxxxx)
             it += 2;
@@ -268,15 +268,15 @@ size_t UTF8string::utf8_length_() const noexcept
 // Compute the memory size of a codepoint in the string (in byte)
 size_t UTF8string::utf8_codepoint_len_(const size_t j) const noexcept
 {
-    if (0xf0 == (0xf8&  utf8data[j]))
+    if (0xf0 == (0xf8 & utf8data[j]))
     {
         return 4;
     }
-    else if (0xe0 == (0xf0&  utf8data[j]))
+    else if (0xe0 == (0xf0 & utf8data[j]))
     {
         return 3;
     }
-    else if (0xc0 == (0xe0&  utf8data[j]))
+    else if (0xc0 == (0xe0 & utf8data[j]))
     {
         return 2;
     }
