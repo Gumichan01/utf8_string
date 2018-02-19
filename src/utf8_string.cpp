@@ -164,7 +164,7 @@ bool UTF8string::utf8_is_valid_() const noexcept
             }
             else if(*it == '\xF4')
             {
-                if(*(it + 1) > '\x8F')
+                if(*(it + 1) < '\x80' || *(it + 1) > '\x8F')
                     return false;
             }
 
