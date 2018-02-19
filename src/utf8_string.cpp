@@ -25,7 +25,7 @@ std::basic_string<unsigned char> toUstring(const std::string& str)
     return std::basic_string<unsigned char>(str.begin(), str.end());
 }
 
-std::string toString(const std::basic_string<unsigned char>& u8str)
+inline std::string toString(const std::basic_string<unsigned char>& u8str)
 {
     return std::string(u8str.begin(), u8str.end());
 }
