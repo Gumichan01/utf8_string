@@ -338,13 +338,13 @@ std::string UTF8string::utf8_at(const size_t index) const
     if(index >= utf8length)
         throw std::out_of_range("index value greater than the size of the string");
 
-    return *(utf8_begin() + index);
+    return toString(utf8_at_(index));
 }
 
 
 std::string UTF8string::operator [](const size_t index) const noexcept
 {
-    return *(utf8_begin() + index);
+    return toString(utf8_at_(index));
 }
 
 
