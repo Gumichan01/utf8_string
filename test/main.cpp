@@ -296,7 +296,7 @@ int main()
         try
         {
             // Invalid continuation byte (0x9F) after 0xE0
-            char inv25[] = {'\xE0','\x9F','\xA7','\x00'};
+            char inv25[] = {'\xE0','\xFF','\xFF','\xFF'};
             string chstr = inv25;
             UTF8string u8 = chstr;
 
@@ -318,7 +318,7 @@ int main()
         try
         {
             // Invalid continuation byte (0xA0) after 0xED
-            char inv27[] = {'\xED','\xA0','\xA7','\x00'};
+            char inv27[] = {'\xED','\xA0','\xFF','\xFF'};
             string chstr = inv27;
             UTF8string u8 = chstr;
 
