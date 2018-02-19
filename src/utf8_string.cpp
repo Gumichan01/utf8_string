@@ -137,7 +137,7 @@ bool UTF8string::utf8_is_valid_() const noexcept
 
     while(it < itend)
     {
-        if((0xF8 & *it) == 0xF0)
+        if((0xF8 & *it) == 0xF0 && *it <= 0xF4)
         {
             // The UTF-8 codepoint begin with 0b11110xxx -> 4-byte codepoint
             // If the iterator reach the end of the string before the
