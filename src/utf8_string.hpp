@@ -32,14 +32,16 @@ class UTF8iterator;
 */
 class UTF8string
 {
-    std::string utf8data{""};
+    using byte_t = unsigned char;
+    using u8string = std::basic_string<unsigned char>;
+    u8string utf8data;
     size_t utf8length = 0;
 
     bool utf8_is_valid_() const noexcept;
     size_t utf8_length_() const noexcept;
     size_t utf8_codepoint_len_(const size_t j) const noexcept;
     size_t utf8_bpos_at_(const size_t cpos) const noexcept;
-    std::string utf8_at_(const size_t index) const noexcept;
+    u8string utf8_at_(const size_t index) const noexcept;
 
     UTF8iterator utf8_iterator_() const noexcept;
     UTF8string utf8_reverse_aux_(UTF8iterator& it,

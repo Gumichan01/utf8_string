@@ -16,10 +16,20 @@
 #include <stdexcept>
 
 
-typedef char byte_t;
-
 namespace
 {
+
+std::basic_string<unsigned char> toUstring(const std::string& str)
+{
+    return std::basic_string<unsigned char>(str.begin(), str.end());
+}
+
+std::string toString(const std::basic_string<unsigned char>& u8str)
+{
+    return std::string(u8str.begin(), u8str.end());
+}
+
+// Used in utf8_find
 void preprocess(const UTF8string& str,
                 std::unordered_map<std::string, size_t>& u8map) noexcept
 {
@@ -45,7 +55,7 @@ void preprocess(const UTF8string& str,
 
 
 UTF8string::UTF8string(const std::string& str)
-    : utf8data(str)
+    : utf8data(str.begin(), str.end())
 {
     if(!utf8_is_valid_())
         throw std::invalid_argument("Invalid UTF-8 string\n");
@@ -60,7 +70,7 @@ UTF8string::UTF8string(const UTF8string& u8str) noexcept
 
 const UTF8string& UTF8string::operator =(const char * str)
 {
-    utf8data = str;
+    utf8data = toUstring(std::string(str));
 
     if(!utf8_is_valid_())
         throw std::invalid_argument("Invalid UTF-8 string\n");
@@ -72,7 +82,7 @@ const UTF8string& UTF8string::operator =(const char * str)
 
 const UTF8string& UTF8string::operator =(const std::string& str)
 {
-    utf8data = str;
+    utf8data = toUstring(str);
 
     if(!utf8_is_valid_())
         throw std::invalid_argument("Invalid UTF-8 string\n");
@@ -92,8 +102,8 @@ UTF8string& UTF8string::operator =(const UTF8string& u8str) noexcept
 
 const UTF8string& UTF8string::operator +=(const std::string& str)
 {
-    std::string s = utf8data;
-    utf8data += str;
+    UTF8string::u8string s = utf8data;
+    utf8data += toUstring(str);
 
     if(!utf8_is_valid_())
     {
@@ -116,8 +126,8 @@ const UTF8string& UTF8string::operator +=(const UTF8string& u8str)
 
 const UTF8string& UTF8string::operator +=(const char * str)
 {
-    std::string s = utf8data;
-    utf8data += str;
+    UTF8string::u8string s = utf8data;
+    utf8data += toUstring(std::string(str));
 
     if(!utf8_is_valid_())
     {
@@ -157,14 +167,14 @@ bool UTF8string::utf8_is_valid_() const noexcept
             // then the first continuation byte must be between 0x90 and 0xBF
             // otherwise, if the byte is 0xF4
             // then the first continuation byte must be between 0x80 and 0x8F
-            if(*it == '\xF0')
+            if(*it == 0xF0)
             {
-                if(*(it + 1) < '\x90' || *(it + 1) > '\xBF')
+                if(*(it + 1) < 0x90 || *(it + 1) > 0xBF)
                     return false;
             }
-            else if(*it == '\xF4')
+            else if(*it == 0xF4)
             {
-                if(*(it + 1) < '\x80' || *(it + 1) > '\x8F')
+                if(*(it + 1) < 0x80 || *(it + 1) > 0x8F)
                     return false;
             }
 
@@ -185,14 +195,14 @@ bool UTF8string::utf8_is_valid_() const noexcept
             // then the first continuation byte must be between 0xA0 and 0xBF
             // otherwise, if the byte is 0xF4
             // then the first continuation byte must be between 0x80 and 0x9F
-            if(*it == '\xE0')
+            if(*it == 0xE0)
             {
-                if(*(it + 1) < '\xA0' || *(it + 1) > '\xBF')
+                if(*(it + 1) < 0xA0 || *(it + 1) > 0xBF)
                     return false;
             }
-            else if(*it == '\xED')
+            else if(*it == 0xED)
             {
-                if(*(it + 1) > '\x9F')
+                if(*(it + 1) > 0x9F)
                     return false;
             }
 
@@ -314,7 +324,7 @@ size_t UTF8string::utf8_bpos_at_(const size_t cpos) const noexcept
 }
 
 
-std::string UTF8string::utf8_at_(const size_t index) const noexcept
+UTF8string::u8string UTF8string::utf8_at_(const size_t index) const noexcept
 {
     size_t bpos    = utf8_bpos_at_(index);
     const size_t n = utf8_codepoint_len_(bpos);
@@ -327,13 +337,13 @@ std::string UTF8string::utf8_at(const size_t index) const
     if(index >= utf8length)
         throw std::out_of_range("index value greater than the size of the string");
 
-    return utf8_at_(index);
+    return toString(utf8_at_(index));
 }
 
 
 std::string UTF8string::operator [](const size_t index) const noexcept
 {
-    return utf8_at_(index);
+    return toString(utf8_at_(index));
 }
 
 
@@ -446,12 +456,12 @@ size_t UTF8string::utf8_length() const noexcept
 
 const std::string UTF8string::utf8_sstring() const noexcept
 {
-    return utf8data;
+    return toString(utf8data);
 }
 
 const char * UTF8string::utf8_str() const noexcept
 {
-    return utf8data.c_str();
+    return reinterpret_cast<const char *>(utf8data.c_str());
 }
 
 // Internal function that creates an iterator of the current string
