@@ -14,6 +14,7 @@
 
 #include <unordered_map>
 #include <stdexcept>
+#include <utility>
 
 
 namespace
@@ -55,7 +56,7 @@ void preprocess(const UTF8string& str,
 
 
 UTF8string::UTF8string(const std::string& str)
-    : utf8data(str.begin(), str.end())
+    : utf8data(str.cbegin(), str.cend())
 {
     if(!utf8_is_valid_())
         throw std::invalid_argument("Invalid UTF-8 string\n");
@@ -70,7 +71,7 @@ UTF8string::UTF8string(const UTF8string& u8str) noexcept
 
 const UTF8string& UTF8string::operator =(const char * str)
 {
-    utf8data = toUstring(std::string(str));
+    utf8data = std::move(toUstring(std::string(str)));
 
     if(!utf8_is_valid_())
         throw std::invalid_argument("Invalid UTF-8 string\n");
@@ -82,7 +83,7 @@ const UTF8string& UTF8string::operator =(const char * str)
 
 const UTF8string& UTF8string::operator =(const std::string& str)
 {
-    utf8data = toUstring(str);
+    utf8data = std::move(toUstring(str));
 
     if(!utf8_is_valid_())
         throw std::invalid_argument("Invalid UTF-8 string\n");
@@ -103,7 +104,7 @@ UTF8string& UTF8string::operator =(const UTF8string& u8str) noexcept
 const UTF8string& UTF8string::operator +=(const std::string& str)
 {
     UTF8string::u8string s = utf8data;
-    utf8data += toUstring(str);
+    utf8data += std::move(toUstring(str));
 
     if(!utf8_is_valid_())
     {
@@ -127,7 +128,7 @@ const UTF8string& UTF8string::operator +=(const UTF8string& u8str)
 const UTF8string& UTF8string::operator +=(const char * str)
 {
     UTF8string::u8string s = utf8data;
-    utf8data += toUstring(std::string(str));
+    utf8data += std::move(toUstring(std::string(str)));
 
     if(!utf8_is_valid_())
     {
