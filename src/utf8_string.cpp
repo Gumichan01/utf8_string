@@ -144,16 +144,16 @@ const UTF8string& UTF8string::operator +=(const char * str)
 bool UTF8string::utf8_is_valid_() const noexcept
 {
     auto it = _utf8data.begin();
-    const auto itend = _utf8data.end();
+    const auto ITEND = _utf8data.end();
 
-    while(it < itend)
+    while(it < ITEND)
     {
         if((0xF8 & *it) == 0xF0 && *it <= 0xF4)
         {
             // The UTF-8 codepoint begin with 0b11110xxx -> 4-byte codepoint
             // If the iterator reach the end of the string before the
             // end of the 4-byte codepoint -> invalid string
-            if((it + 1) == itend || (it + 2) == itend || (it + 3) == itend)
+            if((it + 1) == ITEND || (it + 2) == ITEND || (it + 3) == ITEND)
                 return false;
 
             // Each of the following bytes is a value
@@ -184,7 +184,7 @@ bool UTF8string::utf8_is_valid_() const noexcept
         else if((0xF0 & *it) == 0xE0)
         {
             // The UTF-8 codepoint begin with 0b1110xxxx -> 3-byte codepoint
-            if((it + 1) == itend || (it + 2) == itend)
+            if((it + 1) == ITEND || (it + 2) == ITEND)
                 return false;
 
             // Each of the following bytes starts with
@@ -212,7 +212,7 @@ bool UTF8string::utf8_is_valid_() const noexcept
         else if((0xE0 & *it) == 0xC0)
         {
             // The UTF-8 codepoint begin with 0b110xxxxx -> 2-byte codepoint
-            if((it + 1) == itend)
+            if((it + 1) == ITEND)
                 return false;
 
             // The following byte starts with 0b10xxxxxx in a valid string
@@ -315,9 +315,9 @@ bool UTF8string::utf8_empty() const noexcept
 size_t UTF8string::utf8_bpos_at_(const size_t cpos) const noexcept
 {
     size_t bpos = 0;
-    const size_t u8size = utf8_size();
+    const size_t U8SIZE = utf8_size();
 
-    for(size_t i = 0; bpos < u8size && i < cpos; i++)
+    for(size_t i = 0; bpos < U8SIZE && i < cpos; i++)
     {
         bpos += utf8_codepoint_len_(bpos);
     }
@@ -328,8 +328,8 @@ size_t UTF8string::utf8_bpos_at_(const size_t cpos) const noexcept
 UTF8string::u8string UTF8string::utf8_at_(const size_t index) const noexcept
 {
     size_t bpos    = utf8_bpos_at_(index);
-    const size_t n = utf8_codepoint_len_(bpos);
-    return _utf8data.substr(bpos, n);
+    const size_t N = utf8_codepoint_len_(bpos);
+    return _utf8data.substr(bpos, N);
 }
 
 
@@ -365,14 +365,14 @@ UTF8string UTF8string::utf8_substr(size_t pos,size_t len) const
         return UTF8string();
 
     // Length of the substring (number of code points)
-    const size_t n = (len == npos || (pos + len) > utf8length) ?
+    const size_t N = (len == npos || (pos + len) > utf8length) ?
                      (utf8length - pos) : len;
 
     UTF8iterator it = utf8_iterator_() + pos;
-    const UTF8iterator _end = (it + n);
+    const UTF8iterator _END = (it + N);
     std::string s;
 
-    while(it != _end)
+    while(it != _END)
     {
         s += *(it++);
     }
@@ -570,7 +570,7 @@ std::ostream& operator <<(std::ostream& os, const UTF8string& str)
 std::istream& operator >>(std::istream& is, UTF8string& str)
 {
     std::string tmp;
-    std::getline(is,tmp);
+    std::getline(is, tmp);
     str = tmp;
     return is;
 }

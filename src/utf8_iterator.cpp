@@ -89,12 +89,12 @@ const std::string UTF8iterator::operator *() const
 UTF8iterator UTF8iterator::operator +(const size_t n) const noexcept
 {
     UTF8iterator newit(*this);
-    const size_t len = newit._data.utf8_length();
+    const size_t U8LEN = newit._data.utf8_length();
 
-    if(newit._index + n < len)
+    if(newit._index + n < U8LEN)
         newit._index += n;
     else
-        newit._index = len;
+        newit._index = U8LEN;
 
     return newit;
 }
