@@ -61,12 +61,12 @@ UTF8string::UTF8string(const std::string& str)
     if(!utf8_is_valid_())
         throw std::invalid_argument("Invalid UTF-8 string\n");
 
-    utf8length = utf8_length_();
+    _utf8length = utf8_length_();
 }
 
 
 UTF8string::UTF8string(const UTF8string& u8str) noexcept
-    : _utf8data(u8str._utf8data), utf8length(u8str.utf8length) {}
+    : _utf8data(u8str._utf8data), _utf8length(u8str._utf8length) {}
 
 
 const UTF8string& UTF8string::operator =(const char * str)
@@ -76,7 +76,7 @@ const UTF8string& UTF8string::operator =(const char * str)
     if(!utf8_is_valid_())
         throw std::invalid_argument("Invalid UTF-8 string\n");
 
-    utf8length = utf8_length_();
+    _utf8length = utf8_length_();
     return *this;
 }
 
@@ -88,7 +88,7 @@ const UTF8string& UTF8string::operator =(const std::string& str)
     if(!utf8_is_valid_())
         throw std::invalid_argument("Invalid UTF-8 string\n");
 
-    utf8length = utf8_length_();
+    _utf8length = utf8_length_();
     return *this;
 }
 
@@ -96,7 +96,7 @@ const UTF8string& UTF8string::operator =(const std::string& str)
 UTF8string& UTF8string::operator =(const UTF8string& u8str) noexcept
 {
     _utf8data = u8str._utf8data;
-    utf8length = u8str.utf8length;
+    _utf8length = u8str._utf8length;
     return *this;
 }
 
@@ -112,7 +112,7 @@ const UTF8string& UTF8string::operator +=(const std::string& str)
         throw std::invalid_argument("Invalid UTF-8 string\n");
     }
 
-    utf8length = utf8_length_();
+    _utf8length = utf8_length_();
     return *this;
 }
 
@@ -120,7 +120,7 @@ const UTF8string& UTF8string::operator +=(const std::string& str)
 const UTF8string& UTF8string::operator +=(const UTF8string& u8str)
 {
     _utf8data  += u8str._utf8data;
-    utf8length = utf8_length_();
+    _utf8length = utf8_length_();
     return *this;
 }
 
@@ -136,7 +136,7 @@ const UTF8string& UTF8string::operator +=(const char * str)
         throw std::invalid_argument("Invalid UTF-8 string\n");
     }
 
-    utf8length = utf8_length_();
+    _utf8length = utf8_length_();
     return *this;
 }
 
@@ -299,13 +299,13 @@ size_t UTF8string::utf8_codepoint_len_(const size_t j) const noexcept
 void UTF8string::utf8_clear() noexcept
 {
     _utf8data.clear();
-    utf8length = 0;
+    _utf8length = 0;
 }
 
 
 bool UTF8string::utf8_empty() const noexcept
 {
-    return utf8length == 0;
+    return _utf8length == 0;
 }
 
 /*
@@ -335,7 +335,7 @@ UTF8string::u8string UTF8string::utf8_at_(const size_t index) const noexcept
 
 std::string UTF8string::utf8_at(const size_t index) const
 {
-    if(index >= utf8length)
+    if(index >= _utf8length)
         throw std::out_of_range("index value greater than the size of the string");
 
     return toString(utf8_at_(index));
@@ -350,23 +350,23 @@ std::string UTF8string::operator [](const size_t index) const noexcept
 
 void UTF8string::utf8_pop()
 {
-    if(utf8length == 0)
+    if(_utf8length == 0)
         throw std::length_error("Cannot remove the last element from an empty string");
 
-    size_t bpos = utf8_bpos_at_(utf8length - 1);
+    size_t bpos = utf8_bpos_at_(_utf8length - 1);
     _utf8data.erase(bpos);
-    utf8length -= 1;
+    _utf8length -= 1;
 }
 
 
 UTF8string UTF8string::utf8_substr(size_t pos, size_t len) const
 {
-    if(pos > utf8length)
+    if(pos > _utf8length)
         return UTF8string();
 
     // Length of the substring (number of code points)
-    const size_t N = (len == npos || (pos + len) > utf8length) ?
-                     (utf8length - pos) : len;
+    const size_t N = (len == npos || (pos + len) > _utf8length) ?
+                     (_utf8length - pos) : len;
 
     UTF8iterator it = utf8_iterator_() + pos;
     const UTF8iterator _END = (it + N);
@@ -383,18 +383,18 @@ UTF8string UTF8string::utf8_substr(size_t pos, size_t len) const
 // This function implements the Boyer-Moore string search algorithm
 size_t UTF8string::utf8_find(const UTF8string& str, size_t pos) const
 {
-    if(str.utf8length == 0)
+    if(str._utf8length == 0)
         return npos;
 
     // Preprocessing
     std::unordered_map<std::string, size_t> u8map;
     preprocess(str, u8map);
 
-    const size_t U8LEN = str.utf8length;
+    const size_t U8LEN = str._utf8length;
     size_t index = pos;
 
     // Look for the subtring
-    while(index <= utf8length - U8LEN)
+    while(index <= _utf8length - U8LEN)
     {
         size_t j = U8LEN - 1;
         bool found = false;
@@ -437,7 +437,7 @@ UTF8string UTF8string::utf8_reverse_aux_(UTF8iterator& it,
 
 UTF8string& UTF8string::utf8_reverse()
 {
-    if(utf8length > 1)
+    if(_utf8length > 1)
     {
         UTF8iterator it = utf8_end();
         UTF8string rev;
@@ -456,7 +456,7 @@ size_t UTF8string::utf8_size() const noexcept
 
 size_t UTF8string::utf8_length() const noexcept
 {
-    return utf8length;
+    return _utf8length;
 }
 
 const std::string UTF8string::utf8_sstring() const noexcept
@@ -484,7 +484,7 @@ UTF8iterator UTF8string::utf8_begin() const noexcept
 
 UTF8iterator UTF8string::utf8_end() const noexcept
 {
-    return utf8_begin() + utf8length;
+    return utf8_begin() + _utf8length;
 }
 
 
@@ -496,7 +496,7 @@ UTF8iterator UTF8string::begin() const noexcept
 
 UTF8iterator UTF8string::end() const noexcept
 {
-    return utf8_begin() + utf8length;
+    return utf8_begin() + _utf8length;
 }
 
 
