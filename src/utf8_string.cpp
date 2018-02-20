@@ -123,6 +123,7 @@ const UTF8string& UTF8string::operator +=(const std::string& str)
     }
 
     _utf8length = utf8_length_();
+    _cached = false;
     return *this;
 }
 
@@ -131,6 +132,7 @@ const UTF8string& UTF8string::operator +=(const UTF8string& u8str)
 {
     _utf8data  += u8str._utf8data;
     _utf8length = utf8_length_();
+    _cached = false;
     return *this;
 }
 
@@ -147,6 +149,7 @@ const UTF8string& UTF8string::operator +=(const char * str)
     }
 
     _utf8length = utf8_length_();
+    _cached = false;
     return *this;
 }
 
@@ -309,7 +312,9 @@ size_t UTF8string::utf8_codepoint_len_(const size_t j) const noexcept
 void UTF8string::utf8_clear() noexcept
 {
     _utf8data.clear();
+    _string.clear();
     _utf8length = 0;
+    _cached = true;
 }
 
 
@@ -366,6 +371,8 @@ void UTF8string::utf8_pop()
     size_t bpos = utf8_bpos_at_(_utf8length - 1);
     _utf8data.erase(bpos);
     _utf8length -= 1;
+    /// @todo can I pop the cache (if it was valid)?
+    _cached = false;
 }
 
 
@@ -452,6 +459,7 @@ UTF8string& UTF8string::utf8_reverse()
         UTF8iterator it = utf8_end();
         UTF8string rev;
         _utf8data = (utf8_reverse_aux_(it, utf8_iterator_(), rev))._utf8data;
+        _cached = false;
     }
 
     return *this;
