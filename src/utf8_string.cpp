@@ -479,12 +479,18 @@ size_t UTF8string::utf8_length() const noexcept
 
 const std::string UTF8string::utf8_sstring() const noexcept
 {
-    return toString(_utf8data);
+    if(!_cached)
+    {
+        _string = std::move(toString(_utf8data));
+        _cached = true;
+    }
+    return _string;
 }
 
 const char * UTF8string::utf8_str() const noexcept
 {
-    return reinterpret_cast<const char *>(_utf8data.c_str());
+    return utf8_sstring().c_str();
+    //return reinterpret_cast<const char *>(_utf8data.c_str());
 }
 
 // Internal function that creates an iterator of the current string
