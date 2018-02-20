@@ -56,7 +56,7 @@ void preprocess(const UTF8string& str,
 
 
 UTF8string::UTF8string(const std::string& str)
-    : utf8data(str.cbegin(), str.cend())
+    : _utf8data(str.cbegin(), str.cend())
 {
     if(!utf8_is_valid_())
         throw std::invalid_argument("Invalid UTF-8 string\n");
@@ -66,12 +66,12 @@ UTF8string::UTF8string(const std::string& str)
 
 
 UTF8string::UTF8string(const UTF8string& u8str) noexcept
-    : utf8data(u8str.utf8data), utf8length(u8str.utf8length) {}
+    : _utf8data(u8str._utf8data), utf8length(u8str.utf8length) {}
 
 
 const UTF8string& UTF8string::operator =(const char * str)
 {
-    utf8data = std::move(toUstring(std::string(str)));
+    _utf8data = std::move(toUstring(std::string(str)));
 
     if(!utf8_is_valid_())
         throw std::invalid_argument("Invalid UTF-8 string\n");
@@ -83,7 +83,7 @@ const UTF8string& UTF8string::operator =(const char * str)
 
 const UTF8string& UTF8string::operator =(const std::string& str)
 {
-    utf8data = std::move(toUstring(str));
+    _utf8data = std::move(toUstring(str));
 
     if(!utf8_is_valid_())
         throw std::invalid_argument("Invalid UTF-8 string\n");
@@ -95,7 +95,7 @@ const UTF8string& UTF8string::operator =(const std::string& str)
 
 UTF8string& UTF8string::operator =(const UTF8string& u8str) noexcept
 {
-    utf8data = u8str.utf8data;
+    _utf8data = u8str._utf8data;
     utf8length = u8str.utf8length;
     return *this;
 }
@@ -103,12 +103,12 @@ UTF8string& UTF8string::operator =(const UTF8string& u8str) noexcept
 
 const UTF8string& UTF8string::operator +=(const std::string& str)
 {
-    UTF8string::u8string s = utf8data;
-    utf8data += std::move(toUstring(str));
+    UTF8string::u8string s = _utf8data;
+    _utf8data += std::move(toUstring(str));
 
     if(!utf8_is_valid_())
     {
-        utf8data = s;
+        _utf8data = s;
         throw std::invalid_argument("Invalid UTF-8 string\n");
     }
 
@@ -119,7 +119,7 @@ const UTF8string& UTF8string::operator +=(const std::string& str)
 
 const UTF8string& UTF8string::operator +=(const UTF8string& u8str)
 {
-    utf8data  += u8str.utf8data;
+    _utf8data  += u8str._utf8data;
     utf8length = utf8_length_();
     return *this;
 }
@@ -127,12 +127,12 @@ const UTF8string& UTF8string::operator +=(const UTF8string& u8str)
 
 const UTF8string& UTF8string::operator +=(const char * str)
 {
-    UTF8string::u8string s = utf8data;
-    utf8data += std::move(toUstring(std::string(str)));
+    UTF8string::u8string s = _utf8data;
+    _utf8data += std::move(toUstring(std::string(str)));
 
     if(!utf8_is_valid_())
     {
-        utf8data = s;
+        _utf8data = s;
         throw std::invalid_argument("Invalid UTF-8 string\n");
     }
 
@@ -143,8 +143,8 @@ const UTF8string& UTF8string::operator +=(const char * str)
 
 bool UTF8string::utf8_is_valid_() const noexcept
 {
-    auto it = utf8data.begin();
-    const auto itend = utf8data.end();
+    auto it = _utf8data.begin();
+    const auto itend = _utf8data.end();
 
     while(it < itend)
     {
@@ -239,8 +239,8 @@ bool UTF8string::utf8_is_valid_() const noexcept
 // Compute the length of the utf-8 string (in number of codepoints)
 size_t UTF8string::utf8_length_() const noexcept
 {
-    auto end_data = utf8data.end();
-    auto it = utf8data.begin();
+    auto end_data = _utf8data.end();
+    auto it = _utf8data.begin();
     size_t len = 0;
 
     while(it != end_data)
@@ -279,15 +279,15 @@ size_t UTF8string::utf8_length_() const noexcept
 // Compute the memory size of a codepoint in the string (in byte)
 size_t UTF8string::utf8_codepoint_len_(const size_t j) const noexcept
 {
-    if (0xf0 == (0xf8 & utf8data[j]))
+    if (0xf0 == (0xf8 & _utf8data[j]))
     {
         return 4;
     }
-    else if (0xe0 == (0xf0 & utf8data[j]))
+    else if (0xe0 == (0xf0 & _utf8data[j]))
     {
         return 3;
     }
-    else if (0xc0 == (0xe0 & utf8data[j]))
+    else if (0xc0 == (0xe0 & _utf8data[j]))
     {
         return 2;
     }
@@ -298,7 +298,7 @@ size_t UTF8string::utf8_codepoint_len_(const size_t j) const noexcept
 
 void UTF8string::utf8_clear() noexcept
 {
-    utf8data.clear();
+    _utf8data.clear();
     utf8length = 0;
 }
 
@@ -329,7 +329,7 @@ UTF8string::u8string UTF8string::utf8_at_(const size_t index) const noexcept
 {
     size_t bpos    = utf8_bpos_at_(index);
     const size_t n = utf8_codepoint_len_(bpos);
-    return utf8data.substr(bpos, n);
+    return _utf8data.substr(bpos, n);
 }
 
 
@@ -354,7 +354,7 @@ void UTF8string::utf8_pop()
         throw std::length_error("Cannot remove the last element from an empty string");
 
     size_t bpos = utf8_bpos_at_(utf8length - 1);
-    utf8data.erase(bpos);
+    _utf8data.erase(bpos);
     utf8length -= 1;
 }
 
@@ -439,14 +439,14 @@ UTF8string& UTF8string::utf8_reverse()
 {
     UTF8iterator it = utf8_end();
     UTF8string rev;
-    utf8data = (utf8_reverse_aux_(it, utf8_iterator_(), rev)).utf8data;
+    _utf8data = (utf8_reverse_aux_(it, utf8_iterator_(), rev))._utf8data;
     return *this;
 }
 
 
 size_t UTF8string::utf8_size() const noexcept
 {
-    return utf8data.size();
+    return _utf8data.size();
 }
 
 
@@ -457,12 +457,12 @@ size_t UTF8string::utf8_length() const noexcept
 
 const std::string UTF8string::utf8_sstring() const noexcept
 {
-    return toString(utf8data);
+    return toString(_utf8data);
 }
 
 const char * UTF8string::utf8_str() const noexcept
 {
-    return reinterpret_cast<const char *>(utf8data.c_str());
+    return reinterpret_cast<const char *>(_utf8data.c_str());
 }
 
 // Internal function that creates an iterator of the current string

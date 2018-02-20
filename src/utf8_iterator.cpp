@@ -14,24 +14,24 @@
 
 
 UTF8iterator::UTF8iterator(const UTF8string& u) noexcept
-    : index(0), data(u) {}
+    : _index(0), _data(u) {}
 
 UTF8iterator::UTF8iterator(const UTF8iterator& it) noexcept
-    : index(it.index), data(it.data) {}
+    : _index(it._index), _data(it._data) {}
 
 
 UTF8iterator& UTF8iterator::operator =(const UTF8iterator& it) noexcept
 {
-    data = it.data;
-    index = it.index;
+    _data = it._data;
+    _index = it._index;
     return *this;
 }
 
 
 UTF8iterator& UTF8iterator::operator ++() noexcept
 {
-    if(index < data.utf8_length())
-        index += 1;
+    if(_index < _data.utf8_length())
+        _index += 1;
 
     return *this;
 }
@@ -41,8 +41,8 @@ UTF8iterator UTF8iterator::operator ++(int) noexcept
 {
     UTF8iterator oldit(*this);
 
-    if(index < data.utf8_length())
-        index += 1;
+    if(_index < _data.utf8_length())
+        _index += 1;
 
     return oldit;
 }
@@ -50,8 +50,8 @@ UTF8iterator UTF8iterator::operator ++(int) noexcept
 
 UTF8iterator& UTF8iterator::operator --() noexcept
 {
-    if(index > 0)
-        index -= 1;
+    if(_index > 0)
+        _index -= 1;
 
     return *this;
 }
@@ -61,8 +61,8 @@ UTF8iterator UTF8iterator::operator --(int) noexcept
 {
     UTF8iterator oldit(*this);
 
-    if(index > 0)
-        index -= 1;
+    if(_index > 0)
+        _index -= 1;
 
     return oldit;
 }
@@ -70,7 +70,7 @@ UTF8iterator UTF8iterator::operator --(int) noexcept
 
 bool UTF8iterator::operator ==(const UTF8iterator& it) const noexcept
 {
-    return (index == it.index) && (data == it.data);
+    return (_index == it._index) && (_data == it._data);
 }
 
 
@@ -82,19 +82,19 @@ bool UTF8iterator::operator !=(const UTF8iterator& it) const noexcept
 
 const std::string UTF8iterator::operator *() const
 {
-    return data.utf8_at(index);
+    return _data.utf8_at(_index);
 }
 
 
 UTF8iterator UTF8iterator::operator +(const size_t n) const noexcept
 {
     UTF8iterator newit(*this);
-    const size_t len = newit.data.utf8_length();
+    const size_t len = newit._data.utf8_length();
 
-    if(newit.index + n < len)
-        newit.index += n;
+    if(newit._index + n < len)
+        newit._index += n;
     else
-        newit.index = len;
+        newit._index = len;
 
     return newit;
 }
@@ -104,10 +104,10 @@ UTF8iterator UTF8iterator::operator -(const size_t n) const noexcept
 {
     UTF8iterator newit(*this);
 
-    if(newit.index >= n)
-        newit.index -= n;
+    if(newit._index >= n)
+        newit._index -= n;
     else
-        newit.index = 0;
+        newit._index = 0;
 
     return newit;
 }

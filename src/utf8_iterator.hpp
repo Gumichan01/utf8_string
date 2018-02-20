@@ -29,8 +29,8 @@ class UTF8string;
 */
 class UTF8iterator
 {
-    size_t index = 0;
-    UTF8string data;
+    size_t _index = 0;
+    UTF8string _data;
 
     char& operator ->();
 
