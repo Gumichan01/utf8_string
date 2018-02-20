@@ -344,7 +344,8 @@ std::string UTF8string::utf8_at(const size_t index) const
 
 std::string UTF8string::operator [](const size_t index) const noexcept
 {
-    return toString(utf8_at_(index));
+    return *(utf8_iterator_() + index);
+    //return toString(utf8_at_(index));
 }
 
 
