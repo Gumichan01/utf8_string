@@ -359,7 +359,7 @@ void UTF8string::utf8_pop()
 }
 
 
-UTF8string UTF8string::utf8_substr(size_t pos,size_t len) const
+UTF8string UTF8string::utf8_substr(size_t pos, size_t len) const
 {
     if(pos > utf8length)
         return UTF8string();
@@ -422,7 +422,7 @@ size_t UTF8string::utf8_find(const UTF8string& str, size_t pos) const
     return npos;
 }
 
-// Terminal recursive function that reverse the string
+// Tail-recursive function that reverse the string
 UTF8string UTF8string::utf8_reverse_aux_(UTF8iterator& it,
         const UTF8iterator& _end,
         UTF8string& res)
@@ -437,9 +437,13 @@ UTF8string UTF8string::utf8_reverse_aux_(UTF8iterator& it,
 
 UTF8string& UTF8string::utf8_reverse()
 {
-    UTF8iterator it = utf8_end();
-    UTF8string rev;
-    _utf8data = (utf8_reverse_aux_(it, utf8_iterator_(), rev))._utf8data;
+    if(utf8length > 1)
+    {
+        UTF8iterator it = utf8_end();
+        UTF8string rev;
+        _utf8data = (utf8_reverse_aux_(it, utf8_iterator_(), rev))._utf8data;
+    }
+
     return *this;
 }
 
