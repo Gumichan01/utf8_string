@@ -32,7 +32,7 @@ class UTF8iterator
     size_t _index = 0;
     UTF8string _data;
 
-    char& operator ->();
+    char& operator ->() = delete;
 
 public:
 
