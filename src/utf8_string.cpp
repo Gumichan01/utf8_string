@@ -13,7 +13,6 @@
 #include "utf8_string.hpp"
 
 #include <unordered_map>
-#include <stdexcept>
 #include <utility>
 
 
@@ -382,7 +381,7 @@ UTF8string UTF8string::utf8_substr(size_t pos, size_t len) const
         return UTF8string();
 
     // Length of the substring (number of code points)
-    const size_t N = (len == npos || (pos + len) > _utf8length) ?
+    const size_t N = (len == UTF8string::npos || (pos + len) > _utf8length) ?
                      (_utf8length - pos) : len;
 
     UTF8iterator it = utf8_iterator_() + pos;
@@ -401,7 +400,7 @@ UTF8string UTF8string::utf8_substr(size_t pos, size_t len) const
 size_t UTF8string::utf8_find(const UTF8string& str, size_t pos) const
 {
     if(str._utf8length == 0)
-        return npos;
+        return UTF8string::npos;
 
     // Preprocessing
     std::unordered_map<std::string, size_t> u8map;
@@ -436,7 +435,7 @@ size_t UTF8string::utf8_find(const UTF8string& str, size_t pos) const
             return index;
     }
 
-    return npos;
+    return UTF8string::npos;
 }
 
 // Tail-recursive function that reverse the string
