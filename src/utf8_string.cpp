@@ -370,8 +370,11 @@ void UTF8string::utf8_pop()
     size_t bpos = utf8_bpos_at_(_utf8length - 1);
     _utf8data.erase(bpos);
     _utf8length -= 1;
-    /// @todo can I pop the cache (if it was valid)?
-    _cached = false;
+
+    // If the cache was valid before tis operation,
+    // keep the cache valid!
+    if(_cached)
+        _string.erase(bpos);
 }
 
 
