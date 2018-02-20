@@ -61,8 +61,8 @@ UTF8string::UTF8string(const std::string& str)
     if(!utf8_is_valid_())
         throw std::invalid_argument("Invalid UTF-8 string\n");
 
-    _string = str;
     _utf8length = utf8_length_();
+    _string = str;
     _cached = true;
 }
 
@@ -74,12 +74,15 @@ UTF8string::UTF8string(const UTF8string& u8str) noexcept
 
 const UTF8string& UTF8string::operator =(const char * str)
 {
-    _utf8data = std::move(toUstring(std::string(str)));
+    const std::string S(str);
+    _utf8data = std::move(toUstring(S));
 
     if(!utf8_is_valid_())
         throw std::invalid_argument("Invalid UTF-8 string\n");
 
     _utf8length = utf8_length_();
+    _string = S;
+    _cached = true;
     return *this;
 }
 
@@ -92,6 +95,8 @@ const UTF8string& UTF8string::operator =(const std::string& str)
         throw std::invalid_argument("Invalid UTF-8 string\n");
 
     _utf8length = utf8_length_();
+    _string = str;
+    _cached = true;
     return *this;
 }
 
@@ -100,6 +105,8 @@ UTF8string& UTF8string::operator =(const UTF8string& u8str) noexcept
 {
     _utf8data = u8str._utf8data;
     _utf8length = u8str._utf8length;
+    _string = u8str._string;
+    _cached = u8str._cached;
     return *this;
 }
 
