@@ -703,27 +703,30 @@ int main()
         strreq += "速スご薄具そなラひ置更けゃっ文犬2社ぎル由人へいきつ回見ト供崩モ催屋エ国続セワルリ";
         strreq += "謙髪テシ県住ざ新球ごくき名昨ツセ戸読役ホ細16態量番などトぱ。";
 
+        cout << "Find those strings: \n" << strgumi << "\n\n AND \n\n"
+             << strreq  << "\n\n";
+
         if(u8file.is_open())
         {
-            std::string tmp((std::istreambuf_iterator<char>(u8file)),
-                            (std::istreambuf_iterator<char>()));
-            u8file.close();
-
             try
             {
-                text = tmp;
+                text = std::string(std::istreambuf_iterator<char>(u8file),
+                                   std::istreambuf_iterator<char>());
+                u8file.close();
             }
             catch(std::invalid_argument& e)
             {
                 cerr << e.what() << "\n";
+                u8file.close();
                 return 72;
             }
 
             cout << "File \n" << "name: lipsum.txt"
                  << "\n" << "size: " << text.utf8_size()
                  << "\n" << "Number of characters: "
-                 << text.utf8_length() << "\n";
+                 << text.utf8_length() << "\n\n";
 
+            cout << "1 - Find - " << strgumi << "\n\n";
             size_t pgumi = text.utf8_find(strgumi);
 
             if(pgumi == UTF8string::npos)
@@ -732,8 +735,9 @@ int main()
                      << "\" in the text must not be UTF8string::npos\n";
                 return 73;
             }
-            cout << "string from position " << pgumi << ": \n"
-                 << text.utf8_substr(pgumi) << "\n";
+            cout << "1 - string from position " << pgumi << ": \n\n";
+            const UTF8string& u8found0 = text.utf8_substr(pgumi, 8192U);
+            cout << u8found0 << "\n\n";
         }
         else
         {
@@ -741,6 +745,7 @@ int main()
             return 74;
         }
 
+        cout << "2 - Find - " << strreq << "\n\n";
         size_t pos = text.utf8_find(strreq);
 
         if(pos == UTF8string::npos)
@@ -749,8 +754,9 @@ int main()
             return 75;
         }
 
-        cout << "string from position " << pos << ": \n"
-             << text.utf8_substr(pos) << "\n";
+        cout << "string from position " << pos << ": \n\n";
+        const UTF8string& u8found = text.utf8_substr(pos, strreq.utf8_length());
+        cout << u8found << "\n";
     }
 
     return 0;
