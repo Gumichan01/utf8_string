@@ -40,7 +40,7 @@ void preprocess(const UTF8string& str,
     {
         for(size_t i = U8LEN - 2U; ; --i)
         {
-            const std::string& s = str.utf8_at(i);
+            const std::string& s = str[i];
 
             if(u8map.find(s) == u8map.end())
                 u8map[s] = U8LEN - 1 - i;
