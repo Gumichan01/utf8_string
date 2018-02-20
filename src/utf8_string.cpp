@@ -61,12 +61,15 @@ UTF8string::UTF8string(const std::string& str)
     if(!utf8_is_valid_())
         throw std::invalid_argument("Invalid UTF-8 string\n");
 
+    _string = str;
     _utf8length = utf8_length_();
+    _cached = true;
 }
 
 
 UTF8string::UTF8string(const UTF8string& u8str) noexcept
-    : _utf8data(u8str._utf8data), _utf8length(u8str._utf8length) {}
+    : _utf8data(u8str._utf8data), _utf8length(u8str._utf8length),
+      _string(u8str._string), _cached(u8str._cached) {}
 
 
 const UTF8string& UTF8string::operator =(const char * str)
