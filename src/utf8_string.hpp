@@ -200,16 +200,16 @@ public:
     /**
     *   @fn size_t utf8_find(const UTF8string& str, size_t pos = 0) const
     *
-    *   Search the utf8 string for the first occurrence of
-    *   the sequence specified by its argument.
+    *   Search for the first occurrence of utf8 string
+    *   specified in argument.
     *
     *   When pos is specified, the search only includes characters
     *   at or after position pos, ignoring any possible occurrences
     *   that include characters before pos.
     *
     *   @param str The string to look for
-    *   @param pos The osition to start the search
-    *   @return The position of the subtring if it was found
+    *   @param pos The position to start the search
+    *   @return The position of the substring if it was found
     *           (in number of codepoints), UTF8string::npos otherwise.
     */
     size_t utf8_find(const UTF8string& str, size_t pos = 0) const;
