@@ -88,19 +88,19 @@ public:
     UTF8string(const UTF8string& u8str) noexcept;
 
     /**
-    *   @fn const UTF8string& operator =(const char * str)
+    *   @fn UTF8string& operator =(const char * str)
     *   @param str C-string that will be converted
     *   @return A reference to the new utf-8 string
     *   @exception std::invalid_argument If the string is not valid
     */
-    const UTF8string& operator =(const char * str);
+    UTF8string& operator =(const char * str);
     /**
-    *   @fn const UTF8string& operator =(const std::string& str)
+    *   @fn UTF8string& operator =(const std::string& str)
     *   @param str The string that will be converted and checked
     *   @return A reference to the new utf-8 string
     *   @exception std::invalid_argument If the string is not valid
     */
-    const UTF8string& operator =(const std::string& str);
+    UTF8string& operator =(const std::string& str);
     /**
     *   @fn UTF8string& operator =(const UTF8string& u8str)
     *   @param u8str The utf-8 string

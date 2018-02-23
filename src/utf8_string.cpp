@@ -71,7 +71,7 @@ UTF8string::UTF8string(const UTF8string& u8str) noexcept
       _string(u8str._string), _cached(u8str._cached) {}
 
 
-const UTF8string& UTF8string::operator =(const char * str)
+UTF8string& UTF8string::operator =(const char * str)
 {
     const std::string S(str);
     _utf8data = std::move(toUstring(S));
@@ -86,7 +86,7 @@ const UTF8string& UTF8string::operator =(const char * str)
 }
 
 
-const UTF8string& UTF8string::operator =(const std::string& str)
+UTF8string& UTF8string::operator =(const std::string& str)
 {
     _utf8data = std::move(toUstring(str));
 
