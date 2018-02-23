@@ -19,7 +19,7 @@
 namespace
 {
 
-std::basic_string<unsigned char> toUstring(const std::string& str)
+inline std::basic_string<unsigned char> toUstring(const std::string& str)
 {
     return std::basic_string<unsigned char>(str.begin(), str.end());
 }
