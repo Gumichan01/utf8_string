@@ -74,6 +74,14 @@ UTF8string::UTF8string(const UTF8string& u8str) noexcept
     : _utf8data(u8str._utf8data), _utf8length(u8str._utf8length),
       _string(u8str._string), _cached(u8str._cached) {}
 
+UTF8string::UTF8string(UTF8string&& u8str) noexcept
+    : _utf8data(u8str._utf8data), _utf8length(u8str._utf8length),
+      _string(u8str._string), _cached(u8str._cached)
+{
+    u8str.utf8_clear();
+    u8str._utf8data.shrink_to_fit();
+    u8str._string.shrink_to_fit();
+}
 
 UTF8string& UTF8string::operator =(const char * str)
 {
@@ -113,6 +121,19 @@ UTF8string& UTF8string::operator =(const UTF8string& u8str) noexcept
     return *this;
 }
 
+UTF8string& UTF8string::operator =(UTF8string&& u8str) noexcept
+{
+    _utf8data = u8str._utf8data;
+    _utf8length = u8str._utf8length;
+    _string = u8str._string;
+    _cached = u8str._cached;
+
+    u8str.utf8_clear();
+    u8str._utf8data.shrink_to_fit();
+    u8str._string.shrink_to_fit();
+
+    return *this;
+}
 
 const UTF8string& UTF8string::operator +=(const std::string& str)
 {

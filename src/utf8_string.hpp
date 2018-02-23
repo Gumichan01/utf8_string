@@ -90,9 +90,13 @@ public:
     /**
     *   @fn UTF8string(const UTF8string& u8str) noexcept
     *   @param u8str
-    *   @exception std::invalid_argument If the string is not valid
     */
     UTF8string(const UTF8string& u8str) noexcept;
+    /**
+    *   @fn UTF8string(UTF8string&& u8str) noexcept
+    *   @param u8str
+    */
+    UTF8string(UTF8string&& u8str) noexcept;
 
     /**
     *   @fn UTF8string& operator =(const char * str)
@@ -112,9 +116,15 @@ public:
     *   @fn UTF8string& operator =(const UTF8string& u8str)
     *   @param u8str The utf-8 string
     *   @return A reference to the new utf-8 string
-    *   @exception std::invalid_argument If the string is not valid
     */
     UTF8string& operator =(const UTF8string& u8str) noexcept;
+    /**
+    *   @fn UTF8string& operator =(UTF8string&& u8str)
+    *   @param u8str The utf-8 string
+    *   @return A reference to the new utf-8 string
+    */
+    UTF8string& operator =(UTF8string&& u8str) noexcept;
+
     /**
     *   @fn const UTF8string& operator +=(const UTF8string& u8str)
     *
