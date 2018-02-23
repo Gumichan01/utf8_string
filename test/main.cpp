@@ -13,6 +13,7 @@
 #include <string>
 #include <cstring>
 #include <stdexcept>
+#include <algorithm>
 #include <iostream>
 #include <fstream>
 
@@ -34,9 +35,6 @@ int main()
         UTF8string u8("がんばつて Gumichan");
         string utf8s("がんばつて Gumichan");
 
-        // copy construtor
-        UTF8string hum = "がんばつて Gumichan";
-
         {
             try
             {
@@ -51,6 +49,25 @@ int main()
         // Test the test
         if(u8 != u8)
             return 1;
+
+        // copy construtor
+        {
+            UTF8string hum(u8);
+
+            if(hum != u8)
+                return 101;
+        }
+
+        // move construtor
+        {
+            UTF8string dump(u8);
+            UTF8string hum2(std::move(dump));
+
+            if(hum2 != u8)
+                return 102;
+
+            cout << "dump = " << dump << "\n";
+        }
 
         // assignment
         UTF8string uu8 = u8;
@@ -69,7 +86,20 @@ int main()
         if(str1 != utf8.utf8_sstring())
             return 4;
 
-        // assignment
+        // move assignment
+        {
+            UTF8string hum3("hello");
+            UTF8string dump(u8);
+
+            hum3 = std::move(dump);
+
+            if(hum3 != u8)
+                return 104;
+
+            cout << "dump = " << dump << "\n";
+        }
+
+        // assignment (again)
         std::string strg1 = "Gumi";
         std::string strg2 = "chan";
         const size_t sz1 = strg1.size();
