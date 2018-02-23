@@ -35,8 +35,7 @@ int main()
         string utf8s("がんばつて Gumichan");
 
         // copy construtor
-        UTF8string hum;
-        hum = "がんばつて Gumichan";
+        UTF8string hum = "がんばつて Gumichan";
 
         {
             try
@@ -60,9 +59,9 @@ int main()
             return 2;
 
         // assignment
-        std::string str1 = "がんばつて";
+        const std::string& str1 = "がんばつて";
         UTF8string utf8 = str1;
-        std::string str2 = utf8.utf8_str();
+        const std::string& str2 = utf8.utf8_str();
 
         if(str1 != str2)
             return 3;
