@@ -54,6 +54,10 @@ void preprocess(const UTF8string& str,
 }
 
 
+UTF8string::UTF8string(const char * str)
+    : UTF8string(std::string(str)) {}
+
+
 UTF8string::UTF8string(const std::string& str)
     : _utf8data(str.cbegin(), str.cend())
 {
@@ -396,7 +400,7 @@ UTF8string UTF8string::utf8_substr(size_t pos, size_t len) const
         s += *(it++);
     }
 
-    return s;
+    return UTF8string(s);
 }
 
 // This function implements the Boyer-Moore string search algorithm

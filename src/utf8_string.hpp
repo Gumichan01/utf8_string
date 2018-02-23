@@ -75,14 +75,21 @@ public:
     */
     UTF8string() = default;
     /**
+    *   @fn UTF8string(const char * str)
+    *   @param str
+    *   @pre str is not null
+    *   @exception std::invalid_argument If the string is not valid
+    */
+    UTF8string(const char * str);
+    /**
     *   @fn UTF8string(const std::string& str)
-    *   @param str The string to convert from
+    *   @param str
     *   @exception std::invalid_argument If the string is not valid
     */
     UTF8string(const std::string& str);
     /**
     *   @fn UTF8string(const UTF8string& u8str) noexcept
-    *   @param u8str The string to convert from
+    *   @param u8str
     *   @exception std::invalid_argument If the string is not valid
     */
     UTF8string(const UTF8string& u8str) noexcept;
