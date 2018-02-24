@@ -19,6 +19,11 @@
 namespace
 {
 
+constexpr size_t min(size_t a, size_t b)
+{
+    return a < b ? a : b;
+}
+
 inline std::basic_string<unsigned char> toUstring(const std::string& str)
 {
     return std::basic_string<unsigned char>(str.begin(), str.end());
@@ -404,17 +409,39 @@ void UTF8string::utf8_pop()
 
 UTF8string& UTF8string::utf8_erase(size_t index, size_t count)
 {
+    if(index > _utf8length)
+        throw std::out_of_range("utf8_range - index out of range");
+
+    if(_utf8length == 0 || count == 0)
+        return *this;
+
+    count = min(count, _utf8length - index);
+    const size_t bfirst = utf8_bpos_at_(index);
+    const size_t blast  = utf8_bpos_at_(index + count);
+
+    u8string u8s;
+    const size_t N = _utf8data.size();
+
+    for(size_t i = 0U; i < N; ++i)
+    {
+        if(i < bfirst || i > blast - 1)
+            u8s += _utf8data[i];
+    }
+
+    _utf8data = u8s;
+    _utf8length = utf8_length_();
+    _cached = false;
     return *this;
 }
 
 UTF8iterator UTF8string::utf8_erase(const UTF8iterator position) noexcept
 {
-    return utf8_iterator_();
+    return utf8_end();
 }
 
 UTF8iterator UTF8string::utf8_erase(const UTF8iterator first, const UTF8iterator last) noexcept
 {
-    return utf8_iterator_();
+    return utf8_end();
 }
 
 UTF8string UTF8string::utf8_substr(size_t pos, size_t len) const
