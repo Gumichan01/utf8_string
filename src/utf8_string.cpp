@@ -402,6 +402,20 @@ void UTF8string::utf8_pop()
         _string.erase(bpos);
 }
 
+UTF8string& UTF8string::utf8_erase(size_t index, size_t count)
+{
+    return *this;
+}
+
+UTF8iterator UTF8string::utf8_erase(const UTF8iterator position) noexcept
+{
+    return utf8_iterator_();
+}
+
+UTF8iterator UTF8string::utf8_erase(const UTF8iterator first, const UTF8iterator last) noexcept
+{
+    return utf8_iterator_();
+}
 
 UTF8string UTF8string::utf8_substr(size_t pos, size_t len) const
 {

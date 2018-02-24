@@ -199,6 +199,33 @@ public:
     *   @exception std::length_error If the string is empty
     */
     void utf8_pop();
+    /**
+    *   @fn UTF8string& utf8_erase(size_t index = 0, size_t count = npos)
+    *
+    *   Removes min(count, utf8_size() - index) characters starting at index
+    *
+    *   @return *this
+    *   @exception std::out_of_range if ```index > utf8_size()```
+    */
+    UTF8string& utf8_erase(size_t index = 0, size_t count = npos);
+    /**
+    *   @fn UTF8iterator utf8_erase(const UTF8iterator position)
+    *
+    *   Removes the character at position
+    *
+    *   @return Iterator pointing to the character immediately following the character erased,
+    *           or utf8_end() if no such character exists
+    */
+    UTF8iterator utf8_erase(const UTF8iterator position) noexcept;
+    /**
+    *   @fn UTF8iterator utf8_erase(const UTF8iterator first, const UTF8iterator last) noexcept
+    *
+    *   Removes the character in the range [first, last[
+    *
+    *   @return Iterator pointing to the character ```last```before the erase,
+    *           or utf8_end() if no such character exists
+    */
+    UTF8iterator utf8_erase(const UTF8iterator first, const UTF8iterator last) noexcept;
 
     /**
     *   @fn UTF8string utf8_substr(size_t pos = 0, size_t len = npos) const

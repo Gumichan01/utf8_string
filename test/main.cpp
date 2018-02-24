@@ -722,6 +722,69 @@ int main()
 
     }
 
+    // Erase #1
+    {
+        UTF8string s = "This is an example";
+        cout << s << "\n";
+
+        s.utf8_erase(0, 5); // Erase "This "
+        cout << s << "\n";
+
+        s.utf8_erase(s.utf8_begin() + 2); // Erase ' '
+        cout << s << "\n";
+
+        s.utf8_erase(s.utf8_find(" ")); // Trim from ' ' to the end of the string
+        cout << s << "\n";
+    }
+
+    // Erase #2
+    {
+        UTF8string empty;
+        UTF8string str1("がんばつて Gumichan");
+        UTF8string str2("がんばつて Gumichan");
+        UTF8string str3("がんばつて Gumichan");
+        UTF8string str4("がんばつて Gumichan");
+        UTF8string exp1("がんばつて");
+        UTF8string exp2("Gumichan");
+        UTF8string exp3("がんばつてGumichan");
+
+        try
+        {
+            empty.utf8_erase();
+        }
+        catch (...)
+        {
+            return 80;
+        }
+
+        try
+        {
+            empty.utf8_erase(42, 1024);
+            return 81;
+        }
+        catch (const std::out_of_range& out)
+        {
+            cout << out.what() << '\n';
+        }
+
+        str1.utf8_erase(5);
+        str2.utf8_erase(0, 5);
+        str3.utf8_erase(str3.utf8_begin() + 5);
+        str4.utf8_erase(str4.utf8_begin(), str4.utf8_begin() + 5);
+
+        if(str1 != exp1)
+            return 76;
+
+        if(str2 != exp2)
+            return 77;
+
+        if(str3 != exp3)
+            return 78;
+
+        if(str4 != exp2)
+            return 79;
+    }
+
     // Last test : search for a substring in a file
     {
         UTF8string text;
