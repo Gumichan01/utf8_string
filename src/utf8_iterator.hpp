@@ -101,7 +101,6 @@ public:
     *   @return TRUE if they are pointing to the same position, FALSE otherwise
     */
     bool operator ==(const UTF8iterator& it) const noexcept;
-
     /**
     *   @fn bool operator !=(const UTF8iterator& it) const noexcept
     *
@@ -113,6 +112,30 @@ public:
     *           FALSE otherwise
     */
     bool operator !=(const UTF8iterator& it) const noexcept;
+    /**
+    *   @fn bool operator <(const UTF8iterator& it) const noexcept
+    *   @param it The iterator to compare with
+    *   @return TRUE if the position of it is greater than *this, FALSE otherwise
+    */
+    bool operator <(const UTF8iterator& it) const noexcept;
+    /**
+    *   @fn bool operator >(const UTF8iterator& it) const noexcept
+    *   @param it The iterator to compare with
+    *   @return TRUE if the position of it is less than *this, FALSE otherwise
+    */
+    bool operator >(const UTF8iterator& it) const noexcept;
+    /**
+    *   @fn bool operator <=(const UTF8iterator& it) const noexcept
+    *   @param it The iterator to compare with
+    *   @return TRUE if the position of it is greater than or equal *this, FALSE otherwise
+    */
+    bool operator <=(const UTF8iterator& it) const noexcept;
+    /**
+    *   @fn bool operator >=(const UTF8iterator& it) const noexcept
+    *   @param it The iterator to compare with
+    *   @return TRUE if the position of it is less than or equal to *this, FALSE otherwise
+    */
+    bool operator >=(const UTF8iterator& it) const noexcept;
 
     /**
     *   @fn UTF8iterator operator +(const size_t n) const noexcept

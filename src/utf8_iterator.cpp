@@ -70,7 +70,7 @@ UTF8iterator UTF8iterator::operator --(int) noexcept
 
 bool UTF8iterator::operator ==(const UTF8iterator& it) const noexcept
 {
-    return (_index == it._index) && (_data == it._data);
+    return (_data == it._data) && (_index == it._index);
 }
 
 
@@ -79,6 +79,26 @@ bool UTF8iterator::operator !=(const UTF8iterator& it) const noexcept
     return !(*this == it);
 }
 
+
+bool UTF8iterator::operator <(const UTF8iterator& it) const noexcept
+{
+    return (_data == it._data) && (_index < it._index);
+}
+
+bool UTF8iterator::operator >(const UTF8iterator& it) const noexcept
+{
+    return (_data == it._data) && (_index > it._index);
+}
+
+bool UTF8iterator::operator <=(const UTF8iterator& it) const noexcept
+{
+    return (_data == it._data) && (_index <= it._index);
+}
+
+bool UTF8iterator::operator >=(const UTF8iterator& it) const noexcept
+{
+    return (_data == it._data) && (_index >= it._index);
+}
 
 const std::string UTF8iterator::operator *() const
 {
