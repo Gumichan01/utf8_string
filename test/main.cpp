@@ -768,7 +768,7 @@ int main()
         }
 
         str1.utf8_erase(5);
-        str2.utf8_erase(0, 5);
+        str2.utf8_erase(0, 6);
         str3.utf8_erase(str3.utf8_begin() + 5);
         str4.utf8_erase(str4.utf8_begin(), str4.utf8_begin() + 5);
 
@@ -778,7 +778,7 @@ int main()
         cout << str4 << "\n";
 
         if(str1 != exp1)
-        
+
             return 76;
         if(str2 != exp2)
             return 77;
