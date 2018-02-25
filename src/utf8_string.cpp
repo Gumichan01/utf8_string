@@ -450,7 +450,7 @@ UTF8iterator UTF8string::utf8_erase(const UTF8iterator position)
     return utf8_begin() + d;
 }
 
-UTF8iterator UTF8string::utf8_erase(const UTF8iterator first, const UTF8iterator last) noexcept
+UTF8iterator UTF8string::utf8_erase(const UTF8iterator first, const UTF8iterator last)
 {
     if(first == last)
         return utf8_end();

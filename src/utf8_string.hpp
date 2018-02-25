@@ -225,8 +225,9 @@ public:
     *
     *   @return Iterator pointing to the character ```last```before the erase,
     *           or utf8_end() if no such character exists
+    *   @note If one of the iterators does not point to *this, the behaviour is undefined
     */
-    UTF8iterator utf8_erase(const UTF8iterator first, const UTF8iterator last) noexcept;
+    UTF8iterator utf8_erase(const UTF8iterator first, const UTF8iterator last);
 
     /**
     *   @fn UTF8string utf8_substr(size_t pos = 0, size_t len = npos) const
