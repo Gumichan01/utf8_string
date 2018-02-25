@@ -452,7 +452,23 @@ UTF8iterator UTF8string::utf8_erase(const UTF8iterator position)
 
 UTF8iterator UTF8string::utf8_erase(const UTF8iterator first, const UTF8iterator last) noexcept
 {
-    return utf8_end();
+    if(first == last)
+        return utf8_end();
+
+    if(first == utf8_begin() && last == utf8_end())
+    {
+        utf8_clear();
+        return utf8_end();
+    }
+
+    const UTF8iterator& REAL_FIRST = first < last ? first : last;
+    const UTF8iterator& REAL_LAST  = first < last ? last : first;
+
+    const size_t INDEX = static_cast<size_t>(REAL_FIRST - utf8_begin());
+    const size_t COUNT = static_cast<size_t>(REAL_LAST - REAL_FIRST);
+    utf8_erase(INDEX, COUNT);
+
+    return utf8_begin() + INDEX;
 }
 
 UTF8string UTF8string::utf8_substr(size_t pos, size_t len) const
