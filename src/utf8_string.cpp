@@ -401,7 +401,7 @@ void UTF8string::utf8_pop()
     _utf8data.erase(bpos);
     _utf8length -= 1;
 
-    // If the cache was valid before tis operation,
+    // If the cache was valid before this operation,
     // keep the cache valid!
     if(_cached)
         _string.erase(bpos);
@@ -434,9 +434,20 @@ UTF8string& UTF8string::utf8_erase(const size_t index, const size_t count)
     return *this;
 }
 
-UTF8iterator UTF8string::utf8_erase(const UTF8iterator position) noexcept
+UTF8iterator UTF8string::utf8_erase(const UTF8iterator position)
 {
-    return utf8_end();
+    if(position == utf8_end())
+        return utf8_end();
+
+    if(position == utf8_end() - 1)
+    {
+        utf8_pop();
+        return utf8_end();
+    }
+
+    const size_t d = static_cast<size_t>(position - utf8_begin());
+    utf8_erase(d, 1U);
+    return utf8_begin() + d;
 }
 
 UTF8iterator UTF8string::utf8_erase(const UTF8iterator first, const UTF8iterator last) noexcept

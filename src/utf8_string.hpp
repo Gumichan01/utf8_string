@@ -215,8 +215,9 @@ public:
     *
     *   @return Iterator pointing to the character immediately following the character erased,
     *           or utf8_end() if no such character exists
+    *   @note If the iterator does not point to *this, the behaviour is undefined
     */
-    UTF8iterator utf8_erase(const UTF8iterator position) noexcept;
+    UTF8iterator utf8_erase(const UTF8iterator position);
     /**
     *   @fn UTF8iterator utf8_erase(const UTF8iterator first, const UTF8iterator last) noexcept
     *
