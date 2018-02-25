@@ -770,7 +770,7 @@ int main()
         str1.utf8_erase(5);
         str2.utf8_erase(0, 6);
         str3.utf8_erase(str3.utf8_begin() + 5);
-        str4.utf8_erase(str4.utf8_begin(), str4.utf8_begin() + 5);
+        str4.utf8_erase(str4.utf8_begin(), str4.utf8_begin() + 6);
 
         cout << str1 << "\n";
         cout << str2 << "\n";
