@@ -93,6 +93,13 @@ public:
     */
     UTF8string(const UTF8string& u8str) noexcept;
     /**
+    *   @fn UTF8string(const UTF8string& u8str, size_t pos, size_t len = npos) noexcept
+    *   @param u8str
+    *   @param pos The beginning position of the substring
+    *   @param len The length of the substring (in number of codepoints, default value = npos)
+    */
+    UTF8string(const UTF8string& u8str, size_t pos, size_t len = npos) noexcept;
+    /**
     *   @fn UTF8string(UTF8string&& u8str) noexcept
     *   @param u8str
     */

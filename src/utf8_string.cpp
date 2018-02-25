@@ -79,6 +79,9 @@ UTF8string::UTF8string(const UTF8string& u8str) noexcept
     : _utf8data(u8str._utf8data), _utf8length(u8str._utf8length),
       _string(u8str._string), _cached(u8str._cached) {}
 
+UTF8string::UTF8string(const UTF8string& u8str, size_t pos, size_t len) noexcept
+    : UTF8string(u8str.utf8_substr(pos, len)) {}
+
 UTF8string::UTF8string(UTF8string&& u8str) noexcept
     : _utf8data(u8str._utf8data), _utf8length(u8str._utf8length),
       _string(u8str._string), _cached(u8str._cached)
