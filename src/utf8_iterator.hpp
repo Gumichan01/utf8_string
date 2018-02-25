@@ -146,7 +146,6 @@ public:
     *   @return The same iterator that moved forward
     */
     UTF8iterator operator +(const size_t n) const noexcept;
-
     /**
     *   @fn UTF8iterator operator -(const size_t n) const noexcept
     *
@@ -156,6 +155,18 @@ public:
     *   @return The same iterator that moved backward
     */
     UTF8iterator operator -(const size_t n) const noexcept;
+    /**
+    *   @fn long operator -(const UTF8iterator& it) const
+    *
+    *   Return the difference value between *this and it
+    *
+    *   @param it
+    *   @return A long value *n* such that it + n = *this
+    *   @pre *this and it points to the same data
+    *   @post *this == it + (*this - it)
+    *   @exception std::invalid_argument if the pre-condition is not satisfied
+    */
+    long operator -(const UTF8iterator& it) const;
 
     /**
     *   @fn const std::string operator *() const
