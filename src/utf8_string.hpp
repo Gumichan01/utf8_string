@@ -216,7 +216,7 @@ public:
     */
     UTF8string& utf8_erase(const size_t index = 0, const size_t count = npos);
     /**
-    *   @fn UTF8iterator utf8_erase(const UTF8iterator position)
+    *   @fn UTF8iterator utf8_erase(const UTF8iterator& position)
     *
     *   Removes the character at position
     *
@@ -224,9 +224,9 @@ public:
     *           or utf8_end() if no such character exists
     *   @note If the iterator does not point to *this, the behaviour is undefined
     */
-    UTF8iterator utf8_erase(const UTF8iterator position);
+    UTF8iterator utf8_erase(const UTF8iterator& position);
     /**
-    *   @fn UTF8iterator utf8_erase(const UTF8iterator first, const UTF8iterator last) noexcept
+    *   @fn UTF8iterator utf8_erase(const UTF8iterator& first, const UTF8iterator& last)
     *
     *   Removes the character in the range [first, last[
     *
@@ -234,7 +234,7 @@ public:
     *           or utf8_end() if no such character exists
     *   @note If one of the iterators does not point to *this, the behaviour is undefined
     */
-    UTF8iterator utf8_erase(const UTF8iterator first, const UTF8iterator last);
+    UTF8iterator utf8_erase(const UTF8iterator& first, const UTF8iterator& last);
 
     /**
     *   @fn UTF8string utf8_substr(size_t pos = 0, size_t len = npos) const

@@ -436,7 +436,7 @@ UTF8string& UTF8string::utf8_erase(const size_t index, const size_t count)
     return *this;
 }
 
-UTF8iterator UTF8string::utf8_erase(const UTF8iterator position)
+UTF8iterator UTF8string::utf8_erase(const UTF8iterator& position)
 {
     if(position == utf8_end())
         return utf8_end();
@@ -452,7 +452,7 @@ UTF8iterator UTF8string::utf8_erase(const UTF8iterator position)
     return utf8_begin() + d;
 }
 
-UTF8iterator UTF8string::utf8_erase(const UTF8iterator first, const UTF8iterator last)
+UTF8iterator UTF8string::utf8_erase(const UTF8iterator& first, const UTF8iterator& last)
 {
     if(first == last)
         return utf8_end();
