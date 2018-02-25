@@ -772,9 +772,14 @@ int main()
         str3.utf8_erase(str3.utf8_begin() + 5);
         str4.utf8_erase(str4.utf8_begin(), str4.utf8_begin() + 5);
 
-        if(str1 != exp1)
-            return 76;
+        cout << str1 << "\n";
+        cout << str2 << "\n";
+        cout << str3 << "\n";
+        cout << str4 << "\n";
 
+        if(str1 != exp1)
+        
+            return 76;
         if(str2 != exp2)
             return 77;
 
