@@ -146,6 +146,7 @@ int main()
         UTF8string sub1 = utf.utf8_substr(6,4);
         UTF8string sub2 = utf.utf8_substr(0,5);
         UTF8string sub3 = utf.utf8_substr(64,1024);
+        UTF8string sub4(utf, 0, 5);
         UTF8string aexpected("Gumi");
         UTF8string u8expected("がんばつて");
 
@@ -165,7 +166,14 @@ int main()
 
         if(!sub3.utf8_empty())
         {
-            return 99;
+            return 90;
+        }
+
+        if(sub4 != u8expected)
+        {
+            cerr << "ERROR : expected : " << u8expected.utf8_str()
+                 << "; got :" << sub2.utf8_str() << "\n";
+            return 91;
         }
 
         UTF8string sub = utf.utf8_substr();
