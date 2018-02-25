@@ -371,9 +371,8 @@ size_t UTF8string::utf8_bpos_at_(const size_t cpos) const noexcept
 
 UTF8string::u8string UTF8string::utf8_at_(const size_t index) const noexcept
 {
-    size_t bpos    = utf8_bpos_at_(index);
-    const size_t N = utf8_codepoint_len_(bpos);
-    return _utf8data.substr(bpos, N);
+    size_t bpos = utf8_bpos_at_(index);
+    return _utf8data.substr(bpos, utf8_codepoint_len_(bpos));
 }
 
 
