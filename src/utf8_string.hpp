@@ -200,14 +200,14 @@ public:
     */
     void utf8_pop();
     /**
-    *   @fn UTF8string& utf8_erase(size_t index = 0, size_t count = npos)
+    *   @fn UTF8string& utf8_erase(const size_t index = 0, const size_t count = npos)
     *
     *   Removes min(count, utf8_size() - index) characters starting at index
     *
     *   @return *this
     *   @exception std::out_of_range if ```index > utf8_size()```
     */
-    UTF8string& utf8_erase(size_t index = 0, size_t count = npos);
+    UTF8string& utf8_erase(const size_t index = 0, const size_t count = npos);
     /**
     *   @fn UTF8iterator utf8_erase(const UTF8iterator position)
     *

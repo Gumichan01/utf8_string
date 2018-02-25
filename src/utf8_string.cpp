@@ -407,24 +407,24 @@ void UTF8string::utf8_pop()
         _string.erase(bpos);
 }
 
-UTF8string& UTF8string::utf8_erase(size_t index, size_t count)
+UTF8string& UTF8string::utf8_erase(const size_t index, const size_t count)
 {
     if(index > _utf8length)
         throw std::out_of_range("utf8_range - index out of range");
 
-    if(_utf8length == 0 || count == 0)
+    const size_t COUNT = min(count, _utf8length - index);
+
+    if(_utf8length == 0 || COUNT == 0)
         return *this;
 
-    count = min(count, _utf8length - index);
-    const size_t bfirst = utf8_bpos_at_(index);
-    const size_t blast  = utf8_bpos_at_(index + count);
-
+    const size_t BFIRST = utf8_bpos_at_(index);
+    const size_t BLAST  = utf8_bpos_at_(index + COUNT);
+    const size_t N      = _utf8data.size();
     u8string u8s;
-    const size_t N = _utf8data.size();
 
     for(size_t i = 0U; i < N; ++i)
     {
-        if(i < bfirst || i > blast - 1)
+        if(i < BFIRST || i > BLAST - 1)
             u8s += _utf8data[i];
     }
 
