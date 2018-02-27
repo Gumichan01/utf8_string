@@ -798,6 +798,27 @@ int main()
             return 79;
     }
 
+    {
+        UTF8string hello("hello");
+        UTF8string hello2(hello);
+        UTF8string hellom("heLlo");
+
+        if(hello.hash() != hello2.hash())
+        {
+            cerr << "1 - invalid hash function\n";
+            return 82;
+        }
+
+        if(hello.hash() == hellom.hash())
+        {
+            cerr << "2 - invalid hash function\n";
+            return 83;
+        }
+
+        std::cout << "hash hello : " << std::hash<decltype(hello)>()(hello) << "\n";
+        std::cout << "hash heLlo : " << std::hash<decltype(hellom)>()(hellom) << "\n";
+    }
+
     // Last test : search for a substring in a file
     {
         UTF8string text;
