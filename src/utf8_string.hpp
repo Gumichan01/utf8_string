@@ -306,6 +306,12 @@ public:
     *   @return A pointer to a C-string
     */
     const char * utf8_str() const noexcept;
+    /**
+    *   @fn size_t hash() const noexcept
+    *   Generate a hash value of the utf8 string
+    *   @return The hash value
+    */
+    size_t hash() const noexcept;
 
     /**
     *   @fn UTF8iterator utf8_begin() const noexcept
@@ -351,6 +357,22 @@ public:
 
     ~UTF8string() = default;
 };
+
+
+namespace std
+{
+
+template<>
+class hash<UTF8string>
+{
+public:
+    size_t operator()(const UTF8string& u8str) const
+    {
+        return u8str.hash();
+    }
+};
+
+}
 
 
 /**

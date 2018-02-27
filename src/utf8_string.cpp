@@ -594,6 +594,19 @@ const char * UTF8string::utf8_str() const noexcept
     return _string.c_str();
 }
 
+size_t UTF8string::hash() const noexcept
+{
+    // computes the hash using a variant
+    // of the Fowler-Noll-Vo hash function
+    size_t result = 2166136261;
+
+    for(const unsigned char& c : _utf8data)
+    {
+        result = (result * 16777619) ^ c;
+    }
+    return result ^ (_utf8length << 1);
+}
+
 // Internal function that creates an iterator of the current string
 UTF8iterator UTF8string::utf8_iterator_() const noexcept
 {
