@@ -94,10 +94,14 @@ UTF8string::UTF8string(UTF8string&& u8str) noexcept
 UTF8string& UTF8string::operator =(const char * str)
 {
     const std::string S(str);
+    const UTF8string::u8string BACKUP = _utf8data;
     _utf8data = std::move(toUstring(S));
 
     if(!utf8_is_valid_())
+    {
+        _utf8data = BACKUP;
         throw std::invalid_argument("Invalid UTF-8 string\n");
+    }
 
     _utf8length = utf8_length_();
     _string = S;
@@ -108,10 +112,14 @@ UTF8string& UTF8string::operator =(const char * str)
 
 UTF8string& UTF8string::operator =(const std::string& str)
 {
+    const UTF8string::u8string BACKUP = _utf8data;
     _utf8data = std::move(toUstring(str));
 
     if(!utf8_is_valid_())
+    {
+        _utf8data = BACKUP;
         throw std::invalid_argument("Invalid UTF-8 string\n");
+    }
 
     _utf8length = utf8_length_();
     _string = str;
@@ -145,12 +153,12 @@ UTF8string& UTF8string::operator =(UTF8string&& u8str) noexcept
 
 const UTF8string& UTF8string::operator +=(const std::string& str)
 {
-    UTF8string::u8string s = _utf8data;
+    const UTF8string::u8string BACKUP = _utf8data;
     _utf8data += std::move(toUstring(str));
 
     if(!utf8_is_valid_())
     {
-        _utf8data = s;
+        _utf8data = BACKUP;
         throw std::invalid_argument("Invalid UTF-8 string\n");
     }
 
@@ -171,12 +179,12 @@ const UTF8string& UTF8string::operator +=(const UTF8string& u8str)
 
 const UTF8string& UTF8string::operator +=(const char * str)
 {
-    UTF8string::u8string s = _utf8data;
+    UTF8string::u8string BACKUP = _utf8data;
     _utf8data += std::move(toUstring(std::string(str)));
 
     if(!utf8_is_valid_())
     {
-        _utf8data = s;
+        _utf8data = BACKUP;
         throw std::invalid_argument("Invalid UTF-8 string\n");
     }
 

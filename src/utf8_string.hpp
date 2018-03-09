@@ -110,6 +110,7 @@ public:
     *   @param str C-string that will be converted
     *   @return A reference to the new utf-8 string
     *   @exception std::invalid_argument If the string is not valid
+    *   @note If an exception is thrown, the object in not modified
     */
     UTF8string& operator =(const char * str);
     /**
@@ -117,6 +118,7 @@ public:
     *   @param str The string that will be converted and checked
     *   @return A reference to the new utf-8 string
     *   @exception std::invalid_argument If the string is not valid
+    *   @note If an exception is thrown, the object in not modified
     */
     UTF8string& operator =(const std::string& str);
     /**
@@ -149,6 +151,7 @@ public:
     *   @param str The string to convert from
     *   @return The reference to the concatenated utf-8 string
     *   @exception std::invalid_argument If the string is not valid
+    *   @note If an exception is thrown, the object in not modified
     */
     const UTF8string& operator +=(const std::string& str);
     /**
@@ -184,6 +187,7 @@ public:
     *   @param index The index of the requested codepoint in the string
     *   @return The codepoint
     *   @exception std::out_of_range If the index is out of the string range
+    *   @note If an exception is thrown, the object in not modified
     */
     std::string utf8_at(const size_t index) const;
     /**
@@ -204,6 +208,7 @@ public:
     *   Remove the last codepoint.
     *
     *   @exception std::length_error If the string is empty
+    *   @note If an exception is thrown, the object in not modified
     */
     void utf8_pop();
     /**
@@ -213,6 +218,7 @@ public:
     *
     *   @return *this
     *   @exception std::out_of_range if ```index > utf8_size()```
+    *   @note If an exception is thrown, the object in not modified
     */
     UTF8string& utf8_erase(const size_t index = 0, const size_t count = npos);
     /**
