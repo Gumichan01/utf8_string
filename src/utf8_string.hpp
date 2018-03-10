@@ -191,7 +191,7 @@ public:
     */
     std::string utf8_at(const size_t index) const;
     /**
-    *   @fn std::string utf8_at(const size_t index) const noexcept
+    *   @fn std::string operator [](const size_t index) const noexcept
     *
     *   Get the codepoint at a specified position.
     *
