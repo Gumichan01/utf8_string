@@ -36,7 +36,7 @@ inline std::string toString(const std::basic_string<unsigned char>& u8str)
 
 // Used in utf8_find
 void preprocess(const UTF8string& str,
-                std::unordered_map<std::string, size_t>& u8map) noexcept
+                std::unordered_map<UTF8string::u8char, size_t>& u8map) noexcept
 {
     const size_t U8LEN = str.utf8_length();
 
@@ -45,7 +45,7 @@ void preprocess(const UTF8string& str,
     {
         for(size_t i = U8LEN - 2U; ; --i)
         {
-            const std::string& s = str[i];
+            const UTF8string::u8char& s = str[i];
 
             if(u8map.find(s) == u8map.end())
                 u8map[s] = U8LEN - 1 - i;
@@ -387,7 +387,7 @@ UTF8string::u8string UTF8string::utf8_at_(const size_t index) const noexcept
 }
 
 
-std::string UTF8string::utf8_at(const size_t index) const
+UTF8string::u8char UTF8string::utf8_at(const size_t index) const
 {
     if(index >= _utf8length)
         throw std::out_of_range("index value greater than the size of the string");
@@ -396,7 +396,7 @@ std::string UTF8string::utf8_at(const size_t index) const
 }
 
 
-std::string UTF8string::operator [](const size_t index) const noexcept
+UTF8string::u8char UTF8string::operator [](const size_t index) const noexcept
 {
     return toString(utf8_at_(index));
 }
@@ -509,7 +509,7 @@ size_t UTF8string::utf8_find(const UTF8string& str, size_t pos) const
         return UTF8string::npos;
 
     // Preprocessing
-    std::unordered_map<std::string, size_t> u8map;
+    std::unordered_map<UTF8string::u8char, size_t> u8map;
     preprocess(str, u8map);
 
     const size_t U8LEN = str._utf8length;
@@ -534,7 +534,7 @@ size_t UTF8string::utf8_find(const UTF8string& str, size_t pos) const
 
         if(!found)
         {
-            std::string ss = utf8_at(index + j);
+            UTF8string::u8char ss = utf8_at(index + j);
             index += (u8map.find(ss) == u8map.end()) ? U8LEN : u8map[ss];
         }
         else

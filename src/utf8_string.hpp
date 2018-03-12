@@ -53,6 +53,12 @@ class UTF8string
 public:
 
     /**
+    *   @typedef u8char
+    *   @brief the UTF-8 character
+    */
+    using u8char = std::string;
+
+    /**
     *   @var npos
     *
     *   *npos* is a static member constant value with the greatest
@@ -180,7 +186,7 @@ public:
     bool utf8_empty() const noexcept;
 
     /**
-    *   @fn std::string utf8_at(const size_t index) const
+    *   @fn UTF8string::u8char utf8_at(const size_t index) const
     *
     *   Get the codepoint at a specified position.
     *
@@ -189,9 +195,9 @@ public:
     *   @exception std::out_of_range If the index is out of the string range
     *   @note If an exception is thrown, the object in not modified
     */
-    std::string utf8_at(const size_t index) const;
+    UTF8string::u8char utf8_at(const size_t index) const;
     /**
-    *   @fn std::string operator [](const size_t index) const noexcept
+    *   @fn UTF8string::u8char operator [](const size_t index) const noexcept
     *
     *   Get the codepoint at a specified position.
     *
@@ -201,7 +207,7 @@ public:
     *   @note If the index is out of the string range, calling this functions
     *         causes undefined behaviour
     */
-    std::string operator [](const size_t index) const noexcept;
+    UTF8string::u8char operator [](const size_t index) const noexcept;
     /**
     *   @fn void utf8_pop()
     *

@@ -169,7 +169,7 @@ public:
     long operator -(const UTF8iterator& it) const;
 
     /**
-    *   @fn const std::string operator *() const
+    *   @fn const UTF8string::u8char operator *() const
     *
     *   Dereferences the pointer returning the codepoint
     *   pointed by the iterator at its current potision
@@ -178,7 +178,7 @@ public:
     *   @note This function will throw an *std::out_of_range* exception
     *         if the iterator does not point to a codepoint
     */
-    const std::string operator *() const;
+    const UTF8string::u8char operator *() const;
 
     ~UTF8iterator() = default;
 };

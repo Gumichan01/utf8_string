@@ -102,7 +102,7 @@ bool UTF8iterator::operator >=(const UTF8iterator& it) const noexcept
     return (_data == it._data) && (_index >= it._index);
 }
 
-const std::string UTF8iterator::operator *() const
+const UTF8string::u8char UTF8iterator::operator *() const
 {
     return _data.utf8_at(_index);
 }
