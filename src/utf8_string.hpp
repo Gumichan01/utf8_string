@@ -35,9 +35,9 @@ class UTF8string
     using byte_t = unsigned char;
     using u8string = std::basic_string<byte_t>;
 
-    u8string _utf8data{};
+    u8string _utf8data = {""};
     size_t _utf8length = 0U;
-    mutable std::string _string{""};
+    mutable std::string _string = {""};
     mutable bool _cached = false;
 
     bool utf8_is_valid_() const noexcept;
@@ -54,7 +54,7 @@ public:
 
     /**
     *   @typedef u8char
-    *   @brief the UTF-8 character
+    *   @brief The UTF-8 character
     */
     using u8char = std::string;
 
