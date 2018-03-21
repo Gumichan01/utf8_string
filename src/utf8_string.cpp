@@ -64,7 +64,7 @@ UTF8string::UTF8string(const char * str)
 
 
 UTF8string::UTF8string(const std::string& str)
-    : _utf8data(str.cbegin(), str.cend())
+    : _utf8data(str)
 {
     if(!utf8_is_valid_())
         throw std::invalid_argument("Invalid UTF-8 string\n");
@@ -95,7 +95,7 @@ UTF8string& UTF8string::operator =(const char * str)
 {
     const std::string S(str);
     const UTF8string::u8string BACKUP = _utf8data;
-    _utf8data = std::move(toUstring(S));
+    _utf8data = S;
 
     if(!utf8_is_valid_())
     {
@@ -113,7 +113,7 @@ UTF8string& UTF8string::operator =(const char * str)
 UTF8string& UTF8string::operator =(const std::string& str)
 {
     const UTF8string::u8string BACKUP = _utf8data;
-    _utf8data = std::move(toUstring(str));
+    _utf8data = str;
 
     if(!utf8_is_valid_())
     {
@@ -154,7 +154,7 @@ UTF8string& UTF8string::operator =(UTF8string&& u8str) noexcept
 const UTF8string& UTF8string::operator +=(const std::string& str)
 {
     const UTF8string::u8string BACKUP = _utf8data;
-    _utf8data += std::move(toUstring(str));
+    _utf8data += str;
 
     if(!utf8_is_valid_())
     {
@@ -180,7 +180,7 @@ const UTF8string& UTF8string::operator +=(const UTF8string& u8str)
 const UTF8string& UTF8string::operator +=(const char * str)
 {
     UTF8string::u8string BACKUP = _utf8data;
-    _utf8data += std::move(toUstring(std::string(str)));
+    _utf8data += std::move(UTF8string::u8string(str));
 
     if(!utf8_is_valid_())
     {
@@ -196,8 +196,9 @@ const UTF8string& UTF8string::operator +=(const char * str)
 
 bool UTF8string::utf8_is_valid_() const noexcept
 {
-    auto it = _utf8data.begin();
-    const auto ITEND = _utf8data.end();
+    const std::basic_string<unsigned char> U8STRING = toUstring(_utf8data);
+    auto it = U8STRING.begin();
+    const auto ITEND = U8STRING.cend();
 
     while(it < ITEND)
     {
@@ -392,13 +393,13 @@ UTF8string::u8char UTF8string::utf8_at(const size_t index) const
     if(index >= _utf8length)
         throw std::out_of_range("index value greater than the size of the string");
 
-    return toString(utf8_at_(index));
+    return utf8_at_(index);
 }
 
 
 UTF8string::u8char UTF8string::operator [](const size_t index) const noexcept
 {
-    return toString(utf8_at_(index));
+    return utf8_at_(index);
 }
 
 
@@ -586,7 +587,7 @@ const std::string UTF8string::utf8_sstring() const noexcept
 {
     if(!_cached)
     {
-        _string = std::move(toString(_utf8data));
+        _string = _utf8data;
         _cached = true;
     }
     return _string;
@@ -596,7 +597,7 @@ const char * UTF8string::utf8_str() const noexcept
 {
     if(!_cached)
     {
-        _string = std::move(toString(_utf8data));
+        _string = _utf8data;
         _cached = true;
     }
     return _string.c_str();
