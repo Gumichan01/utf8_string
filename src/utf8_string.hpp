@@ -35,7 +35,7 @@ class UTF8string
     using byte_t = unsigned char;
     using u8string = std::string;
 
-    u8string _utf8data = {};
+    u8string _utf8string = {};
     size_t _utf8length = 0U;
 
     bool utf8_is_valid_() const noexcept;
