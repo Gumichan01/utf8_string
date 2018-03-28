@@ -25,7 +25,7 @@
 class UTF8iterator;
 
 /**
-*   @class UTF8string
+*   @class UTF8string final
 *   @brief UTF-8 string class
 *
 *   This class defines a UTF-8 string
