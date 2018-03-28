@@ -27,7 +27,7 @@ class UTF8string;
 *
 *   This class defines the iterator of UTF-8 string
 */
-class UTF8iterator
+class UTF8iterator final
 {
     size_t _index = 0;
     UTF8string _data;

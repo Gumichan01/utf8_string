@@ -30,7 +30,7 @@ class UTF8iterator;
 *
 *   This class defines a UTF-8 string
 */
-class UTF8string
+class UTF8string final
 {
     using byte_t = unsigned char;
     using u8string = std::string;
