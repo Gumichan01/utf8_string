@@ -276,7 +276,7 @@ size_t UTF8string::utf8_length_() const noexcept
 
     while(it != end_data)
     {
-        byte_t byte = *it;
+        byte_t byte = static_cast<byte_t>(*it);
 
         if (0xf0 == (0xf8 & byte))
         {
@@ -563,11 +563,12 @@ size_t UTF8string::hash() const noexcept
 {
     // computes the hash using a variant
     // of the Fowler-Noll-Vo hash function
-    size_t result = 2166136261;
+    const size_t MAGIC = 16777619U;
+    size_t result = 2166136261U;
 
-    for(const unsigned char& c : _utf8string)
+    for(const char& c : _utf8string)
     {
-        result = (result * 16777619) ^ c;
+        result = (result * MAGIC) ^ static_cast<decltype(result)>(c);
     }
     return result ^ (_utf8length << 1);
 }
