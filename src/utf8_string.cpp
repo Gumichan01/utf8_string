@@ -339,6 +339,64 @@ bool UTF8string::utf8_empty() const noexcept
     return _utf8length == 0;
 }
 
+
+UTF8string& UTF8string::utf8_assign(const char * str)
+{
+    const UTF8string::u8string BACKUP = _utf8string;
+    _utf8string = std::string(str);
+
+    if(!utf8_is_valid_())
+    {
+        _utf8string = BACKUP;
+        throw std::invalid_argument("Invalid UTF-8 string\n");
+    }
+
+    _utf8length = utf8_length_();
+    return *this;
+}
+
+UTF8string& UTF8string::utf8_assign(const u8string& str)
+{
+    const UTF8string::u8string BACKUP = _utf8string;
+    _utf8string = str;
+
+    if(!utf8_is_valid_())
+    {
+        _utf8string = BACKUP;
+        throw std::invalid_argument("Invalid UTF-8 string\n");
+    }
+
+    _utf8length = utf8_length_();
+    return *this;
+}
+
+UTF8string& UTF8string::utf8_assign(const u8string& str, size_t pos, size_t count)
+{
+    const UTF8string::u8string BACKUP = _utf8string;
+    _utf8string = str.substr(pos, count);
+
+    if(!utf8_is_valid_())
+    {
+        _utf8string = BACKUP;
+        throw std::invalid_argument("Invalid UTF-8 string\n");
+    }
+
+    _utf8length = utf8_length_();
+    return *this;
+}
+
+UTF8string& UTF8string::utf8_assign(UTF8string&& u8str) noexcept
+{
+    _utf8string = u8str._utf8string;
+    _utf8length = u8str._utf8length;
+
+    u8str.utf8_clear();
+    u8str._utf8string.shrink_to_fit();
+
+    return *this;
+}
+
+
 /*
     Get the memory position of a codepoint according
     to its position in the utf-8 string

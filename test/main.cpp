@@ -137,6 +137,39 @@ int main()
                  << "; got : " << utf8_cat.utf8_length() << "\n";
             return 7;
         }
+
+        // utf8_asign
+        {
+            const char * hello = "hello";
+            const std::string world("world");
+            const UTF8string chw = "Hello World!";
+            UTF8string hw = "Hello World!";
+
+            UTF8string u8cstr;
+            UTF8string u8str;
+            UTF8string u8strp;
+            UTF8string u8s;
+
+            u8cstr.utf8_assign(hello);
+            u8str.utf8_assign(world);
+            u8strp.utf8_assign(world, 0U, 2U);
+            u8s.utf8_assign(std::move(hw));
+
+            if(u8cstr.utf8_sstring() != std::string(hello))
+                return 180;
+
+            if(u8str.utf8_sstring() != world)
+                return 181;
+
+            if(u8strp.utf8_sstring() != world.substr(0U, 2U))
+                return 182;
+
+            if(u8s != chw)
+                return 181;
+
+            if(!hw.utf8_empty())
+                return 182;
+        }
     }
 
     /// Second test suite

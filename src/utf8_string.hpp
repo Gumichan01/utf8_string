@@ -183,6 +183,33 @@ public:
     */
     bool utf8_empty() const noexcept;
 
+
+    /**
+    *   @fn UTF8string& utf8_assign(const char * str)
+    *   @return The updated string
+    */
+    UTF8string& utf8_assign(const char * str);
+    /**
+    *   @fn UTF8string& utf8_assign(const u8string& str)
+    *   @return The updated string
+    */
+    UTF8string& utf8_assign(const u8string& str);
+    /**
+    *   @fn UTF8string& utf8_assign(const u8string& str, size_t pos, size_t count = npos)
+    *
+    *   Replaces the contents with a substring [pos, pos+count) of str.
+    *   If the requested substring lasts past the end of the string, or if count == npos, the resulting substring is [pos, str.size()).
+    *
+    *   @exception std::out_of_range If pos > str.size()
+    *   @return The updated string
+    */
+    UTF8string& utf8_assign(const u8string& str, size_t pos, size_t count = npos);
+    /**
+    *   @fn UTF8string& utf8_assign(UTF8string&& u8str) noexcept
+    *   @return The updated string
+    */
+    UTF8string& utf8_assign(UTF8string&& u8str) noexcept;
+
     /**
     *   @fn UTF8string::u8char utf8_at(const size_t index) const
     *
