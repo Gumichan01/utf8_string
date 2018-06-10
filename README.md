@@ -1,6 +1,7 @@
 # UTF-8 string #
 
 [![Build Status](https://travis-ci.org/Gumichan01/utf8_string.svg?branch=master)](https://travis-ci.org/Gumichan01/utf8_string)
+[![pipeline status](https://gitlab.com/Gumichan01/utf8_string/badges/master/pipeline.svg)](https://gitlab.com/Gumichan01/utf8_string/commits/master)
 
 This is a simple implementation of UTF-8 strings in C++.
 
