@@ -8,5 +8,5 @@ buildgcc:
 buildclang:
 
    script:
-     - make CC="clang"
+     - make CC="clang++"
      - ./utf8test
