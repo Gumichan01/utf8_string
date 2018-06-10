@@ -1,0 +1,12 @@
+
+buildgcc:
+
+   script:
+     - make CC="g++"
+     - ./utf8test
+
+buildclang:
+
+   script:
+     - make CC="clang"
+     - ./utf8test
