@@ -6,6 +6,9 @@ buildgcc:
      - ./utf8test
 
 buildclang:
+   before_script:
+     - apt-get install -y llvm build-essential clang clang++
+
 
    script:
      - make CC="clang++"
