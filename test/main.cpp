@@ -32,38 +32,38 @@ int main()
 
     /// First test suite
     {
-        UTF8string u8("がんばつて Gumichan");
-        string utf8s("がんばつて Gumichan");
+        UTF8string u8( "がんばつて Gumichan" );
+        string utf8s( "がんばつて Gumichan" );
 
         {
             try
             {
-                UTF8string tmp(utf8s);
+                UTF8string tmp( utf8s );
             }
-            catch(...)
+            catch ( ... )
             {
                 return 100;
             }
         }
 
         // Test the test
-        if(u8 != u8)
+        if ( u8 != u8 )
             return 1;
 
         // copy construtor
         {
-            UTF8string hum(u8);
+            UTF8string hum( u8 );
 
-            if(hum != u8)
+            if ( hum != u8 )
                 return 101;
         }
 
         // move construtor
         {
-            UTF8string dump(u8);
-            UTF8string hum2(std::move(dump));
+            UTF8string dump( u8 );
+            UTF8string hum2( std::move( dump ) );
 
-            if(hum2 != u8)
+            if ( hum2 != u8 )
                 return 102;
 
             cout << "dump = " << dump << "\n";
@@ -72,7 +72,7 @@ int main()
         // assignment
         UTF8string uu8 = u8;
 
-        if(u8 != uu8)
+        if ( u8 != uu8 )
             return 2;
 
         // assignment
@@ -80,20 +80,20 @@ int main()
         UTF8string utf8 = str1;
         const std::string& str2 = utf8.utf8_str();
 
-        if(str1 != str2)
+        if ( str1 != str2 )
             return 3;
 
-        if(str1 != utf8.utf8_sstring())
+        if ( str1 != utf8.utf8_sstring() )
             return 4;
 
         // move assignment
         {
-            UTF8string hum3("hello");
-            UTF8string dump(u8);
+            UTF8string hum3( "hello" );
+            UTF8string dump( u8 );
 
-            hum3 = std::move(dump);
+            hum3 = std::move( dump );
 
-            if(hum3 != u8)
+            if ( hum3 != u8 )
                 return 104;
 
             cout << "dump = " << dump << "\n";
@@ -108,14 +108,14 @@ int main()
         const size_t len2 = strg2.length();
         UTF8string utf8_cat = strg1;
 
-        if(utf8_cat.utf8_size() != sz1)
+        if ( utf8_cat.utf8_size() != sz1 )
         {
             cerr << "ERROR : expected : " << sz1
                  << "; got : " << utf8_cat.utf8_size() << "\n";
             return 4;
         }
 
-        if(utf8_cat.utf8_length() != len1)
+        if ( utf8_cat.utf8_length() != len1 )
         {
             cerr << "ERROR : expected : " << len1
                  << "; got : " << utf8_cat.utf8_length() << "\n";
@@ -124,16 +124,16 @@ int main()
 
         utf8_cat += strg2;
 
-        if(utf8_cat.utf8_size() != (sz1 + sz2))
+        if ( utf8_cat.utf8_size() != ( sz1 + sz2 ) )
         {
-            cerr << "ERROR : expected : " << (sz1 + sz2)
+            cerr << "ERROR : expected : " << ( sz1 + sz2 )
                  << "; got : " << utf8_cat.utf8_size() << "\n";
             return 6;
         }
 
-        if(utf8_cat.utf8_length() != (len1 + len2))
+        if ( utf8_cat.utf8_length() != ( len1 + len2 ) )
         {
-            cerr << "ERROR : expected : " << (len1 + len2)
+            cerr << "ERROR : expected : " << ( len1 + len2 )
                  << "; got : " << utf8_cat.utf8_length() << "\n";
             return 7;
         }
@@ -141,7 +141,7 @@ int main()
         // utf8_asign
         {
             const char * hello = "hello";
-            const std::string world("world");
+            const std::string world( "world" );
             const UTF8string chw = "Hello World!";
             UTF8string hw = "Hello World!";
 
@@ -150,24 +150,24 @@ int main()
             UTF8string u8strp;
             UTF8string u8s;
 
-            u8cstr.utf8_assign(hello);
-            u8str.utf8_assign(world);
-            u8strp.utf8_assign(world, 0U, 2U);
-            u8s.utf8_assign(std::move(hw));
+            u8cstr.utf8_assign( hello );
+            u8str.utf8_assign( world );
+            u8strp.utf8_assign( world, 0U, 2U );
+            u8s.utf8_assign( std::move( hw ) );
 
-            if(u8cstr.utf8_sstring() != std::string(hello))
+            if ( u8cstr.utf8_sstring() != std::string( hello ) )
                 return 180;
 
-            if(u8str.utf8_sstring() != world)
+            if ( u8str.utf8_sstring() != world )
                 return 181;
 
-            if(u8strp.utf8_sstring() != world.substr(0U, 2U))
+            if ( u8strp.utf8_sstring() != world.substr( 0U, 2U ) )
                 return 182;
 
-            if(u8s != chw)
+            if ( u8s != chw )
                 return 181;
 
-            if(!hw.utf8_empty())
+            if ( !hw.utf8_empty() )
                 return 182;
         }
     }
@@ -175,34 +175,34 @@ int main()
     /// Second test suite
     {
         // Exract the utf8 string
-        UTF8string utf("がんばつて Gumichan");
-        UTF8string sub1 = utf.utf8_substr(6,4);
-        UTF8string sub2 = utf.utf8_substr(0,5);
-        UTF8string sub3 = utf.utf8_substr(64,1024);
-        UTF8string sub4(utf, 0, 5);
-        UTF8string aexpected("Gumi");
-        UTF8string u8expected("がんばつて");
+        UTF8string utf( "がんばつて Gumichan" );
+        UTF8string sub1 = utf.utf8_substr( 6, 4 );
+        UTF8string sub2 = utf.utf8_substr( 0, 5 );
+        UTF8string sub3 = utf.utf8_substr( 64, 1024 );
+        UTF8string sub4( utf, 0, 5 );
+        UTF8string aexpected( "Gumi" );
+        UTF8string u8expected( "がんばつて" );
 
-        if(sub1 != aexpected)
+        if ( sub1 != aexpected )
         {
             cerr << "ERROR : expected : " << aexpected.utf8_str()
                  << "; got :" << sub1.utf8_str() << "\n";
             return 8;
         }
 
-        if(sub2 != u8expected)
+        if ( sub2 != u8expected )
         {
             cerr << "ERROR : expected : " << u8expected.utf8_str()
                  << "; got :" << sub2.utf8_str() << "\n";
             return 9;
         }
 
-        if(!sub3.utf8_empty())
+        if ( !sub3.utf8_empty() )
         {
             return 90;
         }
 
-        if(sub4 != u8expected)
+        if ( sub4 != u8expected )
         {
             cerr << "ERROR : expected : " << u8expected.utf8_str()
                  << "; got :" << sub2.utf8_str() << "\n";
@@ -210,7 +210,7 @@ int main()
         }
 
         UTF8string sub = utf.utf8_substr();
-        if(sub != utf)
+        if ( sub != utf )
         {
             cerr << "ERROR : expected : " << u8expected.utf8_str()
                  << "; got :" << sub.utf8_str() << "\n";
@@ -218,73 +218,73 @@ int main()
         }
 
         utf.utf8_clear();
-        if(!utf.utf8_empty())
+        if ( !utf.utf8_empty() )
             return 11;
 
-        UTF8string aaaa("aaaa");
-        UTF8string bbbb("bbbb");
-        UTF8string aaa("aaaa");
+        UTF8string aaaa( "aaaa" );
+        UTF8string bbbb( "bbbb" );
+        UTF8string aaa( "aaaa" );
 
-        if(aaaa > bbbb)
+        if ( aaaa > bbbb )
             return 12;
 
-        if(aaa > aaaa)
+        if ( aaa > aaaa )
             return 13;
 
-        if(aaaa > aaaa)
+        if ( aaaa > aaaa )
             return 14;
 
-        if(aaaa < aaaa)
+        if ( aaaa < aaaa )
             return 15;
 
         auto it_begin = aaaa.utf8_begin();
         auto it_end = aaaa.utf8_end();
 
-        if(it_begin == it_end)
+        if ( it_begin == it_end )
             return 16;
 
         // Find the string
-        UTF8string str("がんばつて! Gumichan");
-        UTF8string ganbatsute("がんばつて");
-        UTF8string gumichan("Gumichan");
-        size_t lenstr0 = str.utf8_find(UTF8string("a"));
-        size_t lenstr1 = str.utf8_find(ganbatsute);
-        size_t lenstr2 = str.utf8_find(gumichan,2);
-        size_t lenpos = str.utf8_find(ganbatsute,1024);
+        UTF8string str( "がんばつて! Gumichan" );
+        UTF8string ganbatsute( "がんばつて" );
+        UTF8string gumichan( "Gumichan" );
+        size_t lenstr0 = str.utf8_find( UTF8string( "a" ) );
+        size_t lenstr1 = str.utf8_find( ganbatsute );
+        size_t lenstr2 = str.utf8_find( gumichan, 2 );
+        size_t lenpos = str.utf8_find( ganbatsute, 1024 );
 
-        UTF8string u8 = (jap1 + jap2 + jap3 + jap4 + jap5 + jap6);
-        UTF8string subjp(std::string("いいえ、どういたしまして。"));
-        size_t res = u8.utf8_find(subjp);
+        UTF8string u8 = ( jap1 + jap2 + jap3 + jap4 + jap5 + jap6 );
+        UTF8string subjp( std::string( "いいえ、どういたしまして。" ) );
+        size_t res = u8.utf8_find( subjp );
 
-        if(lenstr0 != 13)
+        if ( lenstr0 != 13 )
         {
             cout << lenstr0 << " expected : 13 \n";
             return 17;
         }
 
-        if(lenstr1 != 0)
+        if ( lenstr1 != 0 )
         {
             cout << lenstr1 << " expected : 0 \n";
             return 171;
         }
 
-        if(UTF8string::npos != str.utf8_find(UTF8string("")))
+        if ( UTF8string::npos != str.utf8_find( UTF8string( "" ) ) )
         {
             return 172;
         }
 
-        if(lenstr2 != 7)
+        if ( lenstr2 != 7 )
         {
             cout << lenstr2 << " expected : 7" << "\n";
             return 18;
         }
 
-        if(lenpos != UTF8string::npos)
+        if ( lenpos != UTF8string::npos )
         {
             return 181;
         }
 
-        if(res != (u8.utf8_length() - subjp.utf8_length()))
+        if ( res != ( u8.utf8_length() - subjp.utf8_length() ) )
         {
             return 182;
         }
@@ -302,7 +302,7 @@ int main()
 
             return 19;
         }
-        catch(const std::invalid_argument &) {}
+        catch ( const std::invalid_argument& ) {}
 
         /// 2-byte codepoint
         // Bad start codepoint
@@ -314,7 +314,7 @@ int main()
 
             return 20;
         }
-        catch(const std::invalid_argument &) {}
+        catch ( const std::invalid_argument& ) {}
 
         try
         {
@@ -325,7 +325,7 @@ int main()
 
             return 21;
         }
-        catch(const std::invalid_argument &) {}
+        catch ( const std::invalid_argument& ) {}
 
 
         try
@@ -337,7 +337,7 @@ int main()
 
             return 22;
         }
-        catch(const std::invalid_argument &) {}
+        catch ( const std::invalid_argument& ) {}
 
 
         /// 3-byte codepoint
@@ -350,61 +350,61 @@ int main()
 
             return 23;
         }
-        catch(const std::invalid_argument &) {}
+        catch ( const std::invalid_argument& ) {}
 
         try
         {
             // Invalid continuation byte (0xC0) after 0xE0
-            char inv24[] = {'\xE0','\xA7','\xC0','\x00'};
+            char inv24[] = {'\xE0', '\xA7', '\xC0', '\x00'};
             string chstr = inv24;
             UTF8string u8 = chstr;
 
             return 24;
         }
-        catch(const std::invalid_argument &) {}
+        catch ( const std::invalid_argument& ) {}
 
         try
         {
             // Invalid continuation byte (0x9F) after 0xE0
-            char inv25[] = {'\xE0','\xFF','\xFF','\xFF'};
+            char inv25[] = {'\xE0', '\xFF', '\xFF', '\xFF'};
             string chstr = inv25;
             UTF8string u8 = chstr;
 
             return 25;
         }
-        catch(const std::invalid_argument &) {}
+        catch ( const std::invalid_argument& ) {}
 
         try
         {
             // Invalid continuation byte (0x71) after 0xED
-            char inv26[] = {'\xED','\x71','\xA7','\x00'};
+            char inv26[] = {'\xED', '\x71', '\xA7', '\x00'};
             string chstr = inv26;
             UTF8string u8 = chstr;
 
             return 26;
         }
-        catch(const std::invalid_argument &) {}
+        catch ( const std::invalid_argument& ) {}
 
         try
         {
             // Invalid continuation byte (0xA0) after 0xED
-            char inv27[] = {'\xED','\xA0','\xFF','\xFF'};
+            char inv27[] = {'\xED', '\xA0', '\xFF', '\xFF'};
             string chstr = inv27;
             UTF8string u8 = chstr;
 
             return 27;
         }
-        catch(const std::invalid_argument &) {}
+        catch ( const std::invalid_argument& ) {}
 
         try
         {
             // valid string
-            char inv28[] = {'\xE0','\xA7','\xA7','\x00'};
+            char inv28[] = {'\xE0', '\xA7', '\xA7', '\x00'};
             string chstr = inv28;
             UTF8string u8 = chstr;
 
         }
-        catch(const std::invalid_argument &)
+        catch ( const std::invalid_argument& )
         {
             return 28;
         }
@@ -418,7 +418,7 @@ int main()
 
             return 29;
         }
-        catch(const std::invalid_argument &) {}
+        catch ( const std::invalid_argument& ) {}
 
         /// 4-byte codepoint
         try
@@ -430,7 +430,7 @@ int main()
 
             return 30;
         }
-        catch(const std::invalid_argument &) {}
+        catch ( const std::invalid_argument& ) {}
 
         try
         {
@@ -441,101 +441,101 @@ int main()
 
             return 31;
         }
-        catch(const std::invalid_argument &) {}
+        catch ( const std::invalid_argument& ) {}
 
         try
         {
             // Invalid continuation byte (0x90) after 0xF4
-            char inv32[] = {'\xF4','\x90','\x90','\x90','\x00'};
+            char inv32[] = {'\xF4', '\x90', '\x90', '\x90', '\x00'};
             string chstr = inv32;
             UTF8string u8 = chstr;
 
             return 32;
         }
-        catch(const std::invalid_argument &) {}
+        catch ( const std::invalid_argument& ) {}
 
         // With 0xF0 as the first byte of the codepoint
         try
         {
             // Invalid continuation byte (0x8F) after 0xF0
-            char inv33[] = {'\xF0','\x8F','\x91','\xB5','\x00'};
+            char inv33[] = {'\xF0', '\x8F', '\x91', '\xB5', '\x00'};
             string chstr = inv33;
             UTF8string u8 = chstr;
 
             return 33;
         }
-        catch(const std::invalid_argument &) {}
+        catch ( const std::invalid_argument& ) {}
 
         try
         {
             // Invalid continuation byte (0x8F) after 0xF0
-            char inv34[] = {'\xF0','\xC7','\x91','\xB5','\x00'};
+            char inv34[] = {'\xF0', '\xC7', '\x91', '\xB5', '\x00'};
             string chstr = inv34;
             UTF8string u8 = chstr;
 
             return 34;
         }
-        catch(const std::invalid_argument &) {}
+        catch ( const std::invalid_argument& ) {}
 
         // With 0xF4 as the first byte of the codepoint
         try
         {
             // Invalid continuation byte (0x7F) after 0xF4
-            char inv35[] = {'\xF4','\x7F','\x91','\xB5','\x00'};
+            char inv35[] = {'\xF4', '\x7F', '\x91', '\xB5', '\x00'};
             string chstr = inv35;
             UTF8string u8 = chstr;
 
             return 35;
         }
-        catch(const std::invalid_argument &) {}
+        catch ( const std::invalid_argument& ) {}
 
         try
         {
             // Invalid continuation byte (0x92) after 0xF4
-            char inv36[] = {'\xF4','\x92','\x91','\xB5','\x00'};
+            char inv36[] = {'\xF4', '\x92', '\x91', '\xB5', '\x00'};
             string chstr = inv36;
             UTF8string u8 = chstr;
 
             return 36;
         }
-        catch(const std::invalid_argument &) {}
+        catch ( const std::invalid_argument& ) {}
 
         try
         {
             // Not enough bytes after the first codepoint byte
-            char inv37[] = {'\xF4','\x92'};
+            char inv37[] = {'\xF4', '\x92'};
             string chstr = inv37;
             UTF8string u8 = chstr;
 
             return 37;
         }
-        catch(const std::invalid_argument &) {}
+        catch ( const std::invalid_argument& ) {}
 
         try
         {
             // Not enough bytes after the first codepoint byte
-            char inv38[] = {'\xF4','\x92','\x91'};
+            char inv38[] = {'\xF4', '\x92', '\x91'};
             string chstr = inv38;
             UTF8string u8 = chstr;
 
             return 38;
         }
-        catch(const std::invalid_argument &) {}
+        catch ( const std::invalid_argument& ) {}
 
 
         try
         {
             // Valid string
-            UTF8string u8 = (jap1 + jap2 + jap3 + jap4 + jap5 + jap6);
-            UTF8string u8sub = string("わかりました");
+            UTF8string u8 = ( jap1 + jap2 + jap3 + jap4 + jap5 + jap6 );
+            UTF8string u8sub = string( "わかりました" );
 
-            if(u8.utf8_find(u8sub) == std::string::npos)
+            if ( u8.utf8_find( u8sub ) == std::string::npos )
             {
                 return 40;
             }
 
         }
-        catch(const std::invalid_argument &)
+        catch ( const std::invalid_argument& )
         {
             return 41;
         }
@@ -543,86 +543,86 @@ int main()
 
     // Concatenate strings
     {
-        UTF8string strex1("がんばつて Gumichan");
-        UTF8string strex2("Gumichanがんばつて ");
-        UTF8string ganba("がんばつて ");
-        std::string gumi("Gumichan");
+        UTF8string strex1( "がんばつて Gumichan" );
+        UTF8string strex2( "Gumichanがんばつて " );
+        UTF8string ganba( "がんばつて " );
+        std::string gumi( "Gumichan" );
 
         const char * gumistr = "Gumichan";
 
         // concatenate std::string and UTF8string
-        if(strex1 != (ganba + gumi))
+        if ( strex1 != ( ganba + gumi ) )
             return 42;
 
-        if(strex2 != (gumi + ganba))
+        if ( strex2 != ( gumi + ganba ) )
             return 43;
 
-        if((gumi.size() + ganba.utf8_size()) !=
-                (gumi + ganba).utf8_size())
+        if ( ( gumi.size() + ganba.utf8_size() ) !=
+                ( gumi + ganba ).utf8_size() )
             return 44;
 
-        if((ganba.utf8_size() + gumi.size()) !=
-                (ganba + gumi).utf8_size())
+        if ( ( ganba.utf8_size() + gumi.size() ) !=
+                ( ganba + gumi ).utf8_size() )
             return 45;
 
         // concatenate UTF8string and const char *
-        if(strex2 != (gumistr + ganba))
+        if ( strex2 != ( gumistr + ganba ) )
             return 46;
 
-        if(strex1 != (ganba + gumistr))
+        if ( strex1 != ( ganba + gumistr ) )
             return 46;
 
-        if((std::strlen(gumistr) + ganba.utf8_size()) !=
-                (gumistr + ganba).utf8_size())
+        if ( ( std::strlen( gumistr ) + ganba.utf8_size() ) !=
+                ( gumistr + ganba ).utf8_size() )
             return 48;
 
 
         // concatenate 2 UTF8string objects
-        UTF8string gumiex(gumi);
-        if(strex1 != (ganba + gumiex))
+        UTF8string gumiex( gumi );
+        if ( strex1 != ( ganba + gumiex ) )
             return 49;
 
-        if((ganba.utf8_size() + gumiex.utf8_size()) !=
-                (ganba + gumiex).utf8_size())
+        if ( ( ganba.utf8_size() + gumiex.utf8_size() ) !=
+                ( ganba + gumiex ).utf8_size() )
             return 50;
 
-        if((ganba.utf8_length() + gumiex.utf8_length()) !=
-                (ganba + gumiex).utf8_length())
+        if ( ( ganba.utf8_length() + gumiex.utf8_length() ) !=
+                ( ganba + gumiex ).utf8_length() )
             return 51;
 
-        if(strex2 != (gumiex + ganba))
+        if ( strex2 != ( gumiex + ganba ) )
             return 52;
 
-        if((gumiex.utf8_size() + ganba.utf8_size()) !=
-                (gumiex + ganba).utf8_size())
+        if ( ( gumiex.utf8_size() + ganba.utf8_size() ) !=
+                ( gumiex + ganba ).utf8_size() )
             return 53;
 
-        if((gumiex.utf8_length() + ganba.utf8_length()) !=
-                (gumiex + ganba).utf8_length())
+        if ( ( gumiex.utf8_length() + ganba.utf8_length() ) !=
+                ( gumiex + ganba ).utf8_length() )
             return 54;
     }
 
     // Append strings
     {
-        UTF8string strex1("Gumichan がんばつて");
-        UTF8string strex2("Gumichan がんばつて!");
-        UTF8string gumi("Gumichan");
+        UTF8string strex1( "Gumichan がんばつて" );
+        UTF8string strex2( "Gumichan がんばつて!" );
+        UTF8string gumi( "Gumichan" );
 
         gumi += " がんばつて";
 
-        if(gumi != strex1)
+        if ( gumi != strex1 )
             return 55;
 
         strex1 += "!";
 
-        if(strex1 != strex2)
+        if ( strex1 != strex2 )
             return 56;
     }
 
     // Get the codepoint at a specified position
     {
-        UTF8string astr("Gumichan");
-        UTF8string str("がんばつて Gumichan");
+        UTF8string astr( "Gumichan" );
+        UTF8string str( "がんばつて Gumichan" );
         std::string gcpoint = "G";
         std::string ucpoint = "u";
         std::string ncpoint = "n";
@@ -630,52 +630,52 @@ int main()
 
         try
         {
-            str.utf8_at(42);
+            str.utf8_at( 42 );
             return 57;
         }
-        catch(std::out_of_range &) {}
+        catch ( std::out_of_range& ) {}
 
         std::string c0 = astr[1];
         std::string cc = astr[0];
-        std::string ccc = astr.utf8_at(astr.utf8_size() - 1);
+        std::string ccc = astr.utf8_at( astr.utf8_size() - 1 );
         std::string c1 = str[4];
         std::string c2 = str[7];
 
-        if(ucpoint != c0)
+        if ( ucpoint != c0 )
         {
             std::cout << "expected: " << ucpoint << "; got: " << c0 << "\n";
             return 58;
         }
 
-        if(gcpoint != cc)
+        if ( gcpoint != cc )
         {
             std::cout << "expected: " << gcpoint << "; got: " << cc << "\n";
             return 59;
         }
 
-        if(ncpoint != ccc)
+        if ( ncpoint != ccc )
         {
             std::cout << "expected: " << ncpoint << ";got: " << ccc << "\n";
             return 60;
         }
 
-        if(tcpoint != c1)
+        if ( tcpoint != c1 )
         {
             std::cout << "expected: " << tcpoint << ";got: " << c1 << "\n";
             return 61;
         }
 
-        if(ucpoint != c2)
+        if ( ucpoint != c2 )
         {
             std::cout << "expected: " << ucpoint << ";got: " << c2 << "\n";
             return 62;
         }
 
         std::string point = "。";
-        UTF8string u8str("łþø けいかん: いいえ、どういたしまして。");
-        std::string c = u8str.utf8_at(22);
+        UTF8string u8str( "łþø けいかん: いいえ、どういたしまして。" );
+        std::string c = u8str.utf8_at( 22 );
 
-        if(point != c)
+        if ( point != c )
         {
             std::cout << "expected: " << point << ";got : " << c << "\n";
             return 63;
@@ -684,49 +684,49 @@ int main()
 
     // Reverse string using iterator
     {
-        UTF8string utf8orig("がんばつて Gumichan");
-        UTF8string utf8str("がんばつて Gumichan");
+        UTF8string utf8orig( "がんばつて Gumichan" );
+        UTF8string utf8str( "がんばつて Gumichan" );
 
         // Bijection
-        if(utf8orig != (utf8str.utf8_reverse()).utf8_reverse())
+        if ( utf8orig != ( utf8str.utf8_reverse() ).utf8_reverse() )
         {
             std::cout << "expected: " << utf8orig << "; got: "
-                      << (utf8str.utf8_reverse()).utf8_reverse() << "\n";
+                      << ( utf8str.utf8_reverse() ).utf8_reverse() << "\n";
             return 64;
         }
 
-        if(utf8orig.utf8_size() != (utf8str.utf8_reverse()).utf8_size())
+        if ( utf8orig.utf8_size() != ( utf8str.utf8_reverse() ).utf8_size() )
         {
             std::cout << "expected: " << utf8orig.utf8_size() << "; got: "
-                      << (utf8str.utf8_reverse()).utf8_size() << "\n";
+                      << ( utf8str.utf8_reverse() ).utf8_size() << "\n";
             return 65;
         }
 
-        if(utf8orig.utf8_length() != (utf8str.utf8_reverse()).utf8_length())
+        if ( utf8orig.utf8_length() != ( utf8str.utf8_reverse() ).utf8_length() )
         {
             std::cout << "expected: " << utf8orig.utf8_length() << "; got: "
-                      << (utf8str.utf8_reverse()).utf8_length() << "\n";
+                      << ( utf8str.utf8_reverse() ).utf8_length() << "\n";
             return 66;
         }
     }
 
     // Remove the last code point
     {
-        UTF8string str("がんばつて Gumichan");
-        UTF8string str2("がんばつて Gumichan がんばつて");
-        UTF8string strpop("がんばつて Gumicha");
+        UTF8string str( "がんばつて Gumichan" );
+        UTF8string str2( "がんばつて Gumichan がんばつて" );
+        UTF8string strpop( "がんばつて Gumicha" );
         UTF8string strempty;
 
         str.utf8_pop();
 
-        if(str.utf8_length() != strpop.utf8_length())
+        if ( str.utf8_length() != strpop.utf8_length() )
         {
             std::cout << "Excpected : " << strpop.utf8_length() << ";got  : "
                       << str.utf8_length() << "\n";
             return 67;
         }
 
-        if(str != strpop)
+        if ( str != strpop )
         {
             std::cout << "Excpected : " << strpop << ";got  : "
                       << str << "\n";
@@ -739,14 +739,14 @@ int main()
         str2.utf8_pop();
         str2 += "て";
 
-        if(str2.utf8_length() != str.utf8_length())
+        if ( str2.utf8_length() != str.utf8_length() )
         {
             std::cout << "Excpected : " << str.utf8_length() << ";got  : "
                       << str2.utf8_length() << "\n";
             return 69;
         }
 
-        if(str != str2)
+        if ( str != str2 )
         {
             std::cout << "Excpected : " << str2 << ";got  : "
                       << str << "\n";
@@ -759,7 +759,7 @@ int main()
             return 71;
 
         }
-        catch(...) {}
+        catch ( ... ) {}
 
     }
 
@@ -768,96 +768,96 @@ int main()
         UTF8string s = "This is an example";
         cout << s << "\n";
 
-        s.utf8_erase(0, 5); // Erase "This "
+        s.utf8_erase( 0, 5 ); // Erase "This "
         cout << s << "\n";
 
-        s.utf8_erase(s.utf8_begin() + 2); // Erase ' '
+        s.utf8_erase( s.utf8_begin() + 2 ); // Erase ' '
         cout << s << "\n";
 
-        s.utf8_erase(s.utf8_find(" ")); // Trim from ' ' to the end of the string
+        s.utf8_erase( s.utf8_find( " " ) ); // Trim from ' ' to the end of the string
         cout << s << "\n";
     }
 
     // Erase #2
     {
         UTF8string empty;
-        UTF8string str1("がんばつて Gumichan");
-        UTF8string str2("がんばつて Gumichan");
-        UTF8string str3("がんばつて Gumichan");
-        UTF8string str4("がんばつて Gumichan");
-        UTF8string exp1("がんばつて");
-        UTF8string exp2("Gumichan");
-        UTF8string exp3("がんばつてGumichan");
+        UTF8string str1( "がんばつて Gumichan" );
+        UTF8string str2( "がんばつて Gumichan" );
+        UTF8string str3( "がんばつて Gumichan" );
+        UTF8string str4( "がんばつて Gumichan" );
+        UTF8string exp1( "がんばつて" );
+        UTF8string exp2( "Gumichan" );
+        UTF8string exp3( "がんばつてGumichan" );
 
         try
         {
             empty.utf8_erase();
         }
-        catch (...)
+        catch ( ... )
         {
             return 80;
         }
 
         try
         {
-            empty.utf8_erase(42, 1024);
+            empty.utf8_erase( 42, 1024 );
             return 81;
         }
-        catch (const std::out_of_range& out)
+        catch ( const std::out_of_range& out )
         {
             cout << out.what() << '\n';
         }
 
-        str1.utf8_erase(5);
-        str2.utf8_erase(0, 6);
-        str3.utf8_erase(str3.utf8_begin() + 5);
-        str4.utf8_erase(str4.utf8_begin(), str4.utf8_begin() + 6);
+        str1.utf8_erase( 5 );
+        str2.utf8_erase( 0, 6 );
+        str3.utf8_erase( str3.utf8_begin() + 5 );
+        str4.utf8_erase( str4.utf8_begin(), str4.utf8_begin() + 6 );
 
         cout << str1 << "\n";
         cout << str2 << "\n";
         cout << str3 << "\n";
         cout << str4 << "\n";
 
-        if(str1 != exp1)
+        if ( str1 != exp1 )
 
             return 76;
-        if(str2 != exp2)
+        if ( str2 != exp2 )
             return 77;
 
-        if(str3 != exp3)
+        if ( str3 != exp3 )
             return 78;
 
-        if(str4 != exp2)
+        if ( str4 != exp2 )
             return 79;
     }
 
     {
-        UTF8string hello("hello");
-        UTF8string hello2(hello);
-        UTF8string hellom("heLlo");
+        UTF8string hello( "hello" );
+        UTF8string hello2( hello );
+        UTF8string hellom( "heLlo" );
 
-        if(hello.hash() != hello2.hash())
+        if ( hello.hash() != hello2.hash() )
         {
             cerr << "1 - invalid hash function\n";
             return 82;
         }
 
-        if(hello.hash() == hellom.hash())
+        if ( hello.hash() == hellom.hash() )
         {
             cerr << "2 - invalid hash function\n";
             return 83;
         }
 
-        std::cout << "hash hello : " << std::hash<decltype(hello)>()(hello) << "\n";
-        std::cout << "hash heLlo : " << std::hash<decltype(hellom)>()(hellom) << "\n";
+        std::cout << "hash hello : " << std::hash<decltype( hello )>()( hello ) << "\n";
+        std::cout << "hash heLlo : " << std::hash<decltype( hellom )>()( hellom ) << "\n";
     }
 
     // Last test : search for a substring in a file
     {
         UTF8string text;
         UTF8string strreq;
-        UTF8string strgumi("がんばつて gumichan01。");
-        std::ifstream u8file("test/lipsum.txt");
+        UTF8string strgumi( "がんばつて gumichan01。" );
+        std::ifstream u8file( "test/lipsum.txt" );
 
         strreq += "速スご薄具そなラひ置更けゃっ文犬2社ぎル由人へいきつ回見ト供崩モ催屋エ国続セワルリ";
         strreq += "謙髪テシ県住ざ新球ごくき名昨ツセ戸読役ホ細16態量番などトぱ。";
@@ -865,15 +865,15 @@ int main()
         cout << "Find those strings: \n" << strgumi << "\n\n AND \n\n"
              << strreq  << "\n\n";
 
-        if(u8file.is_open())
+        if ( u8file.is_open() )
         {
             try
             {
-                text = std::string(std::istreambuf_iterator<char>(u8file),
-                                   std::istreambuf_iterator<char>());
+                text = std::string( std::istreambuf_iterator<char>( u8file ),
+                                    std::istreambuf_iterator<char>() );
                 u8file.close();
             }
-            catch(std::invalid_argument& e)
+            catch ( std::invalid_argument& e )
             {
                 cerr << e.what() << "\n";
                 u8file.close();
@@ -886,16 +886,16 @@ int main()
                  << text.utf8_length() << "\n\n";
 
             cout << "1 - Find - " << strgumi << "\n\n";
-            size_t pgumi = text.utf8_find(strgumi);
+            size_t pgumi = text.utf8_find( strgumi );
 
-            if(pgumi == UTF8string::npos)
+            if ( pgumi == UTF8string::npos )
             {
                 cerr << "The position of \"" << strgumi
                      << "\" in the text must not be UTF8string::npos\n";
                 return 73;
             }
             cout << "1 - string from position " << pgumi << ": \n\n";
-            const UTF8string& u8found0 = text.utf8_substr(pgumi, 8192U);
+            const UTF8string& u8found0 = text.utf8_substr( pgumi, 8192U );
             cout << u8found0 << "\n\n";
         }
         else
@@ -905,16 +905,16 @@ int main()
         }
 
         cout << "2 - Find - " << strreq << "\n\n";
-        size_t pos = text.utf8_find(strreq);
+        size_t pos = text.utf8_find( strreq );
 
-        if(pos == UTF8string::npos)
+        if ( pos == UTF8string::npos )
         {
             cerr << "utf8_find: " << strreq << " not found!\n";
             return 75;
         }
 
         cout << "string from position " << pos << ": \n\n";
-        const UTF8string& u8found = text.utf8_substr(pos, strreq.utf8_length());
+        const UTF8string& u8found = text.utf8_substr( pos, strreq.utf8_length() );
         cout << u8found << "\n";
     }
 

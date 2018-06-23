@@ -43,13 +43,13 @@ public:
     *   Build an iterator object using a UTF8string object
     *   @param u utf-8 string
     */
-    explicit UTF8iterator(const UTF8string& u) noexcept;
+    explicit UTF8iterator( const UTF8string& u ) noexcept;
 
     /**
     *   @fn UTF8iterator(const UTF8iterator& it) noexcept
     *   @param it The iterator to copy
     */
-    UTF8iterator(const UTF8iterator& it) noexcept;
+    UTF8iterator( const UTF8iterator& it ) noexcept;
 
     /**
     *   @fn UTF8iterator& operator ++() noexcept
@@ -65,7 +65,7 @@ public:
     *
     *   @return The same iterator before it has moved forward
     */
-    UTF8iterator operator ++(int) noexcept;
+    UTF8iterator operator ++( int ) noexcept;
 
     /**
     *   @fn UTF8iterator& operator --() noexcept
@@ -81,7 +81,7 @@ public:
     *
     *   @return The same iterator before it has moved backward
     */
-    UTF8iterator operator --(int) noexcept;
+    UTF8iterator operator --( int ) noexcept;
 
     /**
     *   @fn UTF8iterator& operator =(const UTF8iterator& it) noexcept
@@ -89,7 +89,7 @@ public:
     *   @param it The iterator that wille be assigned
     *   @return The same iterator as the argument
     */
-    UTF8iterator& operator =(const UTF8iterator& it) noexcept;
+    UTF8iterator& operator =( const UTF8iterator& it ) noexcept;
 
     /**
     *   @fn bool operator ==(const UTF8iterator& it) const noexcept
@@ -100,7 +100,7 @@ public:
     *   @param it The iterator to compare with
     *   @return TRUE if they are pointing to the same position, FALSE otherwise
     */
-    bool operator ==(const UTF8iterator& it) const noexcept;
+    bool operator ==( const UTF8iterator& it ) const noexcept;
     /**
     *   @fn bool operator !=(const UTF8iterator& it) const noexcept
     *
@@ -111,31 +111,31 @@ public:
     *   @return TRUE if they are not pointing to the same position,
     *           FALSE otherwise
     */
-    bool operator !=(const UTF8iterator& it) const noexcept;
+    bool operator !=( const UTF8iterator& it ) const noexcept;
     /**
     *   @fn bool operator <(const UTF8iterator& it) const noexcept
     *   @param it The iterator to compare with
     *   @return TRUE if the position of it is greater than *this, FALSE otherwise
     */
-    bool operator <(const UTF8iterator& it) const noexcept;
+    bool operator <( const UTF8iterator& it ) const noexcept;
     /**
     *   @fn bool operator >(const UTF8iterator& it) const noexcept
     *   @param it The iterator to compare with
     *   @return TRUE if the position of it is less than *this, FALSE otherwise
     */
-    bool operator >(const UTF8iterator& it) const noexcept;
+    bool operator >( const UTF8iterator& it ) const noexcept;
     /**
     *   @fn bool operator <=(const UTF8iterator& it) const noexcept
     *   @param it The iterator to compare with
     *   @return TRUE if the position of it is greater than or equal *this, FALSE otherwise
     */
-    bool operator <=(const UTF8iterator& it) const noexcept;
+    bool operator <=( const UTF8iterator& it ) const noexcept;
     /**
     *   @fn bool operator >=(const UTF8iterator& it) const noexcept
     *   @param it The iterator to compare with
     *   @return TRUE if the position of it is less than or equal to *this, FALSE otherwise
     */
-    bool operator >=(const UTF8iterator& it) const noexcept;
+    bool operator >=( const UTF8iterator& it ) const noexcept;
 
     /**
     *   @fn UTF8iterator operator +(const size_t n) const noexcept
@@ -145,7 +145,7 @@ public:
     *   @param n the number of step to move forward
     *   @return The same iterator that moved forward
     */
-    UTF8iterator operator +(const size_t n) const noexcept;
+    UTF8iterator operator +( const size_t n ) const noexcept;
     /**
     *   @fn UTF8iterator operator -(const size_t n) const noexcept
     *
@@ -154,7 +154,7 @@ public:
     *   @param n the number of steps to move backward
     *   @return The same iterator that moved backward
     */
-    UTF8iterator operator -(const size_t n) const noexcept;
+    UTF8iterator operator -( const size_t n ) const noexcept;
     /**
     *   @fn long operator -(const UTF8iterator& it) const
     *
@@ -166,7 +166,7 @@ public:
     *   @post *this == it + (*this - it)
     *   @exception std::invalid_argument if the pre-condition is not satisfied
     */
-    long operator -(const UTF8iterator& it) const;
+    long operator -( const UTF8iterator& it ) const;
 
     /**
     *   @fn const UTF8string::u8char operator *() const
