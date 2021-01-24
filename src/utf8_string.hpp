@@ -72,7 +72,7 @@ public:
     *   it is the largest possible representable value for this type.
     *
     */
-    constexpr static size_t npos = static_cast<const size_t>( -1 );
+    constexpr static size_t npos = std::string::npos;
 
     /**
     *   @fn UTF8string() = default
